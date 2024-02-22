@@ -11,6 +11,20 @@ func _ready():
 	else:
 		log_info("Logger", "Log intialized.")
 		
+	# Log system info
+	var resolution = OS.get_video_mode_size()
+	log_info("Logger", "")
+	log_info("Logger", "***System Info***")
+	log_info("Logger", "Engine: Godot {0}".format([OS.get_engine_version()["string"]]))
+	log_info("Logger", "Platform: {0}".format([OS.get_name()]))
+	log_info("Logger", "Device: {0}".format([OS.get_model_name()]))
+	log_info("Logger", "Threads: {0}".format(["Yes" if OS.can_use_threads() else "No"]))
+	log_info("Logger", "Locale: {0}".format([OS.get_locale()]))
+	log_info("Logger", "Resolution: {0}x{1}".format([int(resolution.x), int(resolution.y)]))
+	log_info("Logger", "Screens: {0}".format([OS.get_screen_count()]))
+	log_info("Logger", "DPI: {0}".format([OS.get_screen_dpi()]))
+	log_info("Logger", "")
+		
 		
 func _log_msg(system, type, msg):
 	# Format the full message and print it
