@@ -1,9 +1,56 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
 [ext_resource path="res://ui/TitleScreen.gd" type="Script" id=2]
 [ext_resource path="res://ui/images/backdrop1.jpg" type="Texture" id=3]
 [ext_resource path="res://ui/images/title.png" type="Texture" id=4]
+
+[sub_resource type="Animation" id=1]
+
+resource/name = "Transition"
+length = 5.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("LogoOrigin/Logo:rect/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -2540, 0 ), Vector2( -256, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LogoOrigin/Logo:rect/size")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 5120, 640 ), Vector2( 512, 64 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Buttons:visibility/visible")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0, 5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Changelog:visibility/visible")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0, 5 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [node name="TitleScreen" type="Control"]
 
@@ -40,22 +87,9 @@ texture = ExtResource( 3 )
 expand = true
 stretch_mode = 0
 
-[node name="Logo" type="TextureFrame" parent="."]
-
-anchor/right = 1
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 270.0
-margin/top = 110.0
-margin/right = -742.0
-margin/bottom = 174.0
-texture = ExtResource( 4 )
-stretch_mode = 4
-
 [node name="Buttons" type="VBoxContainer" parent="."]
 
+visibility/visible = false
 anchor/top = 3
 anchor/bottom = 3
 focus/ignore_mouse = false
@@ -119,6 +153,7 @@ flat = false
 
 [node name="Changelog" type="TextEdit" parent="."]
 
+visibility/visible = false
 anchor/left = 1
 anchor/right = 1
 anchor/bottom = 1
@@ -136,6 +171,43 @@ highlight_all_occurrences = false
 caret/block_caret = false
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
+
+[node name="LogoOrigin" type="Control" parent="."]
+
+anchor/left = 3
+anchor/right = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -480.0
+margin/top = 120.0
+margin/right = -520.0
+margin/bottom = 160.0
+
+[node name="Logo" type="TextureFrame" parent="LogoOrigin"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -2540.0
+margin/top = 0.0
+margin/right = 2580.0
+margin/bottom = 640.0
+texture = ExtResource( 4 )
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/Transition = SubResource( 1 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "Transition"
 
 [connection signal="pressed" from="Buttons/NewGameButton" to="." method="_on_NewGameButton_pressed"]
 
