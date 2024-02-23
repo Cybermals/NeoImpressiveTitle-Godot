@@ -265,7 +265,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=44]
+[sub_resource type="StyleBoxTexture" id=18]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -708,8 +708,8 @@ HSlider/styles/focus = SubResource( 15 )
 HSlider/styles/slider = SubResource( 16 )
 ItemList/colors/font_color = Color( 1, 1, 1, 1 )
 ItemList/styles/bg = SubResource( 17 )
-ItemList/styles/selected = SubResource( 44 )
-ItemList/styles/selected_focus = SubResource( 44 )
+ItemList/styles/selected = SubResource( 18 )
+ItemList/styles/selected_focus = SubResource( 18 )
 LineEdit/styles/normal = SubResource( 19 )
 LineEdit/styles/read_only = SubResource( 20 )
 MenuButton/styles/hover = SubResource( 21 )
