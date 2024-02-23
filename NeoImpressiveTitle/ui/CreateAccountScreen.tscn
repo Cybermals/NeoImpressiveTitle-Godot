@@ -1,0 +1,326 @@
+[gd_scene load_steps=8 format=1]
+
+[ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
+[ext_resource path="res://ui/CreateAccountScreen.gd" type="Script" id=2]
+[ext_resource path="res://ui/images/backdrop1.jpg" type="Texture" id=3]
+[ext_resource path="res://ui/images/startscreen.png" type="Texture" id=4]
+[ext_resource path="res://ui/fonts/ConsolaMono.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 4 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 16.0
+expand_margin/right = 16.0
+expand_margin/top = 16.0
+expand_margin/bottom = 16.0
+draw_center = true
+
+[sub_resource type="DynamicFont" id=2]
+
+font/size = 24
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 5 )
+
+[node name="CreateAccountScreen" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 984.0
+margin/bottom = 728.0
+script/script = ExtResource( 2 )
+
+[node name="BG" type="TextureFrame" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = -984.0
+margin/bottom = -728.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 0
+
+[node name="Panel" type="Panel" parent="."]
+
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 40.0
+margin/top = 40.0
+margin/right = 480.0
+margin/bottom = -680.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="CreateAccountLabel" type="Label" parent="Panel"]
+
+anchor/right = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 20.0
+margin/bottom = 70.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 0.466667, 0, 1 )
+text = "Create New Account"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Inputs" type="HBoxContainer" parent="Panel"]
+
+anchor/right = 1
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 30.0
+margin/top = 220.0
+margin/right = 50.0
+margin/bottom = 324.0
+alignment = 0
+
+[node name="Labels" type="VBoxContainer" parent="Panel/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 153.0
+margin/bottom = 104.0
+alignment = 0
+
+[node name="UsernameLabel" type="Label" parent="Panel/Inputs/Labels"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 153.0
+margin/bottom = 23.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Username:"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="PasswordLabel" type="Label" parent="Panel/Inputs/Labels"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 27.0
+margin/right = 153.0
+margin/bottom = 50.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Password:"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ConfirmPasswordLabel" type="Label" parent="Panel/Inputs/Labels"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 54.0
+margin/right = 153.0
+margin/bottom = 77.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Confirm Password:"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="EmailLabel" type="Label" parent="Panel/Inputs/Labels"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 81.0
+margin/right = 153.0
+margin/bottom = 104.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Email:"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="TextInputs" type="VBoxContainer" parent="Panel/Inputs"]
+
+rect/min_size = Vector2( 193, 104 )
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 157.0
+margin/top = 0.0
+margin/right = 350.0
+margin/bottom = 104.0
+alignment = 0
+
+[node name="Username" type="LineEdit" parent="Panel/Inputs/TextInputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 193.0
+margin/bottom = 23.0
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="Password" type="LineEdit" parent="Panel/Inputs/TextInputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 27.0
+margin/right = 193.0
+margin/bottom = 50.0
+placeholder/alpha = 0.6
+secret = true
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="ConfirmPassword" type="LineEdit" parent="Panel/Inputs/TextInputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 54.0
+margin/right = 193.0
+margin/bottom = 77.0
+placeholder/alpha = 0.6
+secret = true
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="Email" type="LineEdit" parent="Panel/Inputs/TextInputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 81.0
+margin/right = 193.0
+margin/bottom = 104.0
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="Buttons" type="VBoxContainer" parent="Panel"]
+
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 140.0
+margin/top = 140.0
+margin/right = 110.0
+margin/bottom = 60.0
+custom_constants/separation = 32
+alignment = 0
+
+[node name="CreateAccountButton" type="Button" parent="Panel/Buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 190.0
+margin/bottom = 23.0
+disabled = true
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Create Account"
+flat = false
+
+[node name="BackButton" type="Button" parent="Panel/Buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 55.0
+margin/right = 190.0
+margin/bottom = 78.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Back"
+flat = false
+
+[connection signal="text_changed" from="Panel/Inputs/TextInputs/Username" to="." method="_on_Username_text_changed"]
+
+[connection signal="text_changed" from="Panel/Inputs/TextInputs/Password" to="." method="_on_Password_text_changed"]
+
+[connection signal="text_changed" from="Panel/Inputs/TextInputs/ConfirmPassword" to="." method="_on_ConfirmPassword_text_changed"]
+
+[connection signal="text_changed" from="Panel/Inputs/TextInputs/Email" to="." method="_on_Email_text_changed"]
+
+[connection signal="pressed" from="Panel/Buttons/CreateAccountButton" to="." method="_on_CreateAccountButton_pressed"]
+
+[connection signal="pressed" from="Panel/Buttons/BackButton" to="." method="_on_BackButton_pressed"]
+
+
