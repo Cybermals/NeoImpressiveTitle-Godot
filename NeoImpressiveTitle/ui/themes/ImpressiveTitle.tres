@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=56 format=1]
+[gd_resource type="Theme" load_steps=59 format=1]
 
 [ext_resource path="res://ui/images/buttonUp.png" type="Texture" id=1]
 [ext_resource path="res://ui/images/buttonOver.png" type="Texture" id=2]
@@ -9,11 +9,12 @@
 [ext_resource path="res://ui/images/grabberOver.png" type="Texture" id=7]
 [ext_resource path="res://ui/images/slider.png" type="Texture" id=8]
 [ext_resource path="res://ui/images/borderCenter.png" type="Texture" id=9]
-[ext_resource path="res://ui/images/panel.png" type="Texture" id=10]
-[ext_resource path="res://ui/images/woundbar.png" type="Texture" id=11]
-[ext_resource path="res://ui/images/hpbar.png" type="Texture" id=12]
-[ext_resource path="res://ui/images/startscreen.png" type="Texture" id=13]
-[ext_resource path="res://ui/fonts/ConsolaMono.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://ui/images/listSelectHighlight.png" type="Texture" id=10]
+[ext_resource path="res://ui/images/panel.png" type="Texture" id=11]
+[ext_resource path="res://ui/images/woundbar.png" type="Texture" id=12]
+[ext_resource path="res://ui/images/hpbar.png" type="Texture" id=13]
+[ext_resource path="res://ui/images/startscreen.png" type="Texture" id=14]
+[ext_resource path="res://ui/fonts/ConsolaMono.ttf" type="DynamicFontData" id=15]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -264,13 +265,13 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=18]
+[sub_resource type="StyleBoxTexture" id=44]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 margin/left = 0.0
 margin/right = 0.0
 margin/top = 0.0
@@ -287,7 +288,7 @@ content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 3 )
+texture = ExtResource( 9 )
 margin/left = 0.0
 margin/right = 0.0
 margin/top = 0.0
@@ -304,7 +305,7 @@ content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 3 )
+texture = ExtResource( 9 )
 margin/left = 0.0
 margin/right = 0.0
 margin/top = 0.0
@@ -321,6 +322,40 @@ content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
+texture = ExtResource( 3 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="StyleBoxTexture" id=22]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 3 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="StyleBoxTexture" id=23]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
 texture = ExtResource( 1 )
 margin/left = 0.0
 margin/right = 0.0
@@ -332,14 +367,14 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxEmpty" id=22]
+[sub_resource type="StyleBoxEmpty" id=24]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
 
-[sub_resource type="StyleBoxTexture" id=23]
+[sub_resource type="StyleBoxTexture" id=25]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -356,7 +391,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=24]
+[sub_resource type="StyleBoxTexture" id=26]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -373,7 +408,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=25]
+[sub_resource type="StyleBoxTexture" id=27]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -390,40 +425,6 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=26]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-texture = ExtResource( 10 )
-margin/left = 0.0
-margin/right = 0.0
-margin/top = 0.0
-margin/bottom = 0.0
-expand_margin/left = 8.0
-expand_margin/right = 8.0
-expand_margin/top = 8.0
-expand_margin/bottom = 8.0
-draw_center = true
-
-[sub_resource type="StyleBoxTexture" id=27]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-texture = ExtResource( 10 )
-margin/left = 0.0
-margin/right = 0.0
-margin/top = 0.0
-margin/bottom = 0.0
-expand_margin/left = 8.0
-expand_margin/right = 8.0
-expand_margin/top = 8.0
-expand_margin/bottom = 8.0
-draw_center = true
-
 [sub_resource type="StyleBoxTexture" id=28]
 
 content_margin/left = -1.0
@@ -435,13 +436,30 @@ margin/left = 0.0
 margin/right = 0.0
 margin/top = 0.0
 margin/bottom = 0.0
-expand_margin/left = 0.0
-expand_margin/right = 0.0
-expand_margin/top = 0.0
-expand_margin/bottom = 0.0
+expand_margin/left = 8.0
+expand_margin/right = 8.0
+expand_margin/top = 8.0
+expand_margin/bottom = 8.0
 draw_center = true
 
 [sub_resource type="StyleBoxTexture" id=29]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 11 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 8.0
+expand_margin/right = 8.0
+expand_margin/top = 8.0
+expand_margin/bottom = 8.0
+draw_center = true
+
+[sub_resource type="StyleBoxTexture" id=30]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -458,7 +476,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=30]
+[sub_resource type="StyleBoxTexture" id=31]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -475,7 +493,24 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=31]
+[sub_resource type="StyleBoxTexture" id=32]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 14 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="StyleBoxTexture" id=33]
 
 content_margin/left = 8.0
 content_margin/right = 8.0
@@ -492,7 +527,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=32]
+[sub_resource type="StyleBoxTexture" id=34]
 
 content_margin/left = 8.0
 content_margin/right = 8.0
@@ -509,7 +544,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=33]
+[sub_resource type="StyleBoxTexture" id=35]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -526,14 +561,14 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxEmpty" id=34]
+[sub_resource type="StyleBoxEmpty" id=36]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
 
-[sub_resource type="StyleBoxTexture" id=35]
+[sub_resource type="StyleBoxTexture" id=37]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -550,7 +585,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=36]
+[sub_resource type="StyleBoxTexture" id=38]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -567,7 +602,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=37]
+[sub_resource type="StyleBoxTexture" id=39]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -584,7 +619,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=38]
+[sub_resource type="StyleBoxTexture" id=40]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -601,7 +636,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=39]
+[sub_resource type="StyleBoxTexture" id=41]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -618,7 +653,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=40]
+[sub_resource type="StyleBoxTexture" id=42]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -635,16 +670,18 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="DynamicFont" id=41]
+[sub_resource type="DynamicFont" id=43]
 
 font/size = 16
 font/use_mipmaps = true
 font/use_filter = true
-font/font = ExtResource( 14 )
+font/font = ExtResource( 15 )
 
 [resource]
 
-default_font = SubResource( 41 )
+default_font = SubResource( 43 )
+Button/colors/font_color = Color( 1, 1, 1, 1 )
+Button/colors/font_color_disabled = Color( 0, 0, 0, 1 )
 Button/styles/disabled = SubResource( 1 )
 Button/styles/focus = SubResource( 2 )
 Button/styles/hover = SubResource( 3 )
@@ -669,34 +706,38 @@ HSlider/icons/grabber = ExtResource( 6 )
 HSlider/icons/grabber_hilite = ExtResource( 7 )
 HSlider/styles/focus = SubResource( 15 )
 HSlider/styles/slider = SubResource( 16 )
-LineEdit/styles/normal = SubResource( 17 )
-LineEdit/styles/read_only = SubResource( 18 )
-MenuButton/styles/hover = SubResource( 19 )
-MenuButton/styles/pressed = SubResource( 20 )
-OptionButton/styles/disabled = SubResource( 21 )
-OptionButton/styles/focus = SubResource( 22 )
-OptionButton/styles/hover = SubResource( 23 )
-OptionButton/styles/normal = SubResource( 24 )
-OptionButton/styles/pressed = SubResource( 25 )
+ItemList/colors/font_color = Color( 1, 1, 1, 1 )
+ItemList/styles/bg = SubResource( 17 )
+ItemList/styles/selected = SubResource( 44 )
+ItemList/styles/selected_focus = SubResource( 44 )
+LineEdit/styles/normal = SubResource( 19 )
+LineEdit/styles/read_only = SubResource( 20 )
+MenuButton/styles/hover = SubResource( 21 )
+MenuButton/styles/pressed = SubResource( 22 )
+OptionButton/styles/disabled = SubResource( 23 )
+OptionButton/styles/focus = SubResource( 24 )
+OptionButton/styles/hover = SubResource( 25 )
+OptionButton/styles/normal = SubResource( 26 )
+OptionButton/styles/pressed = SubResource( 27 )
 PopupMenu/icons/checked = ExtResource( 4 )
 PopupMenu/icons/unchecked = ExtResource( 5 )
-PopupMenu/styles/panel = SubResource( 26 )
-PopupPanel/styles/panel = SubResource( 27 )
+PopupMenu/styles/panel = SubResource( 28 )
+PopupPanel/styles/panel = SubResource( 29 )
 ProgressBar/colors/font_color = Color( 0, 0, 0, 1 )
-ProgressBar/styles/bg = SubResource( 28 )
-ProgressBar/styles/fg = SubResource( 29 )
-TabContainer/styles/panel = SubResource( 30 )
-TabContainer/styles/tab_bg = SubResource( 31 )
-TabContainer/styles/tab_fg = SubResource( 32 )
+ProgressBar/styles/bg = SubResource( 30 )
+ProgressBar/styles/fg = SubResource( 31 )
+TabContainer/styles/panel = SubResource( 32 )
+TabContainer/styles/tab_bg = SubResource( 33 )
+TabContainer/styles/tab_fg = SubResource( 34 )
 TextEdit/colors/current_line_color = Color( 0, 0, 0, 0 )
-TextEdit/styles/normal = SubResource( 33 )
-ToolButton/styles/focus = SubResource( 34 )
-ToolButton/styles/hover = SubResource( 35 )
-ToolButton/styles/pressed = SubResource( 36 )
-VScrollBar/styles/grabber = SubResource( 37 )
-VScrollBar/styles/grabber_hilite = SubResource( 38 )
-VScrollBar/styles/scroll = SubResource( 39 )
+TextEdit/styles/normal = SubResource( 35 )
+ToolButton/styles/focus = SubResource( 36 )
+ToolButton/styles/hover = SubResource( 37 )
+ToolButton/styles/pressed = SubResource( 38 )
+VScrollBar/styles/grabber = SubResource( 39 )
+VScrollBar/styles/grabber_hilite = SubResource( 40 )
+VScrollBar/styles/scroll = SubResource( 41 )
 VSlider/icons/grabber = ExtResource( 6 )
 VSlider/icons/grabber_hilite = ExtResource( 7 )
-VSlider/styles/slider = SubResource( 40 )
+VSlider/styles/slider = SubResource( 42 )
 
