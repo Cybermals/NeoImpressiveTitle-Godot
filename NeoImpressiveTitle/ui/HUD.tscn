@@ -1,0 +1,202 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
+[ext_resource path="res://ui/HUD.gd" type="Script" id=2]
+[ext_resource path="res://ui/images/panel.png" type="Texture" id=3]
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 3 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[node name="HUD" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 984.0
+margin/bottom = 728.0
+script/script = ExtResource( 2 )
+
+[node name="ShowChatButton" type="Button" parent="."]
+
+anchor/top = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 20.0
+margin/top = -680.0
+margin/right = 80.0
+margin/bottom = -703.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Show Chat"
+flat = false
+
+[node name="ChatBox" type="Container" parent="."]
+
+visibility/visible = false
+anchor/top = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 20.0
+margin/top = -460.0
+margin/right = 440.0
+margin/bottom = -700.0
+
+[node name="HideChatButton" type="Button" parent="ChatBox"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 340.0
+margin/top = 0.0
+margin/right = 421.0
+margin/bottom = 23.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Hide Chat"
+flat = false
+
+[node name="ChatHistoryPanel" type="Panel" parent="ChatBox"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 30.0
+margin/right = 420.0
+margin/bottom = 180.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="ChatHistory" type="TextEdit" parent="ChatBox/ChatHistoryPanel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 8.0
+margin/top = 4.0
+margin/right = 412.0
+margin/bottom = 146.0
+custom_styles/normal = SubResource( 2 )
+syntax_highlighting = false
+show_line_numbers = false
+highlight_all_occurrences = false
+caret/block_caret = false
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="ChatMode" type="OptionButton" parent="ChatBox"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 340.0
+margin/top = 180.0
+margin/right = 420.0
+margin/bottom = 210.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "General"
+flat = false
+align = 0
+selected = 0
+items = [ "General", null, false, -1, null, "Local", null, false, -1, null, "Party", null, false, -1, null, "Whisper", null, false, -1, null ]
+
+[node name="ChatInputPanel" type="Panel" parent="ChatBox"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 210.0
+margin/right = 420.0
+margin/bottom = 240.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="ChatInput" type="LineEdit" parent="ChatBox/ChatInputPanel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 8.0
+margin/top = 4.0
+margin/right = 360.0
+margin/bottom = 27.0
+custom_styles/normal = SubResource( 3 )
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="SayButton" type="Button" parent="ChatBox/ChatInputPanel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 370.0
+margin/top = 0.0
+margin/right = 420.0
+margin/bottom = 30.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Say"
+flat = false
+
+[connection signal="pressed" from="ShowChatButton" to="." method="_on_ShowChatButton_pressed"]
+
+[connection signal="pressed" from="ChatBox/HideChatButton" to="." method="_on_HideChatButton_pressed"]
+
+[connection signal="text_entered" from="ChatBox/ChatInputPanel/ChatInput" to="." method="_on_ChatInput_text_entered"]
+
+[connection signal="pressed" from="ChatBox/ChatInputPanel/SayButton" to="." method="_on_SayButton_pressed"]
+
+
