@@ -1,0 +1,832 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
+[ext_resource path="res://ui/CharacterEditor.gd" type="Script" id=2]
+[ext_resource path="res://ui/images/startscreen.png" type="Texture" id=3]
+[ext_resource path="res://ui/fonts/ConsolaMono.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://ui/images/borderCenter.png" type="Texture" id=5]
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 3 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 16.0
+expand_margin/right = 16.0
+expand_margin/top = 16.0
+expand_margin/bottom = 16.0
+draw_center = true
+
+[sub_resource type="DynamicFont" id=2]
+
+font/size = 24
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 4 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 5 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[node name="CharacterEditor" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 984.0
+margin/bottom = 728.0
+script/script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 50.0
+margin/top = 50.0
+margin/right = 490.0
+margin/bottom = -680.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="CharacterNameLabel" type="Label" parent="Panel"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 20.0
+margin/top = 30.0
+margin/right = 90.0
+margin/bottom = 80.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Name:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="CharacterName" type="LineEdit" parent="Panel"]
+
+anchor/right = 1
+rect/min_size = Vector2( 316, 50 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 90.0
+margin/top = 30.0
+margin/right = 34.0
+margin/bottom = 80.0
+custom_fonts/font = SubResource( 2 )
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="TabContainer" type="TabContainer" parent="Panel"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 30.0
+margin/top = 100.0
+margin/right = 30.0
+margin/bottom = 63.0
+custom_styles/panel = SubResource( 3 )
+custom_colors/font_color_bg = Color( 0, 0, 0, 1 )
+custom_colors/font_color_fg = Color( 0, 0, 0, 1 )
+tab_align = 1
+tabs_visible = true
+
+[node name="Shape" type="VBoxContainer" parent="Panel/TabContainer"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 39.0
+margin/right = 0.0
+margin/bottom = 0.0
+alignment = 0
+
+[node name="Body" type="OptionButton" parent="Panel/TabContainer/Shape"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 380.0
+margin/bottom = 23.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "--Choose Body--"
+flat = false
+align = 0
+selected = 0
+items = [ "Feline Body", null, false, -1, null ]
+
+[node name="Head" type="OptionButton" parent="Panel/TabContainer/Shape"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 27.0
+margin/right = 380.0
+margin/bottom = 50.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "--Choose Head--"
+flat = false
+align = 0
+selected = 0
+items = [ "Head 1", null, false, -1, null, "Head 2", null, false, -1, null, "Head 3", null, false, -1, null, "Head 4", null, false, -1, null, "Head 5", null, false, -1, null, "Head 6", null, false, -1, null ]
+
+[node name="Mane" type="OptionButton" parent="Panel/TabContainer/Shape"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 54.0
+margin/right = 380.0
+margin/bottom = 77.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "--Choose Mane--"
+flat = false
+align = 0
+selected = 0
+items = [ "No Mane", null, false, -1, null, "Mane 1", null, false, -1, null, "Mane 2", null, false, -1, null, "Mane 3", null, false, -1, null, "Mane 4", null, false, -1, null, "Mane 5", null, false, -1, null, "Mane 6", null, false, -1, null, "Mane 7", null, false, -1, null, "Mane 8", null, false, -1, null, "Mane 9", null, false, -1, null, "Mane 10", null, false, -1, null, "Mane 11", null, false, -1, null, "Mane 12", null, false, -1, null, "Mane 13", null, false, -1, null, "Mane 14", null, false, -1, null, "Mane 15", null, false, -1, null, "Mane 16", null, false, -1, null, "Mane 17", null, false, -1, null, "Mane 18", null, false, -1, null ]
+
+[node name="Tail" type="OptionButton" parent="Panel/TabContainer/Shape"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 81.0
+margin/right = 380.0
+margin/bottom = 104.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "No Tail"
+flat = false
+align = 0
+selected = 0
+items = [ "No Tail", null, false, -1, null, "Tail 1", null, false, -1, null, "Tail 2", null, false, -1, null, "Tail 3", null, false, -1, null, "Tail 4", null, false, -1, null, "Tail 5", null, false, -1, null, "Tail 6", null, false, -1, null, "Tail 7", null, false, -1, null ]
+
+[node name="Wings" type="OptionButton" parent="Panel/TabContainer/Shape"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 108.0
+margin/right = 380.0
+margin/bottom = 131.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "--Choose Wings--"
+flat = false
+align = 0
+selected = 0
+items = [ "No Wings", null, false, -1, null, "Bird Wings", null, false, -1, null, "Bat Wings", null, false, -1, null, "Bug Wings", null, false, -1, null ]
+
+[node name="Tufts" type="OptionButton" parent="Panel/TabContainer/Shape"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 135.0
+margin/right = 380.0
+margin/bottom = 158.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "--Choose Tufts--"
+flat = false
+align = 0
+selected = 0
+items = [ "No Tufts", null, false, -1, null, "Tuft 1", null, false, -1, null, "Tuft 2", null, false, -1, null, "Tuft 3", null, false, -1, null, "Tuft 4", null, false, -1, null, "Tuft 5", null, false, -1, null, "Tuft 6", null, false, -1, null, "Tuft 7", null, false, -1, null, "Tuft 8", null, false, -1, null, "Tuft 9", null, false, -1, null, "Tuft 10", null, false, -1, null ]
+
+[node name="Markings" type="HBoxContainer" parent="Panel/TabContainer"]
+
+visibility/visible = false
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 39.0
+margin/right = 0.0
+margin/bottom = 0.0
+alignment = 0
+
+[node name="Labels" type="VBoxContainer" parent="Panel/TabContainer/Markings"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 126.0
+margin/bottom = 431.0
+alignment = 0
+
+[node name="HeadMarkingsLabel" type="Label" parent="Panel/TabContainer/Markings/Labels"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 126.0
+margin/bottom = 23.0
+text = "Head Markings:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="BodyMarkingsLabel" type="Label" parent="Panel/TabContainer/Markings/Labels"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 27.0
+margin/right = 126.0
+margin/bottom = 50.0
+text = "Body Markings:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="TailMarkingsLabel" type="Label" parent="Panel/TabContainer/Markings/Labels"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 54.0
+margin/right = 126.0
+margin/bottom = 77.0
+text = "Tail Markings:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Inputs" type="VBoxContainer" parent="Panel/TabContainer/Markings"]
+
+rect/min_size = Vector2( 250, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 130.0
+margin/top = 0.0
+margin/right = 380.0
+margin/bottom = 431.0
+alignment = 0
+
+[node name="HeadMarkings" type="OptionButton" parent="Panel/TabContainer/Markings/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 250.0
+margin/bottom = 23.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "--Choose Head Markings--"
+flat = false
+align = 0
+selected = 0
+items = [ "No Markings", null, false, -1, null, "Markings 1", null, false, -1, null, "Markings 2", null, false, -1, null, "Markings 3", null, false, -1, null, "Markings 4", null, false, -1, null, "Markings 5", null, false, -1, null, "Markings 6", null, false, -1, null, "Markings 7", null, false, -1, null, "Markings 8", null, false, -1, null, "Markings 9", null, false, -1, null, "Markings 10", null, false, -1, null, "Markings 11", null, false, -1, null, "Markings 12", null, false, -1, null, "Markings 13", null, false, -1, null, "Markings 14", null, false, -1, null, "Markings 15", null, false, -1, null, "Markings 16", null, false, -1, null, "Markings 17", null, false, -1, null ]
+
+[node name="BodyMarkings" type="OptionButton" parent="Panel/TabContainer/Markings/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 27.0
+margin/right = 250.0
+margin/bottom = 50.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "--Choose Body Markings--"
+flat = false
+align = 0
+selected = 0
+items = [ "No Markings", null, false, -1, null, "Marking 1", null, false, -1, null, "Marking 2", null, false, -1, null, "Marking 3", null, false, -1, null, "Marking 4", null, false, -1, null, "Marking 5", null, false, -1, null, "Marking 6", null, false, -1, null, "Marking 7", null, false, -1, null, "Marking 8", null, false, -1, null, "Marking 9", null, false, -1, null, "Marking 10", null, false, -1, null, "Marking 11", null, false, -1, null, "Marking 12", null, false, -1, null, "Marking 13", null, false, -1, null, "Marking 14", null, false, -1, null, "Marking 15", null, false, -1, null, "Marking 16", null, false, -1, null, "Marking 17", null, false, -1, null, "Marking 18", null, false, -1, null, "Marking 19", null, false, -1, null, "Marking 20", null, false, -1, null ]
+
+[node name="TailMarkings" type="OptionButton" parent="Panel/TabContainer/Markings/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 54.0
+margin/right = 250.0
+margin/bottom = 77.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "--Choose Tail Markings--"
+flat = false
+align = 0
+selected = 0
+items = [ "No Markings", null, false, -1, null, "Tail 1", null, false, -1, null, "Tail 2", null, false, -1, null, "Tail 3", null, false, -1, null, "Tail 4", null, false, -1, null, "Tail 5", null, false, -1, null, "Tail 6", null, false, -1, null, "Tail 7", null, false, -1, null, "Tail 8", null, false, -1, null ]
+
+[node name="Colors" type="HBoxContainer" parent="Panel/TabContainer"]
+
+visibility/visible = false
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 39.0
+margin/right = 0.0
+margin/bottom = 0.0
+alignment = 0
+
+[node name="Labels" type="VBoxContainer" parent="Panel/TabContainer/Colors"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 99.0
+margin/bottom = 468.0
+alignment = 0
+
+[node name="PeltLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+
+rect/min_size = Vector2( 0, 55 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 99.0
+margin/bottom = 55.0
+text = "Pelt:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="UnderfurLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+
+rect/min_size = Vector2( 0, 55 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 59.0
+margin/right = 99.0
+margin/bottom = 114.0
+text = "Underfur:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="NoseLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+
+rect/min_size = Vector2( 0, 55 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 118.0
+margin/right = 99.0
+margin/bottom = 173.0
+text = "Nose:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="AboveEyesLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+
+rect/min_size = Vector2( 0, 55 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 177.0
+margin/right = 99.0
+margin/bottom = 232.0
+text = "Above Eyes:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="BelowEyesLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+
+rect/min_size = Vector2( 0, 55 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 236.0
+margin/right = 99.0
+margin/bottom = 291.0
+text = "Below Eyes:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="EarsLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+
+rect/min_size = Vector2( 0, 55 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 295.0
+margin/right = 99.0
+margin/bottom = 350.0
+text = "Ears:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="TailtipLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+
+rect/min_size = Vector2( 0, 55 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 354.0
+margin/right = 99.0
+margin/bottom = 409.0
+text = "Tailtip:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="EyesLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+
+rect/min_size = Vector2( 0, 55 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 413.0
+margin/right = 99.0
+margin/bottom = 468.0
+text = "Eyes:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Inputs" type="VBoxContainer" parent="Panel/TabContainer/Colors"]
+
+rect/min_size = Vector2( 277, 468 )
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 103.0
+margin/top = 0.0
+margin/right = 380.0
+margin/bottom = 468.0
+alignment = 0
+
+[node name="PeltColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 277.0
+margin/bottom = 55.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+color = Color( 0.447059, 0.34902, 0.247059, 1 )
+edit_alpha = true
+
+[node name="UnderfurColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 59.0
+margin/right = 277.0
+margin/bottom = 114.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+color = Color( 0.647059, 0.54902, 0.34902, 1 )
+edit_alpha = true
+
+[node name="NoseColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 118.0
+margin/right = 277.0
+margin/bottom = 173.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
+edit_alpha = true
+
+[node name="AboveEyesColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 177.0
+margin/right = 277.0
+margin/bottom = 232.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+color = Color( 0.247059, 0.14902, 0.0470588, 1 )
+edit_alpha = true
+
+[node name="BelowEyesColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 236.0
+margin/right = 277.0
+margin/bottom = 291.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+color = Color( 0.54902, 0.447059, 0.247059, 1 )
+edit_alpha = true
+
+[node name="EarColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 295.0
+margin/right = 277.0
+margin/bottom = 350.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+color = Color( 0.247059, 0.247059, 0.0470588, 1 )
+edit_alpha = true
+
+[node name="TailtipColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 354.0
+margin/right = 277.0
+margin/bottom = 409.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+color = Color( 0.2, 0.14902, 0, 1 )
+edit_alpha = true
+
+[node name="EyeColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 413.0
+margin/right = 277.0
+margin/bottom = 468.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+color = Color( 0.54902, 0.298039, 0.14902, 1 )
+edit_alpha = true
+
+[node name="Size" type="Container" parent="Panel/TabContainer"]
+
+visibility/visible = false
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 39.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="SizeLabel" type="Label" parent="Panel/TabContainer/Size"]
+
+anchor/top = 3
+anchor/bottom = 3
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 10.0
+margin/top = 64.5
+margin/right = 55.0
+margin/bottom = 33.5
+text = "Size:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Size" type="HSlider" parent="Panel/TabContainer/Size"]
+
+anchor/top = 3
+anchor/right = 1
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 10.0
+margin/top = 34.5
+margin/right = 10.0
+margin/bottom = 18.5
+range/min = 0.25
+range/max = 1.5
+range/step = 0.05
+range/page = 0.0
+range/value = 1.0
+range/exp_edit = false
+range/rounded = false
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 2
+
+[node name="SizeView" type="LineEdit" parent="Panel/TabContainer/Size"]
+
+anchor/top = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 14.5
+margin/right = 118.0
+margin/bottom = -15.5
+text = "1"
+placeholder/alpha = 0.6
+editable = false
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="BackButton" type="Button" parent="Panel"]
+
+anchor/top = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 30.0
+margin/top = 50.0
+margin/right = 140.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Back"
+flat = false
+
+[node name="SaveButton" type="Button" parent="Panel"]
+
+anchor/left = 1
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 140.0
+margin/top = 50.0
+margin/right = 30.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Save"
+flat = false
+
+[connection signal="value_changed" from="Panel/TabContainer/Size/Size" to="." method="_on_Size_value_changed"]
+
+[connection signal="pressed" from="Panel/BackButton" to="." method="_on_BackButton_pressed"]
+
+[connection signal="pressed" from="Panel/SaveButton" to="." method="_on_SaveButton_pressed"]
+
+

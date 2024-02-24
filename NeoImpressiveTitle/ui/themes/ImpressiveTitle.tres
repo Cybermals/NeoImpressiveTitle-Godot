@@ -100,10 +100,10 @@ content_margin/bottom = -1.0
 
 [sub_resource type="StyleBoxTexture" id=7]
 
-content_margin/left = 32.0
-content_margin/right = 32.0
-content_margin/top = 32.0
-content_margin/bottom = 32.0
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
 texture = ExtResource( 3 )
 margin/left = 0.0
 margin/right = 0.0
@@ -124,10 +124,10 @@ content_margin/bottom = -1.0
 
 [sub_resource type="StyleBoxTexture" id=9]
 
-content_margin/left = 32.0
-content_margin/right = 32.0
-content_margin/top = 32.0
-content_margin/bottom = 32.0
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
 texture = ExtResource( 2 )
 margin/left = 0.0
 margin/right = 0.0
@@ -141,10 +141,10 @@ draw_center = true
 
 [sub_resource type="StyleBoxTexture" id=10]
 
-content_margin/left = 32.0
-content_margin/right = 32.0
-content_margin/top = 32.0
-content_margin/bottom = 32.0
+content_margin/left = 16.0
+content_margin/right = 16.0
+content_margin/top = 16.0
+content_margin/bottom = 16.0
 texture = ExtResource( 3 )
 margin/left = 0.0
 margin/right = 0.0
@@ -158,10 +158,10 @@ draw_center = true
 
 [sub_resource type="StyleBoxTexture" id=11]
 
-content_margin/left = 32.0
-content_margin/right = 32.0
-content_margin/top = 32.0
-content_margin/bottom = 32.0
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
 texture = ExtResource( 1 )
 margin/left = 0.0
 margin/right = 0.0
@@ -356,7 +356,7 @@ content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 margin/left = 0.0
 margin/right = 0.0
 margin/top = 0.0
@@ -714,11 +714,18 @@ LineEdit/styles/normal = SubResource( 19 )
 LineEdit/styles/read_only = SubResource( 20 )
 MenuButton/styles/hover = SubResource( 21 )
 MenuButton/styles/pressed = SubResource( 22 )
+OptionButton/colors/font_color = Color( 1, 1, 1, 1 )
+OptionButton/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+OptionButton/colors/font_color_hover = Color( 1, 1, 1, 1 )
+OptionButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 OptionButton/styles/disabled = SubResource( 23 )
 OptionButton/styles/focus = SubResource( 24 )
 OptionButton/styles/hover = SubResource( 25 )
 OptionButton/styles/normal = SubResource( 26 )
 OptionButton/styles/pressed = SubResource( 27 )
+PopupMenu/colors/font_color = Color( 1, 1, 1, 1 )
+PopupMenu/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+PopupMenu/colors/font_color_hover = Color( 1, 1, 1, 1 )
 PopupMenu/icons/checked = ExtResource( 4 )
 PopupMenu/icons/unchecked = ExtResource( 5 )
 PopupMenu/styles/panel = SubResource( 28 )
