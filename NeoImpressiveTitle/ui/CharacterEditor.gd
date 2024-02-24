@@ -1,6 +1,7 @@
 extends Control
 
 signal back
+signal delete
 signal save(data)
 
 
@@ -15,6 +16,11 @@ func _on_Size_value_changed(value):
 func _on_BackButton_pressed():
 	Logger.log_info("CharacterEditor", "Returning to character select screen...")
 	emit_signal("back")
+	
+	
+func _on_DeleteButton_pressed():
+	Logger.log_info("CharacterEditor", "Deleting character...")
+	emit_signal("delete")
 
 
 func _on_SaveButton_pressed():
