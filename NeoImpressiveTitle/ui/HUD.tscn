@@ -1,8 +1,17 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=17 format=1]
 
 [ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
 [ext_resource path="res://ui/HUD.gd" type="Script" id=2]
 [ext_resource path="res://ui/images/panel.png" type="Texture" id=3]
+[ext_resource path="res://ui/fonts/ConsolaMono.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://ui/images/barBG.png" type="Texture" id=5]
+[ext_resource path="res://ui/images/hpbar.png" type="Texture" id=6]
+[ext_resource path="res://ui/images/house.png" type="Texture" id=7]
+[ext_resource path="res://ui/images/book.png" type="Texture" id=8]
+[ext_resource path="res://ui/images/person.png" type="Texture" id=9]
+[ext_resource path="res://ui/images/backpack.png" type="Texture" id=10]
+[ext_resource path="res://ui/images/play.png" type="Texture" id=11]
+[ext_resource path="res://ui/images/people.png" type="Texture" id=12]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -34,6 +43,13 @@ content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
+
+[sub_resource type="DynamicFont" id=4]
+
+font/size = 24
+font/use_mipmaps = true
+font/use_filter = false
+font/font = ExtResource( 4 )
 
 [node name="HUD" type="Control"]
 
@@ -189,6 +205,177 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Say"
+flat = false
+
+[node name="PlayerHPPanel" type="Container" parent="."]
+
+anchor/left = 1
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -690.0
+margin/top = -590.0
+margin/right = -960.0
+margin/bottom = -700.0
+
+[node name="ActionLabel" type="Label" parent="PlayerHPPanel"]
+
+anchor/right = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 23.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 0.421875, 0, 1 )
+text = "Attack"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="HPBar" type="TextureProgress" parent="PlayerHPPanel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 40.0
+margin/right = 266.0
+margin/bottom = 72.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 50.0
+range/exp_edit = false
+range/rounded = false
+texture/under = ExtResource( 5 )
+texture/over = null
+texture/progress = ExtResource( 6 )
+radial_fill/fill_degrees = 360.0
+radial_fill/center_offset = Vector2( 0, 0 )
+
+[node name="Buttons" type="HBoxContainer" parent="PlayerHPPanel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 80.0
+margin/right = 270.0
+margin/bottom = 110.0
+alignment = 0
+
+[node name="HomeButton" type="Button" parent="PlayerHPPanel/Buttons"]
+
+hint/tooltip = "Home"
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 32.0
+margin/bottom = 32.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+icon = ExtResource( 7 )
+flat = false
+
+[node name="BioButton" type="Button" parent="PlayerHPPanel/Buttons"]
+
+hint/tooltip = "Bio"
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 36.0
+margin/top = 0.0
+margin/right = 68.0
+margin/bottom = 32.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+icon = ExtResource( 8 )
+flat = false
+
+[node name="FriendsButton" type="Button" parent="PlayerHPPanel/Buttons"]
+
+hint/tooltip = "Friends"
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 72.0
+margin/top = 0.0
+margin/right = 104.0
+margin/bottom = 32.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+icon = ExtResource( 9 )
+flat = false
+
+[node name="ItemsButton" type="Button" parent="PlayerHPPanel/Buttons"]
+
+hint/tooltip = "Items"
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 108.0
+margin/top = 0.0
+margin/right = 140.0
+margin/bottom = 32.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+icon = ExtResource( 10 )
+flat = false
+
+[node name="ActionsButton" type="Button" parent="PlayerHPPanel/Buttons"]
+
+hint/tooltip = "Actions"
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 144.0
+margin/top = 0.0
+margin/right = 176.0
+margin/bottom = 32.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+icon = ExtResource( 11 )
+flat = false
+
+[node name="PartyButton" type="Button" parent="PlayerHPPanel/Buttons"]
+
+hint/tooltip = "Party"
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 180.0
+margin/top = 0.0
+margin/right = 212.0
+margin/bottom = 32.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+icon = ExtResource( 12 )
 flat = false
 
 [connection signal="pressed" from="ShowChatButton" to="." method="_on_ShowChatButton_pressed"]
