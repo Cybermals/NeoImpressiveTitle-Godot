@@ -55,7 +55,12 @@ func _on_HomeButton_pressed():
 
 
 func _on_BioButton_pressed():
-	pass # replace with function body
+	# Toggle bio dialog visibility
+	if get_node("BioDialog").is_visible():
+		get_node("BioDialog").hide()
+		
+	else:
+		get_node("BioDialog").show()
 
 
 func _on_FriendsButton_pressed():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=1]
+[gd_scene load_steps=24 format=1]
 
 [ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
 [ext_resource path="res://ui/HUD.gd" type="Script" id=2]
@@ -77,6 +77,20 @@ font/size = 24
 font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=7]
+
+font/size = 24
+font/use_mipmaps = true
+font/use_filter = false
+font/font = ExtResource( 4 )
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
 
 [node name="HUD" type="Control"]
 
@@ -637,6 +651,53 @@ flat = false
 align = 0
 selected = 0
 items = [ "Dim 0", null, false, -1, null, "Dim 1", null, false, -1, null, "Dim 2", null, false, -1, null, "Dim 3", null, false, -1, null, "Dim 4", null, false, -1, null, "Dim 5", null, false, -1, null, "Dim 6", null, false, -1, null, "Dim 7", null, false, -1, null, "Dim 8", null, false, -1, null, "Dim 9", null, false, -1, null ]
+
+[node name="BioDialog" type="WindowDialog" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 210.0
+margin/right = 230.0
+margin/bottom = 700.0
+popup/exclusive = false
+window/title = "Bio"
+
+[node name="CharacterNameLabel" type="Label" parent="BioDialog"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 50.0
+margin/right = 126.0
+margin/bottom = 84.0
+custom_fonts/font = SubResource( 7 )
+text = "Character"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Bio" type="TextEdit" parent="BioDialog"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 80.0
+margin/right = 220.0
+margin/bottom = 490.0
+custom_styles/normal = SubResource( 8 )
+syntax_highlighting = false
+show_line_numbers = false
+highlight_all_occurrences = false
+caret/block_caret = false
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
 
 [connection signal="pressed" from="ShowChatButton" to="." method="_on_ShowChatButton_pressed"]
 
