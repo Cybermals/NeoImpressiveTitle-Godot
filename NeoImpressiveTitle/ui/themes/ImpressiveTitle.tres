@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=59 format=1]
+[gd_resource type="Theme" load_steps=63 format=1]
 
 [ext_resource path="res://ui/images/buttonDown.png" type="Texture" id=1]
 [ext_resource path="res://ui/images/buttonOver.png" type="Texture" id=2]
@@ -14,7 +14,10 @@
 [ext_resource path="res://ui/images/woundbar.png" type="Texture" id=12]
 [ext_resource path="res://ui/images/hpbar.png" type="Texture" id=13]
 [ext_resource path="res://ui/images/startscreen.png" type="Texture" id=14]
-[ext_resource path="res://ui/fonts/ConsolaMono.ttf" type="DynamicFontData" id=15]
+[ext_resource path="res://ui/images/close.png" type="Texture" id=15]
+[ext_resource path="res://ui/images/close-hover.png" type="Texture" id=16]
+[ext_resource path="res://ui/images/dialog.png" type="Texture" id=17]
+[ext_resource path="res://ui/fonts/ConsolaMono.ttf" type="DynamicFontData" id=18]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -670,12 +673,29 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
+[sub_resource type="StyleBoxTexture" id=44]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 17 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 4.0
+expand_margin/right = 4.0
+expand_margin/top = 20.0
+expand_margin/bottom = 4.0
+draw_center = true
+
 [sub_resource type="DynamicFont" id=43]
 
 font/size = 16
 font/use_mipmaps = true
 font/use_filter = true
-font/font = ExtResource( 15 )
+font/font = ExtResource( 18 )
 
 [resource]
 
@@ -747,4 +767,8 @@ VScrollBar/styles/scroll = SubResource( 41 )
 VSlider/icons/grabber = ExtResource( 6 )
 VSlider/icons/grabber_hilite = ExtResource( 7 )
 VSlider/styles/slider = SubResource( 42 )
+WindowDialog/colors/title_color = Color( 1, 1, 1, 1 )
+WindowDialog/icons/close = ExtResource( 15 )
+WindowDialog/icons/close_hilite = ExtResource( 16 )
+WindowDialog/styles/panel = SubResource( 44 )
 

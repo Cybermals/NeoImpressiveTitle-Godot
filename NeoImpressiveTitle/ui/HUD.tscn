@@ -412,6 +412,7 @@ flat = false
 
 [node name="MiniMapPanel" type="Container" parent="."]
 
+editor/display_folded = true
 anchor/left = 1
 anchor/right = 1
 focus/ignore_mouse = false
@@ -527,6 +528,116 @@ shortcut = null
 text = "+"
 flat = false
 
+[node name="HomeDialog" type="WindowDialog" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 30.0
+margin/right = 130.0
+margin/bottom = 180.0
+popup/exclusive = false
+window/title = "Home"
+
+[node name="Widgets" type="VBoxContainer" parent="HomeDialog"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 10.0
+margin/right = 20.0
+margin/bottom = 0.0
+alignment = 0
+
+[node name="SetHomeButton" type="Button" parent="HomeDialog/Widgets"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 120.0
+margin/bottom = 23.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Set Home"
+flat = false
+
+[node name="GoHomeButton" type="Button" parent="HomeDialog/Widgets"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 27.0
+margin/right = 120.0
+margin/bottom = 50.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Go Home"
+flat = false
+
+[node name="ResetHomeButton" type="Button" parent="HomeDialog/Widgets"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 54.0
+margin/right = 120.0
+margin/bottom = 77.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Reset Home"
+flat = false
+
+[node name="DimensionLabel" type="Label" parent="HomeDialog/Widgets"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 81.0
+margin/right = 120.0
+margin/bottom = 104.0
+text = "Dimension:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Dimension" type="OptionButton" parent="HomeDialog/Widgets"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 108.0
+margin/right = 120.0
+margin/bottom = 131.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "-- Choose --"
+flat = false
+align = 0
+selected = 0
+items = [ "Dim 0", null, false, -1, null, "Dim 1", null, false, -1, null, "Dim 2", null, false, -1, null, "Dim 3", null, false, -1, null, "Dim 4", null, false, -1, null, "Dim 5", null, false, -1, null, "Dim 6", null, false, -1, null, "Dim 7", null, false, -1, null, "Dim 8", null, false, -1, null, "Dim 9", null, false, -1, null ]
+
 [connection signal="pressed" from="ShowChatButton" to="." method="_on_ShowChatButton_pressed"]
 
 [connection signal="pressed" from="ChatBox/HideChatButton" to="." method="_on_HideChatButton_pressed"]
@@ -534,5 +645,17 @@ flat = false
 [connection signal="text_entered" from="ChatBox/ChatInputPanel/ChatInput" to="." method="_on_ChatInput_text_entered"]
 
 [connection signal="pressed" from="ChatBox/ChatInputPanel/SayButton" to="." method="_on_SayButton_pressed"]
+
+[connection signal="pressed" from="PlayerHPPanel/Buttons/HomeButton" to="." method="_on_HomeButton_pressed"]
+
+[connection signal="pressed" from="PlayerHPPanel/Buttons/BioButton" to="." method="_on_BioButton_pressed"]
+
+[connection signal="pressed" from="PlayerHPPanel/Buttons/FriendsButton" to="." method="_on_FriendsButton_pressed"]
+
+[connection signal="pressed" from="PlayerHPPanel/Buttons/ItemsButton" to="." method="_on_ItemsButton_pressed"]
+
+[connection signal="pressed" from="PlayerHPPanel/Buttons/ActionsButton" to="." method="_on_ActionsButton_pressed"]
+
+[connection signal="pressed" from="PlayerHPPanel/Buttons/PartyButton" to="." method="_on_PartyButton_pressed"]
 
 

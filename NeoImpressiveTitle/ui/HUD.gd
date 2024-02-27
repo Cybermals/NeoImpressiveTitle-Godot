@@ -43,3 +43,32 @@ func _on_SayButton_pressed():
 
 func _on_ChatInput_text_entered(text):
 	send_message()
+
+
+func _on_HomeButton_pressed():
+	# Toggle home dialog visibility
+	if get_node("HomeDialog").is_visible():
+		get_node("HomeDialog").hide()
+		
+	else:
+		get_node("HomeDialog").show()
+
+
+func _on_BioButton_pressed():
+	pass # replace with function body
+
+
+func _on_FriendsButton_pressed():
+	pass # replace with function body
+
+
+func _on_ItemsButton_pressed():
+	pass # replace with function body
+
+
+func _on_ActionsButton_pressed():
+	pass # replace with function body
+
+
+func _on_PartyButton_pressed():
+	pass # replace with function body
