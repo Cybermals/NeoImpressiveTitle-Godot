@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=1]
+[gd_scene load_steps=31 format=1]
 
 [ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
 [ext_resource path="res://ui/HUD.gd" type="Script" id=2]
@@ -116,6 +116,13 @@ content_margin/top = -1.0
 content_margin/bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id=12]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=13]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -933,7 +940,7 @@ margin/bottom = 50.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "-- Choose Action --"
+text = "Sit"
 flat = false
 align = 0
 selected = 0
@@ -967,7 +974,7 @@ margin/bottom = 104.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "-- Choose Action --"
+text = "Nod Head"
 flat = false
 align = 0
 selected = 0
@@ -1001,11 +1008,36 @@ margin/bottom = 158.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "-- Choose Emote --"
+text = "Normal"
 flat = false
 align = 0
 selected = 0
 items = [ "Normal", null, false, -1, null, "Smile", null, false, -1, null, "Grin", null, false, -1, null, "Joy", null, false, -1, null, "Anger", null, false, -1, null, "Evil Grin", null, false, -1, null, "Frown", null, false, -1, null, "Shock", null, false, -1, null, "Frown Grin", null, false, -1, null, "Smirk", null, false, -1, null, "Sad", null, false, -1, null, "Subtle Frown", null, false, -1, null, "Pain", null, false, -1, null, "Rage", null, false, -1, null, "Rest", null, false, -1, null, "Rest Grin", null, false, -1, null, "Smug Grin", null, false, -1, null, "Focus", null, false, -1, null, "Dead", null, false, -1, null, "Brow Raise L", null, false, -1, null, "Brow Raise R", null, false, -1, null, "Brow Grin L", null, false, -1, null, "Brow Grin R", null, false, -1, null, "Brow Smirk L", null, false, -1, null, "Brow Smirk R", null, false, -1, null, "Brow Sulk L", null, false, -1, null, "Brow Sulk R", null, false, -1, null, "Brow Shock L", null, false, -1, null, "Brow Shock R", null, false, -1, null, "Tongue", null, false, -1, null, "Tongue Grin", null, false, -1, null, "Raspberry", null, false, -1, null, "Lick", null, false, -1, null, "Grin Lick", null, false, -1, null, "Smirk Lick", null, false, -1, null, "Soft Lick", null, false, -1, null, "Squint", null, false, -1, null, "More Pain", null, false, -1, null, "Much Pain", null, false, -1, null, "More Joy", null, false, -1, null, "Much Joy", null, false, -1, null, "Sneaky Smirk", null, false, -1, null, "Roar", null, false, -1, null, "Mild Joy", null, false, -1, null, "Frown Joy", null, false, -1, null, "Smirk Joy", null, false, -1, null ]
+
+[node name="PartyDialog" type="WindowDialog" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 540.0
+margin/top = 230.0
+margin/right = 790.0
+margin/bottom = 480.0
+popup/exclusive = false
+window/title = "Party"
+
+[node name="Party" type="ItemList" parent="PartyDialog"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 250.0
+margin/bottom = 250.0
+custom_styles/bg = SubResource( 13 )
 
 [connection signal="pressed" from="ShowChatButton" to="." method="_on_ShowChatButton_pressed"]
 

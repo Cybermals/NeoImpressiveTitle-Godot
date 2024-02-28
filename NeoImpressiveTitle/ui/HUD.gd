@@ -21,6 +21,10 @@ func _ready():
 	# Fill stash item list with sample data
 	for i in range(20):
 		get_node("StashDialog/ItemList").add_item("Stashed Item {0}".format([i]))
+		
+	# Fill party list with sample data
+	for i in range(20):
+		get_node("PartyDialog/Party").add_item("Party Member {0}".format([i]))
 	
 	
 func show_chat():
@@ -107,7 +111,12 @@ func _on_ActionsButton_pressed():
 
 
 func _on_PartyButton_pressed():
-	pass # replace with function body
+	# Toggle party dialog visiblity
+	if get_node("PartyDialog").is_visible():
+		get_node("PartyDialog").hide()
+		
+	else:
+		get_node("PartyDialog").show()
 
 
 func _on_StashButton_pressed():
