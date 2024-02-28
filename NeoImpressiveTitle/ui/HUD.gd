@@ -98,7 +98,12 @@ func _on_ItemsButton_pressed():
 
 
 func _on_ActionsButton_pressed():
-	pass # replace with function body
+	# Toggle actions and emotes dialog visibility
+	if get_node("ActionsAndEmotesDialog").is_visible():
+		get_node("ACtionsAndEmotesDialog").hide()
+		
+	else:
+		get_node("ActionsAndEmotesDialog").show()
 
 
 func _on_PartyButton_pressed():
