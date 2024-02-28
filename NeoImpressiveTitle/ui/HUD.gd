@@ -13,6 +13,10 @@ func _ready():
 		
 	for i in range(20):
 		get_node("FriendsDialog/BlockList").add_item("Enemy {0}".format([i]))
+		
+	# Fill item list with sample data
+	for i in range(20):
+		get_node("ItemsDialog/ItemList").add_item("Item {0}".format([i]))
 	
 	
 func show_chat():
@@ -81,7 +85,12 @@ func _on_FriendsButton_pressed():
 
 
 func _on_ItemsButton_pressed():
-	pass # replace with function body
+	# Toggle items dialog visibility
+	if get_node("ItemsDialog").is_visible():
+		get_node("ItemsDialog").hide()
+		
+	else:
+		get_node("ItemsDialog").show()
 
 
 func _on_ActionsButton_pressed():
