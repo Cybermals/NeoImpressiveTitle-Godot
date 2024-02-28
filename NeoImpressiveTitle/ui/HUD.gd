@@ -2,9 +2,17 @@ extends Control
 
 signal send_message(type, message)
 
+export (ImageTexture) var OnlineIcon
+export (ImageTexture) var OfflineIcon
+
 
 func _ready():
-	pass
+	# Fill friend and block lists with sample data
+	for i in range(20):
+		get_node("FriendsDialog/FriendList").add_item("Friend {0}".format([i]), OnlineIcon if i % 4 else OfflineIcon)
+		
+	for i in range(20):
+		get_node("FriendsDialog/BlockList").add_item("Enemy {0}".format([i]))
 	
 	
 func show_chat():
@@ -64,7 +72,12 @@ func _on_BioButton_pressed():
 
 
 func _on_FriendsButton_pressed():
-	pass # replace with function body
+	# Toggle friends dialog visibility
+	if get_node("FriendsDialog").is_visible():
+		get_node("FriendsDialog").hide()
+		
+	else:
+		get_node("FriendsDialog").show()
 
 
 func _on_ItemsButton_pressed():
