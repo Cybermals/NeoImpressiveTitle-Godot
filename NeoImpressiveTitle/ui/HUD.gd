@@ -17,6 +17,10 @@ func _ready():
 	# Fill item list with sample data
 	for i in range(20):
 		get_node("ItemsDialog/ItemList").add_item("Item {0}".format([i]))
+		
+	# Fill stash item list with sample data
+	for i in range(20):
+		get_node("StashDialog/ItemList").add_item("Stashed Item {0}".format([i]))
 	
 	
 func show_chat():
@@ -99,3 +103,12 @@ func _on_ActionsButton_pressed():
 
 func _on_PartyButton_pressed():
 	pass # replace with function body
+
+
+func _on_StashButton_pressed():
+	# Toggle stash dialog visibility
+	if get_node("StashDialog").is_visible():
+		get_node("StashDialog").hide()
+		
+	else:
+		get_node("StashDialog").show()
