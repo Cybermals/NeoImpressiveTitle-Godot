@@ -51,11 +51,11 @@ func _ready():
 		
 	# Fill item list with sample data
 	for i in range(20):
-		get_node("ItemsDialog/ItemList").add_item("Item {0}".format([i]))
+		get_node("ItemsDialog/Items").add_item("Item {0}".format([i]))
 		
 	# Fill stash item list with sample data
 	for i in range(20):
-		get_node("StashDialog/StashList").add_item("Stashed Item {0}".format([i]))
+		get_node("StashDialog/Stash").add_item("Stashed Item {0}".format([i]))
 		
 	# Fill party list with sample data
 	for i in range(20):
@@ -246,7 +246,7 @@ func _on_BlockCtxMenu_item_pressed(ID):
 		emit_signal("unblock_user", user)
 
 
-func _on_ItemList_item_selected(index):
+func _on_Items_item_selected(index):
 	# Display item context menu at mouse position
 	var mouse_pos = get_global_mouse_pos()
 	get_node("ItemsDialog/ItemCtxMenu").set_global_pos(mouse_pos)
@@ -255,8 +255,8 @@ func _on_ItemList_item_selected(index):
 
 func _on_ItemCtxMenu_item_pressed(ID):
 	# Get selected item
-	var idx = get_node("ItemsDialog/ItemList").get_selected_items()[0]
-	var item = get_node("ItemsDialog/ItemList").get_item_text(idx)
+	var idx = get_node("ItemsDialog/Items").get_selected_items()[0]
+	var item = get_node("ItemsDialog/Items").get_item_text(idx)
 	
 	# Stash item?
 	if ID == ItemCmd.Stash:
@@ -274,7 +274,7 @@ func _on_ItemCtxMenu_item_pressed(ID):
 		emit_signal("delete_item", item)
 
 
-func _on_StashList_item_selected(index):
+func _on_Stash_item_selected(index):
 	# Display stash context menu at mouse position
 	var mouse_pos = get_global_mouse_pos()
 	get_node("StashDialog/StashCtxMenu").set_global_pos(mouse_pos)
@@ -283,8 +283,8 @@ func _on_StashList_item_selected(index):
 
 func _on_StashCtxMenu_item_pressed(ID):
 	# Get selected stash item
-	var idx = get_node("StashDialog/StashList").get_selected_items()[0]
-	var item = get_node("StashDialog/StashList").get_item_text(idx)
+	var idx = get_node("StashDialog/Stash").get_selected_items()[0]
+	var item = get_node("StashDialog/Stash").get_item_text(idx)
 	
 	# Equip item?
 	if ID == StashCmd.Equip:
@@ -292,7 +292,7 @@ func _on_StashCtxMenu_item_pressed(ID):
 		emit_signal("equip_item", item)
 
 
-func _on_Action_item_selected(ID):
+func _on_PrimaryAction_item_selected(ID):
 	# Set the primary action
 	var action = get_node("ActionsAndEmotesDialog/ActionsAndEmotes/PrimaryAction").get_item_text(ID)
 	Logger.log_info("HUD", "Setting primary action to {0}...".format([action]))
