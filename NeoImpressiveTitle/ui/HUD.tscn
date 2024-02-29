@@ -762,6 +762,7 @@ items = [ "Stash", null, false, false, false, -1, 0, null, "", false, "Drop", nu
 
 [node name="StashDialog" type="WindowDialog" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -801,7 +802,6 @@ items = [ "Equip", null, false, false, false, -1, 0, null, "", false ]
 
 [node name="ActionsAndEmotesDialog" type="WindowDialog" parent="."]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -825,7 +825,7 @@ margin/right = 250.0
 margin/bottom = 170.0
 alignment = 0
 
-[node name="ActionLabel" type="Label" parent="ActionsAndEmotesDialog/ActionsAndEmotes"]
+[node name="PrimaryActionLabel" type="Label" parent="ActionsAndEmotesDialog/ActionsAndEmotes"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -835,12 +835,12 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 250.0
 margin/bottom = 23.0
-text = "Action:"
+text = "Primary Action:"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Action" type="OptionButton" parent="ActionsAndEmotesDialog/ActionsAndEmotes"]
+[node name="PrimaryAction" type="OptionButton" parent="ActionsAndEmotesDialog/ActionsAndEmotes"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -1004,5 +1004,11 @@ custom_styles/bg = SubResource( 13 )
 [connection signal="item_selected" from="StashDialog/StashList" to="." method="_on_StashList_item_selected"]
 
 [connection signal="item_pressed" from="StashDialog/StashCtxMenu" to="." method="_on_StashCtxMenu_item_pressed"]
+
+[connection signal="item_selected" from="ActionsAndEmotesDialog/ActionsAndEmotes/PrimaryAction" to="." method="_on_Action_item_selected"]
+
+[connection signal="item_selected" from="ActionsAndEmotesDialog/ActionsAndEmotes/SecondaryAction" to="." method="_on_SecondaryAction_item_selected"]
+
+[connection signal="item_selected" from="ActionsAndEmotesDialog/ActionsAndEmotes/Emote" to="." method="_on_Emote_item_selected"]
 
 

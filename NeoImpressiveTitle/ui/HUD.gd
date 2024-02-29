@@ -14,6 +14,9 @@ signal stash_item(name)
 signal drop_item(name)
 signal delete_item(name)
 signal equip_item(name)
+signal set_primary_action(name)
+signal set_secondary_action(name)
+signal set_emote(name)
 
 export (ImageTexture) var OnlineIcon
 export (ImageTexture) var OfflineIcon
@@ -287,3 +290,24 @@ func _on_StashCtxMenu_item_pressed(ID):
 	if ID == StashCmd.Equip:
 		Logger.log_info("HUD", "Equipping item {0}...".format([item]))
 		emit_signal("equip_item", item)
+
+
+func _on_Action_item_selected(ID):
+	# Set the primary action
+	var action = get_node("ActionsAndEmotesDialog/ActionsAndEmotes/PrimaryAction").get_item_text(ID)
+	Logger.log_info("HUD", "Setting primary action to {0}...".format([action]))
+	emit_signal("set_primary_action", action)
+
+
+func _on_SecondaryAction_item_selected(ID):
+	# Set the secondary action
+	var action = get_node("ActionsAndEmotesDialog/ActionsAndEmotes/SecondaryAction").get_item_text(ID)
+	Logger.log_info("HUD", "Setting secondary action to {0}...".format([action]))
+	emit_signal("set_secondary_action", action)
+
+
+func _on_Emote_item_selected(ID):
+	# Set the emote
+	var emote = get_node("ActionsAndEmotesDialog/ActionsAndEmotes/Emote").get_item_text(ID)
+	Logger.log_info("HUD", "Setting emote to {0}...".format([emote]))
+	emit_signal("set_emote", emote)
