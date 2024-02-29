@@ -23,7 +23,6 @@ draw_center = true
 
 [node name="PauseMenu" type="Control"]
 
-visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false

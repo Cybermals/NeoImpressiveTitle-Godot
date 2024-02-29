@@ -465,6 +465,11 @@ flat = false
 
 [node name="MiniMapPanel" parent="." instance=ExtResource( 15 )]
 
+margin/left = -780.0
+margin/top = 20.0
+margin/right = -960.0
+margin/bottom = 230.0
+
 [node name="TargetHPPanel" type="Panel" parent="."]
 
 editor/display_folded = true
