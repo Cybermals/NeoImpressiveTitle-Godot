@@ -13,6 +13,7 @@ signal unblock_user(name)
 signal stash_item(name)
 signal drop_item(name)
 signal delete_item(name)
+signal equip_item(name)
 
 export (ImageTexture) var OnlineIcon
 export (ImageTexture) var OfflineIcon
@@ -29,6 +30,9 @@ enum ItemCmd {
     Stash,
     Drop,
     Delete
+}
+enum StashCmd {
+    Equip
 }
 
 var is_bio_modified = false
@@ -48,7 +52,7 @@ func _ready():
 		
 	# Fill stash item list with sample data
 	for i in range(20):
-		get_node("StashDialog/ItemList").add_item("Stashed Item {0}".format([i]))
+		get_node("StashDialog/StashList").add_item("Stashed Item {0}".format([i]))
 		
 	# Fill party list with sample data
 	for i in range(20):
@@ -256,10 +260,30 @@ func _on_ItemCtxMenu_item_pressed(ID):
 		Logger.log_info("HUD", "Stashing item {0}...".format([item]))
 		emit_signal("stash_item", item)
 		
+	# Drop item?
 	elif ID == ItemCmd.Drop:
 		Logger.log_info("HUD", "Dropping item {0}...".format([item]))
 		emit_signal("drop_item", item)
 		
+	# Delete item?
 	elif ID == ItemCmd.Delete:
 		Logger.log_info("HUD", "Deleting item {0}...".format([item]))
 		emit_signal("delete_item", item)
+
+
+func _on_StashList_item_selected(index):
+	# Display stash context menu at mouse position
+	var mouse_pos = get_global_mouse_pos()
+	get_node("StashDialog/StashCtxMenu").set_global_pos(mouse_pos)
+	get_node("StashDialog/StashCtxMenu").popup()
+
+
+func _on_StashCtxMenu_item_pressed(ID):
+	# Get selected stash item
+	var idx = get_node("StashDialog/StashList").get_selected_items()[0]
+	var item = get_node("StashDialog/StashList").get_item_text(idx)
+	
+	# Equip item?
+	if ID == StashCmd.Equip:
+		Logger.log_info("HUD", "Equipping item {0}...".format([item]))
+		emit_signal("equip_item", item)
