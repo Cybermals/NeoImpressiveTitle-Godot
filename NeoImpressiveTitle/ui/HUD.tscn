@@ -706,7 +706,6 @@ items = [ "Remove", null, false, false, false, -1, 0, null, "", false ]
 
 [node name="ItemsDialog" type="WindowDialog" parent="."]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -745,6 +744,20 @@ enabled_focus_mode = 2
 shortcut = null
 text = "Stash"
 flat = false
+
+[node name="ItemCtxMenu" type="PopupMenu" parent="ItemsDialog"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 54.0
+margin/bottom = 77.0
+popup/exclusive = false
+items = [ "Stash", null, false, false, false, -1, 0, null, "", false, "Drop", null, false, false, false, -1, 0, null, "", false, "Delete", null, false, false, false, -1, 0, null, "", false ]
 
 [node name="StashDialog" type="WindowDialog" parent="."]
 
@@ -968,6 +981,10 @@ custom_styles/bg = SubResource( 13 )
 
 [connection signal="item_pressed" from="FriendsDialog/BlockCtxMenu" to="." method="_on_BlockCtxMenu_item_pressed"]
 
+[connection signal="item_selected" from="ItemsDialog/ItemList" to="." method="_on_ItemList_item_selected"]
+
 [connection signal="pressed" from="ItemsDialog/StashButton" to="." method="_on_StashButton_pressed"]
+
+[connection signal="item_pressed" from="ItemsDialog/ItemCtxMenu" to="." method="_on_ItemCtxMenu_item_pressed"]
 
 

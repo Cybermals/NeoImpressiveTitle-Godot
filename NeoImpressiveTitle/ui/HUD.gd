@@ -10,6 +10,9 @@ signal message_friend(name)
 signal locate_friend(name)
 signal remove_friend(name)
 signal unblock_user(name)
+signal stash_item(name)
+signal drop_item(name)
+signal delete_item(name)
 
 export (ImageTexture) var OnlineIcon
 export (ImageTexture) var OfflineIcon
@@ -21,6 +24,11 @@ enum FriendCmd {
 }
 enum BlockCmd {
     Remove
+}
+enum ItemCmd {
+    Stash,
+    Drop,
+    Delete
 }
 
 var is_bio_modified = false
@@ -187,14 +195,14 @@ func _on_BioDialog_hide():
 
 func _on_FriendList_item_selected(index):
 	# Display the friend list context menu at the mouse position
-	var mouse_pos = get_node("FriendsDialog").get_global_mouse_pos()
+	var mouse_pos = get_global_mouse_pos()
 	get_node("FriendsDialog/FriendCtxMenu").set_global_pos(mouse_pos)
 	get_node("FriendsDialog/FriendCtxMenu").popup()
 
 
 func _on_BlockList_item_selected(index):
 	# Display the block list context menu at the mouse position
-	var mouse_pos = get_node("FriendsDialog").get_global_mouse_pos()
+	var mouse_pos = get_global_mouse_pos()
 	get_node("FriendsDialog/BlockCtxMenu").set_global_pos(mouse_pos)
 	get_node("FriendsDialog/BlockCtxMenu").popup()
 
@@ -229,3 +237,29 @@ func _on_BlockCtxMenu_item_pressed(ID):
 	if ID == BlockCmd.Remove:
 		Logger.log_info("HUD", "Unblocking {0}...".format([user]))
 		emit_signal("unblock_user", user)
+
+
+func _on_ItemList_item_selected(index):
+	# Display item context menu at mouse position
+	var mouse_pos = get_global_mouse_pos()
+	get_node("ItemsDialog/ItemCtxMenu").set_global_pos(mouse_pos)
+	get_node("ItemsDialog/ItemCtxMenu").popup()
+
+
+func _on_ItemCtxMenu_item_pressed(ID):
+	# Get selected item
+	var idx = get_node("ItemsDialog/ItemList").get_selected_items()[0]
+	var item = get_node("ItemsDialog/ItemList").get_item_text(idx)
+	
+	# Stash item?
+	if ID == ItemCmd.Stash:
+		Logger.log_info("HUD", "Stashing item {0}...".format([item]))
+		emit_signal("stash_item", item)
+		
+	elif ID == ItemCmd.Drop:
+		Logger.log_info("HUD", "Dropping item {0}...".format([item]))
+		emit_signal("drop_item", item)
+		
+	elif ID == ItemCmd.Delete:
+		Logger.log_info("HUD", "Deleting item {0}...".format([item]))
+		emit_signal("delete_item", item)
