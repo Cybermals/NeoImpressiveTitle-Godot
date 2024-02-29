@@ -1,0 +1,143 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
+[ext_resource path="res://ui/PauseMenu.gd" type="Script" id=2]
+[ext_resource path="res://ui/images/panel.png" type="Texture" id=3]
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 3 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 4.0
+expand_margin/right = 4.0
+expand_margin/top = 4.0
+expand_margin/bottom = 4.0
+draw_center = true
+
+[node name="PauseMenu" type="Control"]
+
+visibility/visible = false
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 984.0
+margin/bottom = 728.0
+script/script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -390.0
+margin/top = -260.0
+margin/right = -590.0
+margin/bottom = -440.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Buttons" type="VBoxContainer" parent="Panel"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 16.0
+margin/right = 0.0
+margin/bottom = 16.0
+custom_constants/separation = 16
+alignment = 0
+
+[node name="ResumeButton" type="Button" parent="Panel/Buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 200.0
+margin/bottom = 23.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Resume"
+flat = false
+
+[node name="SettingsButton" type="Button" parent="Panel/Buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 39.0
+margin/right = 200.0
+margin/bottom = 62.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Settings"
+flat = false
+
+[node name="RestartButton" type="Button" parent="Panel/Buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 78.0
+margin/right = 200.0
+margin/bottom = 101.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Restart"
+flat = false
+
+[node name="QuitButton" type="Button" parent="Panel/Buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 117.0
+margin/right = 200.0
+margin/bottom = 140.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Quit"
+flat = false
+
+[connection signal="pressed" from="Panel/Buttons/ResumeButton" to="." method="_on_ResumeButton_pressed"]
+
+[connection signal="pressed" from="Panel/Buttons/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+
+[connection signal="pressed" from="Panel/Buttons/RestartButton" to="." method="_on_RestartButton_pressed"]
+
+[connection signal="pressed" from="Panel/Buttons/QuitButton" to="." method="_on_QuitButton_pressed"]
+
+
