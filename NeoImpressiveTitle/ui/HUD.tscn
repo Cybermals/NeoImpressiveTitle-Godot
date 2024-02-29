@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=1]
+[gd_scene load_steps=27 format=1]
 
 [ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
 [ext_resource path="res://ui/HUD.gd" type="Script" id=2]
@@ -14,9 +14,7 @@
 [ext_resource path="res://ui/images/backpack.png" type="Texture" id=12]
 [ext_resource path="res://ui/images/play.png" type="Texture" id=13]
 [ext_resource path="res://ui/images/people.png" type="Texture" id=14]
-[ext_resource path="res://ui/images/minimap.png" type="Texture" id=15]
-[ext_resource path="res://ui/images/minimapArrow.png" type="Texture" id=16]
-[ext_resource path="res://ui/images/minimapCone.png" type="Texture" id=17]
+[ext_resource path="res://ui/MiniMapPanel.tscn" type="PackedScene" id=15]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -53,30 +51,6 @@ content_margin/bottom = -1.0
 
 font/size = 24
 font/use_mipmaps = true
-font/use_filter = false
-font/font = ExtResource( 6 )
-
-[sub_resource type="StyleBoxTexture" id=5]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-texture = ExtResource( 15 )
-margin/left = 0.0
-margin/right = 0.0
-margin/top = 0.0
-margin/bottom = 0.0
-expand_margin/left = 0.0
-expand_margin/right = 0.0
-expand_margin/top = 0.0
-expand_margin/bottom = 0.0
-draw_center = true
-
-[sub_resource type="DynamicFont" id=6]
-
-font/size = 24
-font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 6 )
 
@@ -463,123 +437,7 @@ shortcut = null
 icon = ExtResource( 14 )
 flat = false
 
-[node name="MiniMapPanel" type="Container" parent="."]
-
-editor/display_folded = true
-anchor/left = 1
-anchor/right = 1
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = -790.0
-margin/top = 20.0
-margin/right = -970.0
-margin/bottom = 230.0
-
-[node name="MiniMap" type="ScrollContainer" parent="MiniMapPanel"]
-
-anchor/right = 1
-anchor/bottom = 1
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 0.0
-margin/bottom = 30.0
-scroll/horizontal = false
-scroll/vertical = false
-scroll/deadzone = 0
-
-[node name="Control" type="Control" parent="MiniMapPanel/MiniMap"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 0.0
-margin/bottom = 0.0
-
-[node name="BG" type="Panel" parent="MiniMapPanel/MiniMap/Control"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 180.0
-margin/bottom = 180.0
-custom_styles/panel = SubResource( 5 )
-
-[node name="PlayerMarker" type="Sprite" parent="MiniMapPanel/MiniMap/Control/BG"]
-
-transform/pos = Vector2( 90, 90 )
-transform/scale = Vector2( 0.34375, 0.34375 )
-texture = ExtResource( 16 )
-
-[node name="LookCone" type="Sprite" parent="MiniMapPanel/MiniMap/Control/BG"]
-
-transform/pos = Vector2( 90, 90 )
-transform/scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 17 )
-
-[node name="Buttons" type="HBoxContainer" parent="MiniMapPanel"]
-
-anchor/top = 1
-anchor/right = 1
-anchor/bottom = 1
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 30.0
-margin/right = 0.0
-margin/bottom = -4.0
-alignment = 2
-
-[node name="ZoomOutButton" type="Button" parent="MiniMapPanel/Buttons"]
-
-rect/min_size = Vector2( 32, 16 )
-hint/tooltip = "Zoom Out"
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 112.0
-margin/top = 0.0
-margin/right = 144.0
-margin/bottom = 34.0
-custom_fonts/font = SubResource( 6 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "-"
-flat = false
-
-[node name="ZoomInButton" type="Button" parent="MiniMapPanel/Buttons"]
-
-rect/min_size = Vector2( 32, 16 )
-hint/tooltip = "Zoom In"
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 148.0
-margin/top = 0.0
-margin/right = 180.0
-margin/bottom = 34.0
-custom_fonts/font = SubResource( 6 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "+"
-flat = false
+[node name="MiniMapPanel" parent="." instance=ExtResource( 15 )]
 
 [node name="HomeDialog" type="WindowDialog" parent="."]
 
@@ -780,6 +638,20 @@ margin/right = 260.0
 margin/bottom = 200.0
 custom_styles/bg = SubResource( 9 )
 
+[node name="FriendCtxMenu" type="PopupMenu" parent="FriendsDialog"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 63.0
+margin/bottom = 77.0
+popup/exclusive = false
+items = [ "Message", null, false, false, false, -1, 0, null, "", false, "Where", null, false, false, false, -1, 0, null, "", false, "Remove", null, false, false, false, -1, 0, null, "", false ]
+
 [node name="HSeparator" type="HSeparator" parent="FriendsDialog"]
 
 focus/ignore_mouse = false
@@ -817,6 +689,20 @@ margin/top = 230.0
 margin/right = 260.0
 margin/bottom = 450.0
 custom_styles/bg = SubResource( 10 )
+
+[node name="BlockCtxMenu" type="PopupMenu" parent="FriendsDialog"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 54.0
+margin/bottom = 23.0
+popup/exclusive = false
+items = [ "Remove", null, false, false, false, -1, 0, null, "", false ]
 
 [node name="ItemsDialog" type="WindowDialog" parent="."]
 
@@ -1059,6 +945,28 @@ custom_styles/bg = SubResource( 13 )
 [connection signal="pressed" from="PlayerHPPanel/Buttons/ActionsButton" to="." method="_on_ActionsButton_pressed"]
 
 [connection signal="pressed" from="PlayerHPPanel/Buttons/PartyButton" to="." method="_on_PartyButton_pressed"]
+
+[connection signal="pressed" from="HomeDialog/Widgets/SetHomeButton" to="." method="_on_SetHomeButton_pressed"]
+
+[connection signal="pressed" from="HomeDialog/Widgets/GoHomeButton" to="." method="_on_GoHomeButton_pressed"]
+
+[connection signal="pressed" from="HomeDialog/Widgets/ResetHomeButton" to="." method="_on_ResetHomeButton_pressed"]
+
+[connection signal="item_selected" from="HomeDialog/Widgets/Dimension" to="." method="_on_Dimension_item_selected"]
+
+[connection signal="hide" from="BioDialog" to="." method="_on_BioDialog_hide"]
+
+[connection signal="popup_hide" from="BioDialog" to="." method="_on_BioDialog_popup_hide"]
+
+[connection signal="text_changed" from="BioDialog/Bio" to="." method="_on_Bio_text_changed"]
+
+[connection signal="item_selected" from="FriendsDialog/FriendList" to="." method="_on_FriendList_item_selected"]
+
+[connection signal="item_pressed" from="FriendsDialog/FriendCtxMenu" to="." method="_on_FriendCtxMenu_item_pressed"]
+
+[connection signal="item_selected" from="FriendsDialog/BlockList" to="." method="_on_BlockList_item_selected"]
+
+[connection signal="item_pressed" from="FriendsDialog/BlockCtxMenu" to="." method="_on_BlockCtxMenu_item_pressed"]
 
 [connection signal="pressed" from="ItemsDialog/StashButton" to="." method="_on_StashButton_pressed"]
 

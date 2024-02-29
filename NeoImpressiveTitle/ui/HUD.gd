@@ -1,9 +1,29 @@
 extends Control
 
 signal send_message(type, message)
+signal set_home
+signal go_home
+signal reset_home
+signal set_dimension(id)
+signal save_bio(text)
+signal message_friend(name)
+signal locate_friend(name)
+signal remove_friend(name)
+signal unblock_user(name)
 
 export (ImageTexture) var OnlineIcon
 export (ImageTexture) var OfflineIcon
+
+enum FriendCmd {
+    Message,
+    Where,
+    Remove
+}
+enum BlockCmd {
+    Remove
+}
+
+var is_bio_modified = false
 
 
 func _ready():
@@ -126,3 +146,86 @@ func _on_StashButton_pressed():
 		
 	else:
 		get_node("StashDialog").show()
+
+
+func _on_SetHomeButton_pressed():
+	Logger.log_info("HUD", "Setting home...")
+	emit_signal("set_home")
+
+
+func _on_GoHomeButton_pressed():
+	Logger.log_info("HUD", "Going home...")
+	emit_signal("go_home")
+
+
+func _on_ResetHomeButton_pressed():
+	Logger.log_info("HUD", "Resetting home...")
+	emit_signal("reset_home")
+
+
+func _on_Dimension_item_selected(ID):
+	Logger.log_info("HUD", "Switching to dimension {0}...".format([ID]))
+	emit_signal("set_dimension", ID)
+
+
+func _on_Bio_text_changed():
+	# Set bio modification flag
+	is_bio_modified = true
+
+
+func _on_BioDialog_hide():
+	# Is the bio text modified?
+	if is_bio_modified:
+		# Save the modified bio
+		Logger.log_info("HUD", "Saving bio...")
+		var text = get_node("BioDialog/Bio").get_text()
+		emit_signal("save_bio", text)
+		
+		# Clear bio modification flag
+		is_bio_modified = false
+
+
+func _on_FriendList_item_selected(index):
+	# Display the friend list context menu at the mouse position
+	var mouse_pos = get_node("FriendsDialog").get_global_mouse_pos()
+	get_node("FriendsDialog/FriendCtxMenu").set_global_pos(mouse_pos)
+	get_node("FriendsDialog/FriendCtxMenu").popup()
+
+
+func _on_BlockList_item_selected(index):
+	# Display the block list context menu at the mouse position
+	var mouse_pos = get_node("FriendsDialog").get_global_mouse_pos()
+	get_node("FriendsDialog/BlockCtxMenu").set_global_pos(mouse_pos)
+	get_node("FriendsDialog/BlockCtxMenu").popup()
+
+
+func _on_FriendCtxMenu_item_pressed(ID):
+	# Get selected friend
+	var idx = get_node("FriendsDialog/FriendList").get_selected_items()[0]
+	var friend = get_node("FriendsDialog/FriendList").get_item_text(idx)
+	
+	# Message friend?
+	if ID == FriendCmd.Message:
+		Logger.log_info("HUD", "Messaging friend {0}...".format([friend]))
+		emit_signal("message_friend", friend)
+		
+	# Get friend location?
+	elif ID == FriendCmd.Where:
+		Logger.log_info("HUD", "Getting location of {0}...".format([friend]))
+		emit_signal("locate_friend", friend)
+		
+	# Remove friend
+	elif ID == FriendCmd.Remove:
+		Logger.log_info("HUD", "Removing friend {0}...".format([friend]))
+		emit_signal("remove_friend", friend)
+
+
+func _on_BlockCtxMenu_item_pressed(ID):
+	# Get selected blocked user
+	var idx = get_node("FriendsDialog/BlockList").get_selected_items()[0]
+	var user = get_node("FriendsDialog/BlockList").get_item_text(idx)
+	
+	# Remove blocked user
+	if ID == BlockCmd.Remove:
+		Logger.log_info("HUD", "Unblocking {0}...".format([user]))
+		emit_signal("unblock_user", user)
