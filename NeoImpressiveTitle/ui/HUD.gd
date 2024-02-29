@@ -17,6 +17,7 @@ signal equip_item(name)
 signal set_primary_action(name)
 signal set_secondary_action(name)
 signal set_emote(name)
+signal leave_party
 
 export (ImageTexture) var OnlineIcon
 export (ImageTexture) var OfflineIcon
@@ -311,3 +312,8 @@ func _on_Emote_item_selected(ID):
 	var emote = get_node("ActionsAndEmotesDialog/ActionsAndEmotes/Emote").get_item_text(ID)
 	Logger.log_info("HUD", "Setting emote to {0}...".format([emote]))
 	emit_signal("set_emote", emote)
+
+
+func _on_LeavePartyButton_pressed():
+	Logger.log_info("HUD", "Leaving current party...")
+	emit_signal("leave_party")

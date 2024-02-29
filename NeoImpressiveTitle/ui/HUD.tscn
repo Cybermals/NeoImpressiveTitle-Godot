@@ -930,6 +930,7 @@ items = [ "Normal", null, false, -1, null, "Smile", null, false, -1, null, "Grin
 
 [node name="PartyDialog" type="WindowDialog" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -952,6 +953,23 @@ margin/top = 0.0
 margin/right = 250.0
 margin/bottom = 250.0
 custom_styles/bg = SubResource( 13 )
+
+[node name="LeavePartyButton" type="Button" parent="PartyDialog"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 60.0
+margin/top = 230.0
+margin/right = 200.0
+margin/bottom = 253.0
+disabled = true
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Leave Party"
+flat = false
 
 [connection signal="pressed" from="ShowChatButton" to="." method="_on_ShowChatButton_pressed"]
 
@@ -1010,5 +1028,7 @@ custom_styles/bg = SubResource( 13 )
 [connection signal="item_selected" from="ActionsAndEmotesDialog/ActionsAndEmotes/SecondaryAction" to="." method="_on_SecondaryAction_item_selected"]
 
 [connection signal="item_selected" from="ActionsAndEmotesDialog/ActionsAndEmotes/Emote" to="." method="_on_Emote_item_selected"]
+
+[connection signal="pressed" from="PartyDialog/LeavePartyButton" to="." method="_on_LeavePartyButton_pressed"]
 
 
