@@ -1,0 +1,126 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://ui/SplashScreen.gd" type="Script" id=1]
+[ext_resource path="res://ui/images/logo.jpg" type="Texture" id=2]
+[ext_resource path="res://ui/images/logowaves.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemShaderGraph" id=1]
+
+_code = {
+"default_tex": [ "Base", ExtResource( 3 ) ],
+"fragment": "vec3 nd1sl2=vec3(UV,0);
+float nd5sl0=TIME;
+float nd4sl2def=0;
+vec3 nd4sl0=vec3(nd5sl0,nd5sl0,nd4sl2def);
+vec3 nd6sl1def=vec3(0.1, -0.1, 0);
+vec3 nd6sl0=nd4sl0*nd6sl1def;
+vec3 nd3sl0=nd1sl2+nd6sl0;
+uniform texture Base;vec4 rt_read_tex2=tex(Base,nd3sl0.xy);
+vec3 nd2sl0=rt_read_tex2.rgb;
+float nd2sl1=rt_read_tex2.a;
+COLOR.rgb=nd2sl0;
+COLOR.a=nd2sl1;
+",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+_data = {
+"shaders": [ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 853, 38 ), null, null, [ 0, 2, 0, 1, 2, 1 ], 1, 0, Vector2( 50, 40 ), null, null, [  ], 2, 30, Vector2( 597, 34 ), "Base", ExtResource( 3 ), [ 0, 3, 0, 2147483647, 0, null ], 3, 8, Vector2( 395, 101 ), 0, null, [ 0, 1, 2, 1, 6, 0, 2147483647, 0, null, 2147483647, 1, null ], 4, 19, Vector2( 52, 304 ), null, null, [ 0, 5, 0, 1, 5, 0, 2147483647, 0, null, 2147483647, 1, null, 2147483647, 2, null ], 5, 5, Vector2( -110, 245.364 ), null, null, [  ], 6, 8, Vector2( 221, 229.364 ), 2, null, [ 0, 4, 0, 2147483647, 0, null, 2147483647, 1, Vector3( 0.1, -0.1, 0 ) ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ]
+}
+
+[sub_resource type="CanvasItemMaterial" id=2]
+
+shader/shader = SubResource( 1 )
+shader/shading_mode = 0
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "Transition"
+length = 8.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Logo:modulate")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 6, 8 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[node name="SplashScreen" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 984.0
+margin/bottom = 728.0
+script/script = ExtResource( 1 )
+
+[node name="BG" type="ColorFrame" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = -984.0
+margin/bottom = -728.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Logo" type="TextureFrame" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = -984.0
+margin/bottom = -728.0
+texture = ExtResource( 2 )
+stretch_mode = 6
+
+[node name="Waves" type="Panel" parent="."]
+
+material/material = SubResource( 2 )
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = -984.0
+margin/bottom = -728.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/Transition = SubResource( 3 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "Transition"
+
+[connection signal="finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_finished"]
+
+

@@ -1,0 +1,146 @@
+[gd_scene load_steps=8 format=1]
+
+[ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
+[ext_resource path="res://ui/images/minimap.png" type="Texture" id=2]
+[ext_resource path="res://ui/images/minimapArrow.png" type="Texture" id=3]
+[ext_resource path="res://ui/images/minimapCone.png" type="Texture" id=4]
+[ext_resource path="res://ui/fonts/ConsolaMono.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 2 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="DynamicFont" id=2]
+
+font/size = 24
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 5 )
+
+[node name="MiniMap" type="Container"]
+
+anchor/left = 1
+anchor/right = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 1024.0
+margin/top = 0.0
+margin/right = 844.0
+margin/bottom = 210.0
+
+[node name="MiniMapView" type="ScrollContainer" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 180.0
+margin/bottom = 180.0
+scroll/horizontal = false
+scroll/vertical = false
+scroll/deadzone = 0
+
+[node name="Control" type="Control" parent="MiniMapView"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="BG" type="Panel" parent="MiniMapView/Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 180.0
+margin/bottom = 180.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="PlayerMarker" type="Sprite" parent="MiniMapView/Control/BG"]
+
+transform/pos = Vector2( 90, 90 )
+transform/scale = Vector2( 0.34375, 0.34375 )
+texture = ExtResource( 3 )
+
+[node name="LookCone" type="Sprite" parent="MiniMapView/Control/BG"]
+
+transform/pos = Vector2( 90, 90 )
+transform/scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 4 )
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 180.0
+margin/right = 180.0
+margin/bottom = 214.0
+alignment = 2
+
+[node name="ZoomOutButton" type="Button" parent="Buttons"]
+
+rect/min_size = Vector2( 32, 16 )
+hint/tooltip = "Zoom Out"
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 112.0
+margin/top = 0.0
+margin/right = 144.0
+margin/bottom = 34.0
+custom_fonts/font = SubResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "-"
+flat = false
+
+[node name="ZoomInButton" type="Button" parent="Buttons"]
+
+rect/min_size = Vector2( 32, 16 )
+hint/tooltip = "Zoom In"
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 148.0
+margin/top = 0.0
+margin/right = 180.0
+margin/bottom = 34.0
+custom_fonts/font = SubResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "+"
+flat = false
+
+

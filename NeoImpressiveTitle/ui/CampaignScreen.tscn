@@ -1,0 +1,155 @@
+[gd_scene load_steps=8 format=1]
+
+[ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
+[ext_resource path="res://ui/CampaignScreen.gd" type="Script" id=2]
+[ext_resource path="res://ui/images/backdrop1.jpg" type="Texture" id=3]
+[ext_resource path="res://ui/images/startscreen.png" type="Texture" id=4]
+[ext_resource path="res://ui/fonts/ConsolaMono.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 4 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 16.0
+expand_margin/right = 16.0
+expand_margin/top = 16.0
+expand_margin/bottom = 16.0
+draw_center = true
+
+[sub_resource type="DynamicFont" id=2]
+
+font/size = 24
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 5 )
+
+[node name="CampaignScreen" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 984.0
+margin/bottom = 728.0
+script/script = ExtResource( 2 )
+
+[node name="BG" type="TextureFrame" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = -984.0
+margin/bottom = -728.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 0
+
+[node name="Panel" type="Panel" parent="."]
+
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 60.0
+margin/top = 50.0
+margin/right = 450.0
+margin/bottom = -660.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="CampaignLabel" type="Label" parent="Panel"]
+
+anchor/right = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 10.0
+margin/bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 0.46875, 0, 1 )
+text = "Campaign"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="CampaignList" type="ItemList" parent="Panel"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 20.0
+margin/top = 60.0
+margin/right = 30.0
+margin/bottom = 90.0
+
+[node name="BackButton" type="Button" parent="Panel"]
+
+anchor/top = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 20.0
+margin/top = 50.0
+margin/right = 110.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Back"
+flat = false
+
+[node name="StartButton" type="Button" parent="Panel"]
+
+anchor/left = 1
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 110.0
+margin/top = 50.0
+margin/right = 20.0
+margin/bottom = 20.0
+disabled = true
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Start"
+flat = false
+
+[connection signal="item_selected" from="Panel/CampaignList" to="." method="_on_CampaignList_item_selected"]
+
+[connection signal="pressed" from="Panel/BackButton" to="." method="_on_BackButton_pressed"]
+
+[connection signal="pressed" from="Panel/StartButton" to="." method="_on_StartButton_pressed"]
+
+
