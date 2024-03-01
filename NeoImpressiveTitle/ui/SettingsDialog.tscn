@@ -1,0 +1,352 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
+[ext_resource path="res://ui/images/panel.png" type="Texture" id=2]
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 2 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 4.0
+expand_margin/right = 4.0
+expand_margin/top = 4.0
+expand_margin/bottom = 4.0
+draw_center = true
+
+[node name="SettingsDialog" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 984.0
+margin/bottom = 728.0
+
+[node name="Panel" type="Panel" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -240.0
+margin/top = -100.0
+margin/right = -740.0
+margin/bottom = -630.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 10.0
+margin/right = 10.0
+margin/bottom = 70.0
+scroll/horizontal = true
+scroll/vertical = true
+scroll/deadzone = 0
+
+[node name="Inputs" type="VBoxContainer" parent="Panel/ScrollContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 444.0
+margin/bottom = 209.0
+alignment = 0
+
+[node name="Music" type="HBoxContainer" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 444.0
+margin/bottom = 23.0
+alignment = 0
+
+[node name="MusicLabel" type="Label" parent="Panel/ScrollContainer/Inputs/Music"]
+
+rect/min_size = Vector2( 140, 0 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 140.0
+margin/bottom = 23.0
+text = "Music:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="MusicVolume" type="HSlider" parent="Panel/ScrollContainer/Inputs/Music"]
+
+rect/min_size = Vector2( 300, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 144.0
+margin/top = 3.0
+margin/right = 444.0
+margin/bottom = 19.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 0.0
+range/exp_edit = false
+range/rounded = false
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 2
+
+[node name="GUISound" type="HBoxContainer" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 27.0
+margin/right = 444.0
+margin/bottom = 50.0
+alignment = 0
+
+[node name="GUISoundLabel" type="Label" parent="Panel/ScrollContainer/Inputs/GUISound"]
+
+rect/min_size = Vector2( 140, 0 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 140.0
+margin/bottom = 23.0
+text = "GUI Sound:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="GUISoundVolume" type="HSlider" parent="Panel/ScrollContainer/Inputs/GUISound"]
+
+rect/min_size = Vector2( 300, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 144.0
+margin/top = 3.0
+margin/right = 444.0
+margin/bottom = 19.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 0.0
+range/exp_edit = false
+range/rounded = false
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 2
+
+[node name="Sound" type="HBoxContainer" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 54.0
+margin/right = 444.0
+margin/bottom = 77.0
+alignment = 0
+
+[node name="SoundLabel" type="Label" parent="Panel/ScrollContainer/Inputs/Sound"]
+
+rect/min_size = Vector2( 140, 0 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 140.0
+margin/bottom = 23.0
+text = "Sound:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="SoundVolume" type="HSlider" parent="Panel/ScrollContainer/Inputs/Sound"]
+
+rect/min_size = Vector2( 300, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 144.0
+margin/top = 3.0
+margin/right = 444.0
+margin/bottom = 19.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 0.0
+range/exp_edit = false
+range/rounded = false
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 2
+
+[node name="Shadows" type="CheckButton" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 81.0
+margin/right = 444.0
+margin/bottom = 112.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Shadows:"
+flat = false
+align = 0
+
+[node name="BloomEffect" type="CheckButton" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 116.0
+margin/right = 444.0
+margin/bottom = 147.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Bloom Effect:"
+flat = false
+align = 0
+
+[node name="PagedGeometry" type="CheckButton" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 151.0
+margin/right = 444.0
+margin/bottom = 182.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Paged Geometry:"
+flat = false
+align = 0
+
+[node name="ViewDistance" type="HBoxContainer" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 186.0
+margin/right = 444.0
+margin/bottom = 209.0
+alignment = 0
+
+[node name="ViewDistanceLabel" type="Label" parent="Panel/ScrollContainer/Inputs/ViewDistance"]
+
+rect/min_size = Vector2( 140, 0 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 140.0
+margin/bottom = 23.0
+text = "View Distance:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ViewDistance" type="HSlider" parent="Panel/ScrollContainer/Inputs/ViewDistance"]
+
+rect/min_size = Vector2( 300, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 144.0
+margin/top = 3.0
+margin/right = 444.0
+margin/bottom = 19.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 0.0
+range/exp_edit = false
+range/rounded = false
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 2
+
+[node name="BackButton" type="Button" parent="Panel"]
+
+anchor/left = 3
+anchor/top = 1
+anchor/right = 3
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 30.0
+margin/top = 40.0
+margin/right = -40.0
+margin/bottom = 7.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Back"
+flat = false
+
+
