@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
-[ext_resource path="res://ui/images/panel.png" type="Texture" id=2]
+[ext_resource path="res://ui/SettingsDialog.gd" type="Script" id=2]
+[ext_resource path="res://ui/images/panel.png" type="Texture" id=3]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -9,7 +10,7 @@ content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 margin/left = 0.0
 margin/right = 0.0
 margin/top = 0.0
@@ -33,6 +34,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 984.0
 margin/bottom = 728.0
+script/script = ExtResource( 2 )
 
 [node name="Panel" type="Panel" parent="."]
 
@@ -74,8 +76,8 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 444.0
-margin/bottom = 209.0
+margin/right = 443.0
+margin/bottom = 492.0
 alignment = 0
 
 [node name="Music" type="HBoxContainer" parent="Panel/ScrollContainer/Inputs"]
@@ -86,20 +88,20 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 444.0
+margin/right = 443.0
 margin/bottom = 23.0
 alignment = 0
 
 [node name="MusicLabel" type="Label" parent="Panel/ScrollContainer/Inputs/Music"]
 
-rect/min_size = Vector2( 140, 0 )
+rect/min_size = Vector2( 189, 0 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 140.0
+margin/right = 189.0
 margin/bottom = 23.0
 text = "Music:"
 percent_visible = 1.0
@@ -108,14 +110,14 @@ max_lines_visible = -1
 
 [node name="MusicVolume" type="HSlider" parent="Panel/ScrollContainer/Inputs/Music"]
 
-rect/min_size = Vector2( 300, 0 )
+rect/min_size = Vector2( 250, 0 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 144.0
+margin/left = 193.0
 margin/top = 3.0
-margin/right = 444.0
+margin/right = 443.0
 margin/bottom = 19.0
 range/min = 0.0
 range/max = 100.0
@@ -136,20 +138,20 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 27.0
-margin/right = 444.0
+margin/right = 443.0
 margin/bottom = 50.0
 alignment = 0
 
 [node name="GUISoundLabel" type="Label" parent="Panel/ScrollContainer/Inputs/GUISound"]
 
-rect/min_size = Vector2( 140, 0 )
+rect/min_size = Vector2( 189, 0 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 140.0
+margin/right = 189.0
 margin/bottom = 23.0
 text = "GUI Sound:"
 percent_visible = 1.0
@@ -158,14 +160,14 @@ max_lines_visible = -1
 
 [node name="GUISoundVolume" type="HSlider" parent="Panel/ScrollContainer/Inputs/GUISound"]
 
-rect/min_size = Vector2( 300, 0 )
+rect/min_size = Vector2( 250, 0 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 144.0
+margin/left = 193.0
 margin/top = 3.0
-margin/right = 444.0
+margin/right = 443.0
 margin/bottom = 19.0
 range/min = 0.0
 range/max = 100.0
@@ -186,20 +188,20 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 54.0
-margin/right = 444.0
+margin/right = 443.0
 margin/bottom = 77.0
 alignment = 0
 
 [node name="SoundLabel" type="Label" parent="Panel/ScrollContainer/Inputs/Sound"]
 
-rect/min_size = Vector2( 140, 0 )
+rect/min_size = Vector2( 189, 0 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 140.0
+margin/right = 189.0
 margin/bottom = 23.0
 text = "Sound:"
 percent_visible = 1.0
@@ -208,14 +210,14 @@ max_lines_visible = -1
 
 [node name="SoundVolume" type="HSlider" parent="Panel/ScrollContainer/Inputs/Sound"]
 
-rect/min_size = Vector2( 300, 0 )
+rect/min_size = Vector2( 250, 0 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 144.0
+margin/left = 193.0
 margin/top = 3.0
-margin/right = 444.0
+margin/right = 443.0
 margin/bottom = 19.0
 range/min = 0.0
 range/max = 100.0
@@ -236,7 +238,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 81.0
-margin/right = 444.0
+margin/right = 443.0
 margin/bottom = 112.0
 toggle_mode = true
 enabled_focus_mode = 2
@@ -253,7 +255,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 116.0
-margin/right = 444.0
+margin/right = 443.0
 margin/bottom = 147.0
 toggle_mode = true
 enabled_focus_mode = 2
@@ -270,7 +272,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 151.0
-margin/right = 444.0
+margin/right = 443.0
 margin/bottom = 182.0
 toggle_mode = true
 enabled_focus_mode = 2
@@ -287,20 +289,20 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 186.0
-margin/right = 444.0
+margin/right = 443.0
 margin/bottom = 209.0
 alignment = 0
 
 [node name="ViewDistanceLabel" type="Label" parent="Panel/ScrollContainer/Inputs/ViewDistance"]
 
-rect/min_size = Vector2( 140, 0 )
+rect/min_size = Vector2( 189, 0 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 140.0
+margin/right = 189.0
 margin/bottom = 23.0
 text = "View Distance:"
 percent_visible = 1.0
@@ -309,14 +311,14 @@ max_lines_visible = -1
 
 [node name="ViewDistance" type="HSlider" parent="Panel/ScrollContainer/Inputs/ViewDistance"]
 
-rect/min_size = Vector2( 300, 0 )
+rect/min_size = Vector2( 250, 0 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 144.0
+margin/left = 193.0
 margin/top = 3.0
-margin/right = 444.0
+margin/right = 443.0
 margin/bottom = 19.0
 range/min = 0.0
 range/max = 100.0
@@ -329,7 +331,285 @@ tick_count = 0
 ticks_on_borders = true
 focus_mode = 2
 
-[node name="BackButton" type="Button" parent="Panel"]
+[node name="UseTablet" type="CheckButton" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 213.0
+margin/right = 443.0
+margin/bottom = 244.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Use Tablet:"
+flat = false
+align = 0
+
+[node name="MouseSensitivity" type="HBoxContainer" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 248.0
+margin/right = 443.0
+margin/bottom = 271.0
+alignment = 0
+
+[node name="MouseSensitivityLabel" type="Label" parent="Panel/ScrollContainer/Inputs/MouseSensitivity"]
+
+rect/min_size = Vector2( 189, 0 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 189.0
+margin/bottom = 23.0
+text = "Mouse Sensitivity:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="MouseSensitivity" type="HSlider" parent="Panel/ScrollContainer/Inputs/MouseSensitivity"]
+
+rect/min_size = Vector2( 250, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 193.0
+margin/top = 3.0
+margin/right = 443.0
+margin/bottom = 19.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 0.0
+range/exp_edit = false
+range/rounded = false
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 2
+
+[node name="GeneralNameDisplay" type="HBoxContainer" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 275.0
+margin/right = 443.0
+margin/bottom = 298.0
+alignment = 0
+
+[node name="GeneralNameDisplayLabel" type="Label" parent="Panel/ScrollContainer/Inputs/GeneralNameDisplay"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 189.0
+margin/bottom = 23.0
+text = "General Name Display:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="GeneralNameDisplay" type="OptionButton" parent="Panel/ScrollContainer/Inputs/GeneralNameDisplay"]
+
+rect/min_size = Vector2( 250, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 193.0
+margin/top = 0.0
+margin/right = 443.0
+margin/bottom = 23.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Username"
+flat = false
+align = 0
+selected = 0
+items = [ "Username", null, false, -1, null, "Charname", null, false, -1, null ]
+
+[node name="LocalNameDisplay" type="HBoxContainer" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 302.0
+margin/right = 443.0
+margin/bottom = 325.0
+alignment = 0
+
+[node name="LocalNameDisplayLabel" type="Label" parent="Panel/ScrollContainer/Inputs/LocalNameDisplay"]
+
+rect/min_size = Vector2( 189, 0 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 189.0
+margin/bottom = 23.0
+text = "Local Name Display:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="LocalNameDisplay" type="OptionButton" parent="Panel/ScrollContainer/Inputs/LocalNameDisplay"]
+
+rect/min_size = Vector2( 250, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 193.0
+margin/top = 0.0
+margin/right = 443.0
+margin/bottom = 23.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Username"
+flat = false
+align = 0
+selected = 0
+items = [ "Username", null, false, -1, null, "Charname", null, false, -1, null ]
+
+[node name="ChannelButtonBlink" type="CheckButton" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 329.0
+margin/right = 443.0
+margin/bottom = 360.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Channel Button Blink:"
+flat = false
+align = 0
+
+[node name="RunMode" type="HBoxContainer" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 364.0
+margin/right = 443.0
+margin/bottom = 387.0
+alignment = 0
+
+[node name="RunModeLabel" type="Label" parent="Panel/ScrollContainer/Inputs/RunMode"]
+
+rect/min_size = Vector2( 189, 0 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 189.0
+margin/bottom = 23.0
+text = "Run Mode:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="RunMode" type="OptionButton" parent="Panel/ScrollContainer/Inputs/RunMode"]
+
+rect/min_size = Vector2( 250, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 193.0
+margin/top = 0.0
+margin/right = 443.0
+margin/bottom = 23.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Absolute"
+flat = false
+align = 0
+selected = 0
+items = [ "Absolute", null, false, -1, null, "Relative", null, false, -1, null ]
+
+[node name="DoubleJump" type="CheckButton" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 391.0
+margin/right = 443.0
+margin/bottom = 422.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Double Jump:"
+flat = false
+align = 0
+
+[node name="AutoLipsync" type="CheckButton" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 426.0
+margin/right = 443.0
+margin/bottom = 457.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Auto Lipsync:"
+flat = false
+align = 0
+
+[node name="UseWindowCursor" type="CheckButton" parent="Panel/ScrollContainer/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 461.0
+margin/right = 443.0
+margin/bottom = 492.0
+toggle_mode = true
+enabled_focus_mode = 2
+shortcut = null
+text = "Use Window Cursor:"
+flat = false
+align = 0
+
+[node name="SaveButton" type="Button" parent="Panel"]
 
 anchor/left = 3
 anchor/top = 1
@@ -346,7 +626,9 @@ margin/bottom = 7.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Back"
+text = "Save"
 flat = false
+
+[connection signal="pressed" from="Panel/SaveButton" to="." method="_on_SaveButton_pressed"]
 
 
