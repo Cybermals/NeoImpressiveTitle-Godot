@@ -19,9 +19,21 @@ signal set_secondary_action(name)
 signal set_emote(name)
 signal leave_party
 
+export (Color) var general_chat_color
+export (Color) var local_chat_color
+export (Color) var party_chat_color
+export (Color) var whisper_chat_color
+export (Color) var system_chat_color
 export (ImageTexture) var OnlineIcon
 export (ImageTexture) var OfflineIcon
 
+enum ChatMode {
+    General,
+    Local,
+    Party,
+    Whisper,
+    System
+}
 enum FriendCmd {
     Message,
     Where,
@@ -43,6 +55,13 @@ var is_bio_modified = false
 
 
 func _ready():
+	# Fill the chat history with sample data
+	add_chat_text(ChatMode.General, "DylanCheetah", "General Chat")
+	add_chat_text(ChatMode.Local, "DylanCheetah", "Local Chat")
+	add_chat_text(ChatMode.Party, "DylanCheetah", "Party Chat")
+	add_chat_text(ChatMode.Whisper, "DylanCheetah", "Whisper Chat")
+	add_chat_text(ChatMode.System, "", "System Message")
+	
 	# Fill friend and block lists with sample data
 	for i in range(20):
 		get_node("FriendsDialog/FriendList").add_item("Friend {0}".format([i]), OnlineIcon if i % 4 else OfflineIcon)
@@ -73,6 +92,38 @@ func hide_chat():
 	# Hide the chat box and show the show chat button
 	get_node("ChatBox").hide()
 	get_node("ShowChatButton").show()
+	
+	
+func add_chat_text(mode, user, text):
+	# Choose text color based on chat mode
+	var color
+	
+	if mode == ChatMode.General:
+		color = general_chat_color
+	
+	elif mode == ChatMode.Local:
+		color = local_chat_color
+		
+	elif mode == ChatMode.Party:
+		color = party_chat_color
+		
+	elif mode == ChatMode.Whisper:
+		color = whisper_chat_color
+		
+	elif mode == ChatMode.System:
+		color = system_chat_color
+		
+	# Set the text color and add the text followed by a new line
+	get_node("ChatBox/ChatHistoryPanel/ChatHistory").push_color(color)
+	
+	if mode == ChatMode.System:
+		get_node("ChatBox/ChatHistoryPanel/ChatHistory").add_text(text)
+		
+	else:
+		get_node("ChatBox/ChatHistoryPanel/ChatHistory").add_text("<{0}> {1}".format([user, text]))
+		
+	get_node("ChatBox/ChatHistoryPanel/ChatHistory").newline()
+	get_node("ChatBox/ChatHistoryPanel/ChatHistory").pop()
 	
 	
 func send_message():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=1]
+[gd_scene load_steps=30 format=1]
 
 [ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
 [ext_resource path="res://ui/HUD.gd" type="Script" id=2]
@@ -42,21 +42,14 @@ content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
 
-[sub_resource type="StyleBoxEmpty" id=3]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 
 font/size = 24
 font/use_mipmaps = true
 font/use_filter = false
 font/font = ExtResource( 6 )
 
-[sub_resource type="StyleBoxTexture" id=5]
+[sub_resource type="StyleBoxTexture" id=4]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -73,19 +66,26 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=5]
 
 font/size = 24
 font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=6]
 
 font/size = 24
 font/use_mipmaps = true
 font/use_filter = false
 font/font = ExtResource( 6 )
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id=8]
 
@@ -122,13 +122,6 @@ content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
 
-[sub_resource type="StyleBoxEmpty" id=13]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-
 [node name="HUD" type="Control"]
 
 anchor/right = 1
@@ -143,6 +136,11 @@ margin/top = 0.0
 margin/right = 984.0
 margin/bottom = 728.0
 script/script = ExtResource( 2 )
+general_chat_color = Color( 1, 1, 1, 1 )
+local_chat_color = Color( 1, 1, 0, 1 )
+party_chat_color = Color( 0, 1, 0, 1 )
+whisper_chat_color = Color( 0, 1, 1, 1 )
+system_chat_color = Color( 1, 1, 1, 1 )
 OnlineIcon = ExtResource( 3 )
 OfflineIcon = ExtResource( 4 )
 
@@ -166,7 +164,6 @@ flat = false
 
 [node name="ChatBox" type="Container" parent="."]
 
-editor/display_folded = true
 visibility/visible = false
 anchor/top = 1
 anchor/bottom = 1
@@ -207,7 +204,7 @@ margin/right = 420.0
 margin/bottom = 180.0
 custom_styles/panel = SubResource( 1 )
 
-[node name="ChatHistory" type="TextEdit" parent="ChatBox/ChatHistoryPanel"]
+[node name="ChatHistory" type="RichTextLabel" parent="ChatBox/ChatHistoryPanel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -217,13 +214,10 @@ margin/left = 8.0
 margin/top = 4.0
 margin/right = 412.0
 margin/bottom = 146.0
-custom_styles/normal = SubResource( 2 )
-syntax_highlighting = false
-show_line_numbers = false
-highlight_all_occurrences = false
-caret/block_caret = false
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+percent_visible = 1.0
 
 [node name="ChatMode" type="OptionButton" parent="ChatBox"]
 
@@ -242,7 +236,7 @@ text = "General"
 flat = false
 align = 0
 selected = 0
-items = [ "General", null, false, -1, null, "Local", null, false, -1, null, "Party", null, false, -1, null, "Whisper", null, false, -1, null ]
+items = [ "General", null, false, 0, null, "Local", null, false, 1, null, "Party", null, false, 2, null, "Whisper", null, false, 3, null ]
 
 [node name="ChatInputPanel" type="Panel" parent="ChatBox"]
 
@@ -266,7 +260,7 @@ margin/left = 8.0
 margin/top = 4.0
 margin/right = 360.0
 margin/bottom = 27.0
-custom_styles/normal = SubResource( 3 )
+custom_styles/normal = SubResource( 2 )
 placeholder/alpha = 0.6
 focus_mode = 2
 caret/caret_blink = false
@@ -315,7 +309,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 23.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0.421875, 0, 1 )
 text = "Attack"
 align = 2
@@ -482,7 +476,7 @@ margin/left = 20.0
 margin/top = 20.0
 margin/right = 360.0
 margin/bottom = 110.0
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 4 )
 
 [node name="TargetNameLabel" type="Label" parent="TargetHPPanel"]
 
@@ -495,7 +489,7 @@ margin/left = 10.0
 margin/top = 0.0
 margin/right = 10.0
 margin/bottom = 34.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 1, 0.421875, 0, 1 )
 text = "Target"
 align = 2
@@ -665,7 +659,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 126.0
 margin/bottom = 34.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 6 )
 text = "Character"
 percent_visible = 1.0
 lines_skipped = 0
@@ -681,7 +675,7 @@ margin/left = 0.0
 margin/top = 30.0
 margin/right = 220.0
 margin/bottom = 490.0
-custom_styles/normal = SubResource( 8 )
+custom_styles/normal = SubResource( 7 )
 syntax_highlighting = false
 show_line_numbers = false
 highlight_all_occurrences = false
@@ -729,7 +723,7 @@ margin/left = 0.0
 margin/top = 20.0
 margin/right = 260.0
 margin/bottom = 200.0
-custom_styles/bg = SubResource( 9 )
+custom_styles/bg = SubResource( 8 )
 
 [node name="FriendCtxMenu" type="PopupMenu" parent="FriendsDialog"]
 
@@ -781,7 +775,7 @@ margin/left = 0.0
 margin/top = 230.0
 margin/right = 260.0
 margin/bottom = 450.0
-custom_styles/bg = SubResource( 10 )
+custom_styles/bg = SubResource( 9 )
 
 [node name="BlockCtxMenu" type="PopupMenu" parent="FriendsDialog"]
 
@@ -822,7 +816,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 220.0
 margin/bottom = 190.0
-custom_styles/bg = SubResource( 11 )
+custom_styles/bg = SubResource( 10 )
 
 [node name="StashButton" type="Button" parent="ItemsDialog"]
 
@@ -879,7 +873,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 220.0
 margin/bottom = 190.0
-custom_styles/bg = SubResource( 12 )
+custom_styles/bg = SubResource( 11 )
 
 [node name="StashCtxMenu" type="PopupMenu" parent="StashDialog"]
 
@@ -1049,7 +1043,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 250.0
 margin/bottom = 250.0
-custom_styles/bg = SubResource( 13 )
+custom_styles/bg = SubResource( 12 )
 
 [node name="LeavePartyButton" type="Button" parent="PartyDialog"]
 
