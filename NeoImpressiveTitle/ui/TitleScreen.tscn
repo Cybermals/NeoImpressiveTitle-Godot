@@ -1,9 +1,35 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://ui/themes/ImpressiveTitle.tres" type="Theme" id=1]
 [ext_resource path="res://ui/TitleScreen.gd" type="Script" id=2]
 [ext_resource path="res://ui/images/backdrop1.jpg" type="Texture" id=3]
-[ext_resource path="res://ui/images/title.png" type="Texture" id=4]
+[ext_resource path="res://ui/images/borderCenter.png" type="Texture" id=4]
+[ext_resource path="res://ui/fonts/ConsolaMono-Bold.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://ui/images/title.png" type="Texture" id=6]
+
+[sub_resource type="StyleBoxTexture" id=2]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 4 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="DynamicFont" id=3]
+
+font/size = 16
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 5 )
 
 [sub_resource type="Animation" id=1]
 
@@ -42,7 +68,7 @@ tracks/2/keys = {
 "values": [ false, true ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Changelog:visibility/visible")
+tracks/3/path = NodePath("ChangelogPanel:visibility/visible")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
@@ -66,10 +92,6 @@ margin/top = 0.0
 margin/right = 984.0
 margin/bottom = 728.0
 script/script = ExtResource( 2 )
-changelog = "Changelog
-=========
-2024-02-21 - Add sample changelog.
-"
 
 [node name="BG" type="TextureFrame" parent="."]
 
@@ -89,7 +111,6 @@ stretch_mode = 0
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 
-visibility/visible = false
 anchor/top = 3
 anchor/bottom = 3
 focus/ignore_mouse = false
@@ -151,9 +172,8 @@ shortcut = null
 text = "Quit"
 flat = false
 
-[node name="Changelog" type="TextEdit" parent="."]
+[node name="ChangelogPanel" type="Panel" parent="."]
 
-visibility/visible = false
 anchor/left = 1
 anchor/right = 1
 anchor/bottom = 1
@@ -165,12 +185,29 @@ margin/left = -520.0
 margin/top = 230.0
 margin/right = -920.0
 margin/bottom = -520.0
-syntax_highlighting = false
-show_line_numbers = false
-highlight_all_occurrences = false
-caret/block_caret = false
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
+custom_styles/panel = SubResource( 2 )
+
+[node name="Changelog" type="RichTextLabel" parent="ChangelogPanel"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+custom_fonts/bold_font = SubResource( 3 )
+bbcode/enabled = true
+bbcode/bbcode = "[b]Changlog[/b]
+
+[u][b]3/18/2024[/b][/u]
+* Add sample changelog
+"
+visible_characters = -1
+percent_visible = 1.0
 
 [node name="LogoOrigin" type="Control" parent="."]
 
@@ -191,11 +228,11 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -2540.0
+margin/left = -256.0
 margin/top = 0.0
-margin/right = 2580.0
-margin/bottom = 640.0
-texture = ExtResource( 4 )
+margin/right = 256.0
+margin/bottom = 64.0
+texture = ExtResource( 6 )
 stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

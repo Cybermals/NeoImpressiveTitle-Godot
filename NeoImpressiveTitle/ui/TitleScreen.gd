@@ -4,13 +4,9 @@ signal start_new_game
 signal start_multiplayer
 signal quit
 
-export (String, MULTILINE) var changelog
-
 
 func _ready():
-	# Set changelog and make it read-only
-	get_node("Changelog").set_text(changelog)
-	get_node("Changelog").set_readonly(true)
+	pass
 
 
 func _on_NewGameButton_pressed():
