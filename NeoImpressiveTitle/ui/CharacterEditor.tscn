@@ -6,7 +6,7 @@
 [ext_resource path="res://ui/fonts/ConsolaMono.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://ui/images/borderCenter.png" type="Texture" id=5]
 
-[sub_resource type="StyleBoxTexture" id=3]
+[sub_resource type="StyleBoxTexture" id=1]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -30,7 +30,7 @@ font/use_mipmaps = false
 font/use_filter = false
 font/font = ExtResource( 4 )
 
-[sub_resource type="StyleBoxTexture" id=4]
+[sub_resource type="StyleBoxTexture" id=3]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -73,7 +73,7 @@ margin/left = 50.0
 margin/top = 50.0
 margin/right = 490.0
 margin/bottom = -680.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="CharacterNameLabel" type="Label" parent="Panel"]
 
@@ -95,7 +95,6 @@ max_lines_visible = -1
 [node name="CharacterName" type="LineEdit" parent="Panel"]
 
 anchor/right = 1
-rect/min_size = Vector2( 316, 50 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -103,7 +102,7 @@ size_flags/vertical = 2
 margin/left = 90.0
 margin/top = 30.0
 margin/right = 34.0
-margin/bottom = 80.0
+margin/bottom = 64.0
 custom_fonts/font = SubResource( 2 )
 placeholder/alpha = 0.6
 focus_mode = 2
@@ -122,7 +121,7 @@ margin/left = 30.0
 margin/top = 100.0
 margin/right = 30.0
 margin/bottom = 63.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 3 )
 custom_colors/font_color_bg = Color( 0, 0, 0, 1 )
 custom_colors/font_color_fg = Color( 0, 0, 0, 1 )
 tab_align = 1
@@ -130,6 +129,8 @@ tabs_visible = true
 
 [node name="Shape" type="VBoxContainer" parent="Panel/TabContainer"]
 
+editor/display_folded = true
+visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -258,6 +259,7 @@ items = [ "No Tufts", null, false, -1, null, "Tuft 1", null, false, -1, null, "T
 
 [node name="Markings" type="HBoxContainer" parent="Panel/TabContainer"]
 
+editor/display_folded = true
 visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
@@ -398,9 +400,8 @@ align = 0
 selected = 0
 items = [ "No Markings", null, false, -1, null, "Tail 1", null, false, -1, null, "Tail 2", null, false, -1, null, "Tail 3", null, false, -1, null, "Tail 4", null, false, -1, null, "Tail 5", null, false, -1, null, "Tail 6", null, false, -1, null, "Tail 7", null, false, -1, null, "Tail 8", null, false, -1, null ]
 
-[node name="Colors" type="HBoxContainer" parent="Panel/TabContainer"]
+[node name="Colors" type="ScrollContainer" parent="Panel/TabContainer"]
 
-visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -408,12 +409,26 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 24.0
+margin/top = 39.0
 margin/right = 0.0
 margin/bottom = 0.0
+scroll/horizontal = true
+scroll/vertical = true
+scroll/deadzone = 0
+
+[node name="Content" type="HBoxContainer" parent="Panel/TabContainer/Colors"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 363.0
+margin/bottom = 527.0
 alignment = 0
 
-[node name="Labels" type="VBoxContainer" parent="Panel/TabContainer/Colors"]
+[node name="Labels" type="VBoxContainer" parent="Panel/TabContainer/Colors/Content"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -422,10 +437,10 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 99.0
-margin/bottom = 468.0
+margin/bottom = 527.0
 alignment = 0
 
-[node name="PeltLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+[node name="PeltLabel" type="Label" parent="Panel/TabContainer/Colors/Content/Labels"]
 
 rect/min_size = Vector2( 0, 55 )
 focus/ignore_mouse = true
@@ -442,7 +457,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="UnderfurLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+[node name="UnderfurLabel" type="Label" parent="Panel/TabContainer/Colors/Content/Labels"]
 
 rect/min_size = Vector2( 0, 55 )
 focus/ignore_mouse = true
@@ -459,7 +474,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="NoseLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+[node name="NoseLabel" type="Label" parent="Panel/TabContainer/Colors/Content/Labels"]
 
 rect/min_size = Vector2( 0, 55 )
 focus/ignore_mouse = true
@@ -476,7 +491,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="AboveEyesLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+[node name="AboveEyesLabel" type="Label" parent="Panel/TabContainer/Colors/Content/Labels"]
 
 rect/min_size = Vector2( 0, 55 )
 focus/ignore_mouse = true
@@ -493,7 +508,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="BelowEyesLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+[node name="BelowEyesLabel" type="Label" parent="Panel/TabContainer/Colors/Content/Labels"]
 
 rect/min_size = Vector2( 0, 55 )
 focus/ignore_mouse = true
@@ -510,7 +525,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="EarsLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+[node name="EarsLabel" type="Label" parent="Panel/TabContainer/Colors/Content/Labels"]
 
 rect/min_size = Vector2( 0, 55 )
 focus/ignore_mouse = true
@@ -527,7 +542,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="TailtipLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+[node name="TailtipLabel" type="Label" parent="Panel/TabContainer/Colors/Content/Labels"]
 
 rect/min_size = Vector2( 0, 55 )
 focus/ignore_mouse = true
@@ -544,7 +559,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="EyesLabel" type="Label" parent="Panel/TabContainer/Colors/Labels"]
+[node name="EyesLabel" type="Label" parent="Panel/TabContainer/Colors/Content/Labels"]
 
 rect/min_size = Vector2( 0, 55 )
 focus/ignore_mouse = true
@@ -561,20 +576,37 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Inputs" type="VBoxContainer" parent="Panel/TabContainer/Colors"]
+[node name="MarkingsLabel" type="Label" parent="Panel/TabContainer/Colors/Content/Labels"]
 
-rect/min_size = Vector2( 277, 468 )
+rect/min_size = Vector2( 0, 55 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 472.0
+margin/right = 99.0
+margin/bottom = 527.0
+text = "Markings:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Inputs" type="VBoxContainer" parent="Panel/TabContainer/Colors/Content"]
+
+rect/min_size = Vector2( 260, 468 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 103.0
 margin/top = 0.0
-margin/right = 380.0
-margin/bottom = 468.0
+margin/right = 363.0
+margin/bottom = 527.0
 alignment = 0
 
-[node name="PeltColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+[node name="PeltColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Content/Inputs"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -582,7 +614,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 277.0
+margin/right = 260.0
 margin/bottom = 55.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -591,7 +623,7 @@ flat = false
 color = Color( 0.447059, 0.34902, 0.247059, 1 )
 edit_alpha = true
 
-[node name="UnderfurColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+[node name="UnderfurColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Content/Inputs"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -599,7 +631,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 59.0
-margin/right = 277.0
+margin/right = 260.0
 margin/bottom = 114.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -608,7 +640,7 @@ flat = false
 color = Color( 0.647059, 0.54902, 0.34902, 1 )
 edit_alpha = true
 
-[node name="NoseColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+[node name="NoseColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Content/Inputs"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -616,7 +648,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 118.0
-margin/right = 277.0
+margin/right = 260.0
 margin/bottom = 173.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -625,7 +657,7 @@ flat = false
 color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
 edit_alpha = true
 
-[node name="AboveEyesColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+[node name="AboveEyesColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Content/Inputs"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -633,7 +665,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 177.0
-margin/right = 277.0
+margin/right = 260.0
 margin/bottom = 232.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -642,7 +674,7 @@ flat = false
 color = Color( 0.247059, 0.14902, 0.0470588, 1 )
 edit_alpha = true
 
-[node name="BelowEyesColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+[node name="BelowEyesColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Content/Inputs"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -650,7 +682,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 236.0
-margin/right = 277.0
+margin/right = 260.0
 margin/bottom = 291.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -659,7 +691,7 @@ flat = false
 color = Color( 0.54902, 0.447059, 0.247059, 1 )
 edit_alpha = true
 
-[node name="EarColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+[node name="EarColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Content/Inputs"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -667,7 +699,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 295.0
-margin/right = 277.0
+margin/right = 260.0
 margin/bottom = 350.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -676,7 +708,7 @@ flat = false
 color = Color( 0.247059, 0.247059, 0.0470588, 1 )
 edit_alpha = true
 
-[node name="TailtipColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+[node name="TailtipColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Content/Inputs"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -684,7 +716,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 354.0
-margin/right = 277.0
+margin/right = 260.0
 margin/bottom = 409.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -693,7 +725,7 @@ flat = false
 color = Color( 0.2, 0.14902, 0, 1 )
 edit_alpha = true
 
-[node name="EyeColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Inputs"]
+[node name="EyeColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Content/Inputs"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -701,7 +733,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 413.0
-margin/right = 277.0
+margin/right = 260.0
 margin/bottom = 468.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -710,8 +742,26 @@ flat = false
 color = Color( 0.54902, 0.298039, 0.14902, 1 )
 edit_alpha = true
 
+[node name="MarkingsColor" type="ColorPickerButton" parent="Panel/TabContainer/Colors/Content/Inputs"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 472.0
+margin/right = 260.0
+margin/bottom = 527.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+color = Color( 0, 0, 0, 1 )
+edit_alpha = true
+
 [node name="Size" type="Container" parent="Panel/TabContainer"]
 
+editor/display_folded = true
 visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1

@@ -164,6 +164,7 @@ flat = false
 
 [node name="ChatBox" type="Container" parent="."]
 
+editor/display_folded = true
 visibility/visible = false
 anchor/top = 1
 anchor/bottom = 1
