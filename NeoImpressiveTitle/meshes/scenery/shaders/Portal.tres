@@ -1,0 +1,45 @@
+[gd_resource type="MaterialShaderGraph" load_steps=2 format=1]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+
+[resource]
+
+_code = {
+"default_tex": [ "Base", ExtResource( 1 ) ],
+"fragment": "vec3 nd1sl5=vec3(UV,0);
+vec3 DIFFUSE_OUT=vec3(0,0,0);
+float ALPHA_OUT=0;
+float nd12sl0=TIME;
+uniform float rotation_speed=1;
+float nd14sl0=rotation_speed;
+float nd13sl0=nd12sl0*nd14sl0;
+float nd7sl0=cos(nd13sl0);
+float nd9sl0=sin(nd13sl0);
+float nd11sl1def=-1;
+float nd11sl0=nd13sl0*nd11sl1def;
+float nd8sl0=sin(nd11sl0);
+float nd10sl0=cos(nd13sl0);
+float nd6sl2def=0;
+vec3 nd6sl0=vec3(nd9sl0,nd10sl0,nd6sl2def);
+float nd5sl2def=0;
+vec3 nd5sl0=vec3(nd7sl0,nd8sl0,nd5sl2def);
+vec3 nd4sl2def=vec3(0, 0, 1);
+vec3 nd4sl3def=vec3(0, 0, 0);
+mat4 nd4sl0=mat4(vec4(nd5sl0.x,nd5sl0.y,nd5sl0.z, 0.0),vec4(nd6sl0.x,nd6sl0.y,nd6sl0.z, 0.0),vec4(nd4sl2def.x,nd4sl2def.y,nd4sl2def.z, 0.0),vec4(nd4sl3def.x,nd4sl3def.y,nd4sl3def.z, 1.0));
+vec3 nd3sl0=(nd4sl0*vec4(nd1sl5,1)).xyz;
+uniform texture Base;vec4 rt_read_tex2=tex(Base,nd3sl0.xy);
+vec3 nd2sl0=rt_read_tex2.rgb;
+float nd2sl1=rt_read_tex2.a;
+DIFFUSE_OUT=nd2sl0;
+DIFFUSE=DIFFUSE_OUT;
+",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+_data = {
+"shaders": [ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 855, 34 ), null, null, [ 0, 2, 0 ], 1, 0, Vector2( 50, 40 ), null, null, [  ], 2, 30, Vector2( 682, 53 ), "Base", ExtResource( 1 ), [ 0, 3, 0, 2147483647, 0, null ], 3, 12, Vector2( 485, 56 ), false, null, [ 0, 4, 0, 1, 1, 5, 2147483647, 0, null, 2147483647, 1, null ], 4, 21, Vector2( 306.951, -196.033 ), null, null, [ 0, 5, 0, 1, 6, 0, 2147483647, 0, null, 2147483647, 1, null, 2147483647, 2, Vector3( 0, 0, 1 ), 2147483647, 3, null ], 5, 19, Vector2( 135.951, -316.433 ), null, null, [ 0, 7, 0, 1, 8, 0, 2147483647, 0, null, 2147483647, 1, null, 2147483647, 2, null ], 6, 19, Vector2( 118.951, -110.433 ), null, null, [ 0, 9, 0, 1, 10, 0, 2147483647, 0, null, 2147483647, 1, null, 2147483647, 2, null ], 7, 14, Vector2( -42.0488, -354.376 ), 1, null, [ 0, 13, 0, 2147483647, 0, 0.0 ], 8, 14, Vector2( -43.7867, -256.231 ), 0, null, [ 0, 11, 0, 2147483647, 0, null ], 9, 14, Vector2( -44.7867, -143.885 ), 0, null, [ 0, 13, 0, 2147483647, 0, null ], 10, 14, Vector2( -44.7867, -52.6962 ), 1, null, [ 0, 13, 0, 2147483647, 0, null ], 11, 7, Vector2( -209.787, -274.983 ), 2, null, [ 0, 13, 0, 2147483647, 0, null, 2147483647, 1, -1.0 ], 12, 5, Vector2( -553.838, -255.983 ), null, null, [  ], 13, 7, Vector2( -390.957, -169.418 ), 2, null, [ 0, 12, 0, 1, 14, 0, 2147483647, 0, null, 2147483647, 1, null ], 14, 26, Vector2( -625.957, -31.4176 ), "rotation_speed", 1.0, [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ]
+}
+

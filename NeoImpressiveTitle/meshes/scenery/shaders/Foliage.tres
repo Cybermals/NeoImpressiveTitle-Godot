@@ -12,9 +12,11 @@ float ALPHA_OUT=0;
 uniform texture base;vec4 rt_read_tex2=tex(base,nd1sl5.xy);
 vec3 nd2sl0=rt_read_tex2.rgb;
 float nd2sl1=rt_read_tex2.a;
+float nd3sl0def=1;
+float nd3sl0=nd3sl0def-nd2sl1;
 DIFFUSE_OUT=nd2sl0;
-ALPHA_OUT=nd2sl1;
-DIFFUSE_ALPHA=vec4(DIFFUSE_OUT,ALPHA_OUT);
+DISCARD=nd3sl0>0.5;
+DIFFUSE=DIFFUSE_OUT;
 ",
 "fragment_ofs": 0,
 "light": "",
@@ -23,6 +25,6 @@ DIFFUSE_ALPHA=vec4(DIFFUSE_OUT,ALPHA_OUT);
 "vertex_ofs": 0
 }
 _data = {
-"shaders": [ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 858, 26 ), null, null, [ 0, 2, 0, 1, 2, 1 ], 1, 0, Vector2( 50, 40 ), null, null, [  ], 2, 30, Vector2( 469, 29 ), "base", ExtResource( 1 ), [ 0, 1, 5, 2147483647, 0, null ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ]
+"shaders": [ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 858, 26 ), null, null, [ 0, 2, 0, 10, 3, 0 ], 1, 0, Vector2( 50, 40 ), null, null, [  ], 2, 30, Vector2( 487, 37 ), "base", ExtResource( 1 ), [ 0, 1, 5, 2147483647, 0, null ], 3, 7, Vector2( 694.252, 221.883 ), 1, null, [ 1, 2, 1, 2147483647, 0, 1.0, 2147483647, 1, null ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ]
 }
 
