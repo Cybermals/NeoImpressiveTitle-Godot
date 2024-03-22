@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=1]
+
+[ext_resource path="res://meshes/scenery/shaders/Foliage.tres" type="Shader" id=1]
+[ext_resource path="res://meshes/scenery/shrubLeavesSnow.png" type="Texture" id=2]
+
+[resource]
+
+flags/visible = true
+flags/double_sided = true
+flags/invert_faces = false
+flags/unshaded = false
+flags/on_top = false
+flags/lightmap_on_uv2 = true
+flags/colarray_is_srgb = false
+params/blend_mode = 0
+params/depth_draw = 1
+params/line_width = 1.05612e-38
+shader/shader = ExtResource( 1 )
+shader_param/base = ExtResource( 2 )
+
