@@ -3,7 +3,7 @@
 [ext_resource path="res://particles/materials/Item.tres" type="Material" id=1]
 [ext_resource path="res://particles/emitters/RingEmitter.msh" type="Mesh" id=2]
 
-[node name="FlameAura" type="Spatial"]
+[node name="BlueAura" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
@@ -25,7 +25,7 @@ geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
 material = ExtResource( 1 )
-amount = 500
+amount = 400
 emitting = true
 visibility = AABB( -4, -4, -4, 8, 8, 8 )
 emission_extents = Vector3( 0.1, 0.1, 0.1 )
@@ -65,9 +65,9 @@ rand/height = 0.0
 rand/height_speed_scale = 0.0
 color_phases/count = 2
 phase_0/pos = 0.0
-phase_0/color = Color( 1, 1, 0, 1 )
+phase_0/color = Color( 0.501961, 0.501961, 1, 1 )
 phase_1/pos = 1.0
-phase_1/color = Color( 1, 0, 0, 1 )
+phase_1/color = Color( 0, 0, 0.627451, 1 )
 phase_2/pos = 1.0
 phase_2/color = Color( 0, 0, 0, 1 )
 phase_3/pos = 1.0

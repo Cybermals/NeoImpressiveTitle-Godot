@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=1]
 
 [ext_resource path="res://particles/shaders/BasicParticle.tres" type="Shader" id=1]
-[ext_resource path="res://particles/images/pawfire.png" type="Texture" id=2]
+[ext_resource path="res://particles/images/hit1.PNG" type="Texture" id=2]
 
 [resource]
 
@@ -14,7 +14,7 @@ flags/lightmap_on_uv2 = true
 flags/colarray_is_srgb = false
 params/blend_mode = 1
 params/depth_draw = 1
-params/line_width = 0.0
+params/line_width = 8.44901e-39
 shader/shader = ExtResource( 1 )
 shader_param/base = ExtResource( 2 )
 
