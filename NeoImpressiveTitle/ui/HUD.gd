@@ -191,7 +191,7 @@ func _on_ItemsButton_pressed():
 func _on_ActionsButton_pressed():
 	# Toggle actions and emotes dialog visibility
 	if get_node("ActionsAndEmotesDialog").is_visible():
-		get_node("ACtionsAndEmotesDialog").hide()
+		get_node("ActionsAndEmotesDialog").hide()
 		
 	else:
 		get_node("ActionsAndEmotesDialog").show()

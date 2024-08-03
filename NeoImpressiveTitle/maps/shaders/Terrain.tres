@@ -1,0 +1,60 @@
+[gd_resource type="MaterialShaderGraph" load_steps=6 format=1]
+
+[ext_resource path="res://maps/images/grass_tex.jpg" type="Texture" id=1]
+[ext_resource path="res://maps/images/rock_tex1.png" type="Texture" id=2]
+[ext_resource path="res://maps/images/BlankMask.png" type="Texture" id=3]
+[ext_resource path="res://maps/images/soil_tex.png" type="Texture" id=4]
+[ext_resource path="res://meshes/terrain/images/DefaultNormals.png" type="Texture" id=5]
+
+[resource]
+
+_code = {
+"default_tex": [ "base", ExtResource( 1 ), "detail2", ExtResource( 2 ), "detail_mask", ExtResource( 3 ), "detail_mask2", ExtResource( 3 ), "detail", ExtResource( 4 ), "normalmap", ExtResource( 5 ) ],
+"fragment": "vec3 nd1sl5=vec3(UV,0);
+mat4 nd1sl11=INV_CAMERA_MATRIX;
+vec3 DIFFUSE_OUT=vec3(0,0,0);
+float ALPHA_OUT=0;
+uniform vec3 base_scale=vec3(10,10,10);
+vec3 nd14sl0=base_scale;
+uniform vec3 detail_scale=vec3(10,10,10);
+vec3 nd15sl0=detail_scale;
+uniform texture normalmap;vec4 rt_read_tex3=tex(normalmap,nd1sl5.xy);
+vec3 nd3sl0=rt_read_tex3.rgb;
+float nd3sl1=rt_read_tex3.a;
+vec3 nd4sl0=(nd1sl11*vec4(nd3sl0,0)).xyz;
+vec3 nd8sl0=nd1sl5*nd14sl0;
+uniform texture detail_mask;vec4 rt_read_tex6=tex(detail_mask,nd1sl5.xy);
+vec3 nd6sl0=rt_read_tex6.rgb;
+float nd6sl1=rt_read_tex6.a;
+uniform texture base;vec4 rt_read_tex5=tex(base,nd8sl0.xy);
+vec3 nd5sl0=rt_read_tex5.rgb;
+float nd5sl1=rt_read_tex5.a;
+vec3 nd9sl0=nd1sl5*nd15sl0;
+uniform vec3 detail_scale2=vec3(10,10,10);
+vec3 nd16sl0=detail_scale2;
+vec3 nd11sl0=nd1sl5*nd16sl0;
+uniform texture detail_mask2;vec4 rt_read_tex13=tex(detail_mask2,nd1sl5.xy);
+vec3 nd13sl0=rt_read_tex13.rgb;
+float nd13sl1=rt_read_tex13.a;
+uniform texture detail;vec4 rt_read_tex2=tex(detail,nd9sl0.xy);
+vec3 nd2sl0=rt_read_tex2.rgb;
+float nd2sl1=rt_read_tex2.a;
+vec3 nd7sl0=mix(nd5sl0,nd2sl0,nd6sl1);
+uniform texture detail2;vec4 rt_read_tex10=tex(detail2,nd11sl0.xy);
+vec3 nd10sl0=rt_read_tex10.rgb;
+float nd10sl1=rt_read_tex10.a;
+vec3 nd12sl0=mix(nd7sl0,nd10sl0,nd13sl1);
+DIFFUSE_OUT=nd12sl0;
+NORMAL=nd4sl0;
+DIFFUSE=DIFFUSE_OUT;
+",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+_data = {
+"shaders": [ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 1113, 99 ), null, null, [ 0, 12, 0, 7, 4, 0 ], 1, 0, Vector2( -532.8, 67.6 ), null, null, [  ], 2, 30, Vector2( 170.809, 42.4691 ), "detail", ExtResource( 4 ), [ 0, 9, 0, 2147483647, 0, null ], 3, 30, Vector2( 709, 239.455 ), "normalmap", ExtResource( 5 ), [ 0, 1, 5, 2147483647, 0, null ], 4, 12, Vector2( 905, 438 ), true, null, [ 0, 1, 11, 1, 3, 0, 2147483647, 0, null, 2147483647, 1, null ], 5, 30, Vector2( 172, -189 ), "base", ExtResource( 1 ), [ 0, 8, 0, 2147483647, 0, null ], 6, 30, Vector2( 160.809, 280.318 ), "detail_mask", ExtResource( 3 ), [ 0, 1, 5, 2147483647, 0, null ], 7, 23, Vector2( 444.469, -30.4324 ), null, null, [ 0, 5, 0, 1, 2, 0, 2, 6, 1, 2147483647, 0, null, 2147483647, 1, null, 2147483647, 2, null ], 8, 8, Vector2( -31.6032, -82.964 ), 2, null, [ 0, 1, 5, 1, 14, 0, 2147483647, 0, null, 2147483647, 1, Vector3( 10, 10, 10 ) ], 9, 8, Vector2( -28.0478, 67.6713 ), 2, null, [ 0, 1, 5, 1, 15, 0, 2147483647, 0, null, 2147483647, 1, Vector3( 10, 10, 10 ) ], 10, 30, Vector2( 159.592, 515.201 ), "detail2", ExtResource( 2 ), [ 0, 11, 0, 2147483647, 0, null ], 11, 8, Vector2( -68.0478, 475.202 ), 2, null, [ 0, 1, 5, 1, 16, 0, 2147483647, 0, null, 2147483647, 1, Vector3( 10, 10, 10 ) ], 12, 23, Vector2( 671.825, 59.1796 ), null, null, [ 0, 7, 0, 1, 10, 0, 2, 13, 1, 2147483647, 0, null, 2147483647, 1, null, 2147483647, 2, null ], 13, 30, Vector2( 161.299, 746.917 ), "detail_mask2", ExtResource( 3 ), [ 0, 1, 5, 2147483647, 0, null ], 14, 27, Vector2( -296.7, -203.506 ), "base_scale", Vector3( 10, 10, 10 ), [  ], 15, 27, Vector2( -293.95, -1.38702 ), "detail_scale", Vector3( 10, 10, 10 ), [  ], 16, 27, Vector2( -304.95, 474.356 ), "detail_scale2", Vector3( 10, 10, 10 ), [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ]
+}
+

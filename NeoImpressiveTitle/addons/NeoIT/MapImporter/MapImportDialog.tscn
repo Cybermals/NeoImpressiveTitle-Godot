@@ -1,0 +1,214 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://addons/NeoIT/MapImporter/MapImportDialog.gd" type="Script" id=1]
+
+[node name="MapImportDialog" type="ConfirmationDialog"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 350.0
+margin/bottom = 120.0
+popup/exclusive = false
+window/title = "Import Map"
+dialog/hide_on_ok = true
+script/script = ExtResource( 1 )
+
+[node name="Content" type="HBoxContainer" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 10.0
+margin/right = 10.0
+margin/bottom = 30.0
+alignment = 0
+
+[node name="Labels" type="VBoxContainer" parent="Content"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 78.0
+margin/bottom = 80.0
+alignment = 0
+
+[node name="SourceLabel" type="Label" parent="Content/Labels"]
+
+rect/min_size = Vector2( 0, 24 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 78.0
+margin/bottom = 24.0
+text = "Source:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="DestLabel" type="Label" parent="Content/Labels"]
+
+rect/min_size = Vector2( 0, 24 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 28.0
+margin/right = 78.0
+margin/bottom = 52.0
+text = "Destination:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Inputs" type="VBoxContainer" parent="Content"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 82.0
+margin/top = 0.0
+margin/right = 300.0
+margin/bottom = 80.0
+alignment = 0
+
+[node name="Source" type="LineEdit" parent="Content/Inputs"]
+
+rect/min_size = Vector2( 218, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 218.0
+margin/bottom = 24.0
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="Destination" type="LineEdit" parent="Content/Inputs"]
+
+rect/min_size = Vector2( 218, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 28.0
+margin/right = 218.0
+margin/bottom = 52.0
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="Buttons" type="VBoxContainer" parent="Content"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 304.0
+margin/top = 0.0
+margin/right = 324.0
+margin/bottom = 80.0
+alignment = 0
+
+[node name="SourceButton" type="Button" parent="Content/Buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 20.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = ".."
+flat = false
+
+[node name="DestButton" type="Button" parent="Content/Buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 24.0
+margin/right = 20.0
+margin/bottom = 44.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = ".."
+flat = false
+
+[node name="SourceDialog" type="FileDialog" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 720.0
+margin/bottom = 450.0
+popup/exclusive = false
+window/title = "Open a File"
+dialog/hide_on_ok = false
+mode = 0
+access = 2
+filters = StringArray( "*.world" )
+show_hidden_files = false
+
+[node name="DestDialog" type="FileDialog" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 720.0
+margin/bottom = 450.0
+popup/exclusive = false
+window/title = "Save a File"
+dialog/hide_on_ok = false
+mode = 4
+access = 0
+filters = StringArray( "*.scn" )
+show_hidden_files = false
+
+[connection signal="pressed" from="Content/Buttons/SourceButton" to="." method="_on_SourceButton_pressed"]
+
+[connection signal="pressed" from="Content/Buttons/DestButton" to="." method="_on_DestButton_pressed"]
+
+[connection signal="file_selected" from="SourceDialog" to="." method="_on_SourceDialog_file_selected"]
+
+[connection signal="file_selected" from="DestDialog" to="." method="_on_DestDialog_file_selected"]
+
+
