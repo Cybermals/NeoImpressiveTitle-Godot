@@ -3,7 +3,9 @@ extends EditorImportPlugin
 
 const MapImportDialog = preload("MapImportDialog.tscn")
 const ErrorDialog = preload("ErrorDialog.tscn")
+const default_env = preload("res://environments/Default.tres")
 const TerrainScript = preload("res://maps/Terrain.gd")
+const terrain_material = preload("res://maps/materials/Terrain.tres")
 const Portal = preload("res://objects/Portal.tscn")
 
 var map_import_dlg = null
@@ -54,6 +56,12 @@ func import(path, from):
 	var root = Spatial.new()
 	root.set_name(from.get_source_path(0).get_file().replace(".world", ""))
 	
+	# Add default environment
+	var env = WorldEnvironment.new()
+	env.set_environment(default_env)
+	root.add_child(env)
+	env.set_owner(root)
+	
 	# Load world file sections
 	var world = File.new()
 	var sections
@@ -86,6 +94,7 @@ func import(path, from):
 			terrain.set_translation(Vector3(size.x / 2, size.y / 20, size.z / 2))
 			terrain.set_scale(Vector3(size.x / 2, size.y / 2, size.z / 2))
 			terrain.set_script(TerrainScript)
+			terrain.material = terrain_material.duplicate()
 			root.add_child(terrain)
 			terrain.set_owner(root)
 			
