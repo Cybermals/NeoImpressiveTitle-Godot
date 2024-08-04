@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=1]
+
+[ext_resource path="res://meshes/scenery/shaders/Portal.tres" type="Shader" id=1]
+[ext_resource path="res://maps/images/portalDefault.jpg" type="Texture" id=2]
+
+[resource]
+
+flags/visible = true
+flags/double_sided = false
+flags/invert_faces = false
+flags/unshaded = true
+flags/on_top = false
+flags/lightmap_on_uv2 = true
+flags/colarray_is_srgb = false
+params/blend_mode = 0
+params/depth_draw = 1
+params/line_width = 0.0
+shader/shader = ExtResource( 1 )
+shader_param/rotation_speed = 0.5
+shader_param/base = ExtResource( 2 )
+

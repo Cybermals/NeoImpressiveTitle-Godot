@@ -1,13 +1,31 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://objects/Portal.gd" type="Script" id=1]
-[ext_resource path="res://meshes/scenery/Portal.scn" type="PackedScene" id=2]
+[ext_resource path="res://meshes/scenery/shaders/Portal.tres" type="Shader" id=2]
+[ext_resource path="res://meshes/scenery/portalDefault.tex" type="Texture" id=3]
+[ext_resource path="res://meshes/scenery/Portal.scn" type="PackedScene" id=4]
 
 [sub_resource type="SphereShape" id=1]
 
 radius = 1.0
 
-[node name="Portal" type="StaticBody" groups=[
+[sub_resource type="ShaderMaterial" id=2]
+
+flags/visible = true
+flags/double_sided = false
+flags/invert_faces = false
+flags/unshaded = true
+flags/on_top = false
+flags/lightmap_on_uv2 = true
+flags/colarray_is_srgb = false
+params/blend_mode = 0
+params/depth_draw = 1
+params/line_width = 0.0
+shader/shader = ExtResource( 2 )
+shader_param/rotation_speed = 0.5
+shader_param/Base = ExtResource( 3 )
+
+[node name="Portal" type="Area" groups=[
 "Portals",
 ]]
 
@@ -18,16 +36,23 @@ shape_count = 1
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shapes/0/trigger = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
 collision/layers = 1
 collision/mask = 1
-friction = 1.0
-bounce = 0.0
-constant_linear_velocity = Vector3( 0, 0, 0 )
-constant_angular_velocity = Vector3( 0, 0, 0 )
 script/script = ExtResource( 1 )
+portal_material = SubResource( 2 )
 destination = ""
 
-[node name="Portal" parent="." instance=ExtResource( 2 )]
+[node name="Portal" parent="." instance=ExtResource( 4 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
@@ -37,3 +62,4 @@ trigger = false
 _update_shape_index = 0
 
 
+[editable path="Portal"]

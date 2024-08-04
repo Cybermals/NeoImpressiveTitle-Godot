@@ -3,6 +3,8 @@ extends EditorImportPlugin
 
 const MapImportDialog = preload("MapImportDialog.tscn")
 const ErrorDialog = preload("ErrorDialog.tscn")
+const TerrainScript = preload("res://maps/Terrain.gd")
+const Portal = preload("res://objects/Portal.tscn")
 
 var map_import_dlg = null
 var error_dlg = null
@@ -81,9 +83,26 @@ func import(path, from):
 				return
 			
 			var terrain = Terrain.instance()
-			terrain.set_scale(size)
+			terrain.set_translation(Vector3(size.x / 2, size.y / 20, size.z / 2))
+			terrain.set_scale(Vector3(size.x / 2, size.y / 2, size.z / 2))
+			terrain.set_script(TerrainScript)
 			root.add_child(terrain)
 			terrain.set_owner(root)
+			
+			# TODO: Set terrain material
+			
+		# Portal?
+		elif lines[0].begins_with("Portal"):
+			var pos = lines[1].split_floats(" ")
+			var size = float(lines[2])
+			var destination = lines[3]
+			var portal = Portal.instance()
+			portal.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
+			portal.set_scale(Vector3(size, size, size) / 10)
+			portal.portal_material = load("res://meshes/scenery/materials/Portal.tres")
+			portal.destination = destination
+			root.add_child(portal)
+			portal.set_owner(root)
 			
 	# Set import metadata
 	res.set_import_metadata(from)
