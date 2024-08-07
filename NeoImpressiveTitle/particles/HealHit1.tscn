@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=1]
 
-[ext_resource path="res://particles/materials/Hit1.tres" type="Material" id=1]
+[ext_resource path="res://particles/emitters/Hit1.tres" type="Material" id=1]
+
 
 [node name="HealHit1" type="Spatial"]
 

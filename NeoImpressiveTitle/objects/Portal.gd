@@ -1,7 +1,7 @@
 tool
-extends Spatial
+extends Area
 
-export (Material) var portal_material
+export (Material) var material
 export (String) var destination = "" setget set_destination
 
 
@@ -24,6 +24,6 @@ func set_destination(value):
 			return
 			
 	# Set the portal material
-	var mat = portal_material.duplicate()
+	var mat = material.duplicate()
 	mat.set_shader_param("base", tex)
 	get_node("Portal/Portal").set_material_override(mat)

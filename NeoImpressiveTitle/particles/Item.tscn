@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://particles/materials/Item.tres" type="Material" id=1]
+[ext_resource path="res://particles/emitters/Item.tres" type="Material" id=1]
 [ext_resource path="res://particles/emitters/BoxEmitter.msh" type="Mesh" id=2]
+
 
 [node name="Item" type="Spatial"]
 

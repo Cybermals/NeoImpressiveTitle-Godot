@@ -4,14 +4,14 @@
 [ext_resource path="res://particles/emitters/BoxEmitter.msh" type="Mesh" id=2]
 
 
-[node name="FireflyDownEast" type="Spatial"]
+[node name="FireflyDown" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Particles" type="Particles" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.715766, -3.05254e-08, -0.69834, -0.69834, -3.12871e-08, -0.715766, 0, 1, -4.37114e-08, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 layers = 1
 geometry/visible = true
 geometry/material_override = null
