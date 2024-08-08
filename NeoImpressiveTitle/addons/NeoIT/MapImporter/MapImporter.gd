@@ -14,6 +14,8 @@ const Ceiling = preload("res://meshes/scenery/Ceiling.scn")
 const Billboard = preload("res://objects/Billboard.tscn")
 const SphereWall = preload("res://objects/SphereWall.tscn")
 const BoxWall = preload("res://objects/BoxWall.tscn")
+const CollBox = preload("res://objects/CollBox.tscn")
+const CollSphere = preload("res://objects/CollSphere.tscn")
 
 var map_import_dlg = null
 var error_dlg = null
@@ -82,9 +84,12 @@ func import(path, from):
 	# print(sections)
 	
 	# Parse world file sections
+	var foliage = {}
+	
 	for section in sections:
 		# Parse section
 		var lines = section.split("\n")
+		var heightmap
 		var terrain_size
 		
 		# Terrain?
@@ -92,6 +97,9 @@ func import(path, from):
 			var terrain_name = from.get_source_path(0).get_file().replace(".world", "")
 			var Terrain = load("res://meshes/terrain/{0}.scn".format([terrain_name]))
 			var config = load_terrain_config("{0}/{1}".format([from.get_source_path(0).get_base_dir(), lines[1]]))
+			var heightmap_name = config["heightmap"]
+			heightmap = load("res://private/meshes/terrain/images/{0}".format([heightmap_name]))
+			print(heightmap)
 			terrain_size = config["size"]
 			var material = config["material"]
 			var spawn_pos = lines[4].split_floats(" ")
@@ -249,11 +257,85 @@ func import(path, from):
 		elif lines[0].begins_with("MapEffect"): # TODO: Need to implement this somehow
 			var map_effect = lines[1]
 			
-		elif lines[0].begins_with("Grass"):
+		elif lines[0].begins_with("Grass"): # TODO: Need to implement this
 			var mat_name = lines[1]
 			var grass_map = lines[2]
 			var grass_color_map = lines[3]
-			# TODO: Finish this
+			
+		elif lines[0].begins_with("RandomTrees"):
+			var trees = [lines[1], lines[2], lines[3]]
+			var tree_cnt = int(lines[4])
+			foliage[trees[0]] = Vector3Array()
+			foliage[trees[1]] = Vector3Array()
+			foliage[trees[2]] = Vector3Array()
+			var tree
+			
+			for i in range(tree_cnt):
+				tree = trees[rand_range(0, trees.size())]
+				# TODO: Generate random position and set the height based on the heightmap
+				
+		elif lines[0].begins_with("RandomBushes"):
+			var bushes = [lines[1], lines[2], lines[3]]
+			var bush_cnt = int(lines[4])
+			foliage[bushes[0]] = Vector3Array()
+			foliage[bushes[1]] = Vector3Array()
+			foliage[bushes[2]] = Vector3Array()
+			var bush
+			
+			for i in range(bush_cnt):
+				bush = bushes[rand_range(0, bushes.size())]
+				# TODO: Generate random position and set the height based on the heightmap
+				
+		elif (lines[0].begins_with("Trees") or 
+		      lines[0].begins_with("NewTrees")):
+			lines.remove(0)
+			
+			for line in lines:
+				load_trees(line, foliage)
+				
+		elif (lines[0].begins_with("Bushes") or
+		      lines[0].begins_with("NewBushes")):
+			lines.remove(0)
+			
+			for line in lines:
+				load_bushes(line, foliage)
+				
+		elif (lines[0].begins_with("FloatingBushes") or
+		      lines[0].begins_with("NewFloatingBushes")):
+			lines.remove(0)
+			
+			for line in lines:
+				load_floating_bushes(line, foliage)
+				
+		elif lines[0].begins_with("CollBox"):
+			var pos = lines[1].split_floats(" ")
+			var size = lines[2].split_floats(" ")
+			var collbox = CollBox.instance()
+			collbox.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
+			collbox.set_scale(Vector3(size[0], size[1], size[2]) / 10)
+			root.add_child(collbox)
+			collbox.set_owner(root)
+			
+		elif lines[0].begins_with("CollSphere"):
+			var pos = lines[1].split_floats(" ")
+			var radius = float(lines[2])
+			var collsphere = CollSphere.instance()
+			collsphere.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
+			collsphere.set_scale(Vector3(radius, radius, radius) / 10)
+			root.add_child(collsphere)
+			collsphere.set_owner(root)
+			
+		elif lines[0].begins_with("SpawnCritters"): # TODO: Need to implement this
+			pass
+			
+		elif lines[0].begins_with("FreezeTime"): # TODO: Need to implement this
+			pass
+			
+		elif lines[0].begins_with("Music"): # TODO: Need to implement this
+			pass
+				
+	# Optimize foliage
+	# TODO: Use MultiMesh nodes here
 			
 	# Set import metadata
 	res.set_import_metadata(from)
@@ -274,12 +356,17 @@ func load_terrain_config(path):
 		return null
 		
 	var line = file.get_line()
+	var heightmap = ""
 	var size = Vector3(1, 1, 1)
 	var material = null
 	
 	while not file.eof_reached():
+		# Heightmap
+		if line.begins_with("Heightmap.image"):
+			heightmap = line.split("=")[1]
+			
 		# World size X
-		if line.begins_with("PageWorldX"):
+		elif line.begins_with("PageWorldX"):
 			size.x = float(line.split("=")[1]) / 10
 			
 		# World size Z
@@ -298,7 +385,19 @@ func load_terrain_config(path):
 		# Get next line
 		line = file.get_line()
 			
-	return {"size": size, "material": material}
+	return {"heightmap": heightmap, "size": size, "material": material}
+	
+	
+func load_trees(tree_cfg, foliage):
+	pass
+	
+	
+func load_bushes(bush_cfg, foliage):
+	pass
+	
+	
+func load_floating_bushes(bush_cfg, foliage):
+	pass
 	
 	
 func _on_MapImportDialog_confirmed():

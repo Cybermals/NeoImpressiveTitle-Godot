@@ -12,4 +12,9 @@ func _ready():
 	
 func set_material(value):
 	material = value
+	
+	if not has_node("Portal/Portal"):
+		call_deferred("set_material", value)
+		return
+		
 	get_node("Portal/Portal").set_material_override(value)

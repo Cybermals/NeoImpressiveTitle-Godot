@@ -1,29 +1,11 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://objects/Portal.gd" type="Script" id=1]
-[ext_resource path="res://meshes/scenery/shaders/Portal.tres" type="Shader" id=2]
-[ext_resource path="res://meshes/scenery/portalDefault.tex" type="Texture" id=3]
-[ext_resource path="res://meshes/scenery/Portal.scn" type="PackedScene" id=4]
+[ext_resource path="res://meshes/scenery/Portal.scn" type="PackedScene" id=2]
 
 [sub_resource type="SphereShape" id=1]
 
 radius = 1.0
-
-[sub_resource type="ShaderMaterial" id=2]
-
-flags/visible = true
-flags/double_sided = false
-flags/invert_faces = false
-flags/unshaded = true
-flags/on_top = false
-flags/lightmap_on_uv2 = true
-flags/colarray_is_srgb = false
-params/blend_mode = 0
-params/depth_draw = 1
-params/line_width = 0.0
-shader/shader = ExtResource( 2 )
-shader_param/rotation_speed = 0.5
-shader_param/Base = ExtResource( 3 )
 
 [node name="Portal" type="Area" groups=[
 "Portals",
@@ -49,10 +31,10 @@ monitorable = true
 collision/layers = 1
 collision/mask = 1
 script/script = ExtResource( 1 )
-portal_material = SubResource( 2 )
+material = null
 destination = ""
 
-[node name="Portal" parent="." instance=ExtResource( 4 )]
+[node name="Portal" parent="." instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
