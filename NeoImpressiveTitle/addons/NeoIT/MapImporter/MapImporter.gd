@@ -62,8 +62,9 @@ func import(path, from):
 		res = PackedScene.new()
 		
 	# Create root node
+	var map_name = from.get_source_path(0).get_file().replace(".world", "")
 	var root = Spatial.new()
-	root.set_name(from.get_source_path(0).get_file().replace(".world", ""))
+	root.set_name(map_name)
 	
 	# Add default environment
 	var env = WorldEnvironment.new()
@@ -81,16 +82,17 @@ func import(path, from):
 		return
 		
 	sections = world.get_as_text().split("[", false)
+	world.close()
 	# print(sections)
 	
 	# Parse world file sections
 	var foliage = {}
+	var terrain_size
 	
 	for section in sections:
 		# Parse section
 		var lines = section.split("\n")
 		var heightmap
-		var terrain_size
 		
 		# Terrain?
 		if lines[0].begins_with("Initialize"):
@@ -99,7 +101,6 @@ func import(path, from):
 			var config = load_terrain_config("{0}/{1}".format([from.get_source_path(0).get_base_dir(), lines[1]]))
 			var heightmap_name = config["heightmap"]
 			heightmap = load("res://private/meshes/terrain/images/{0}".format([heightmap_name]))
-			print(heightmap)
 			terrain_size = config["size"]
 			var material = config["material"]
 			var spawn_pos = lines[4].split_floats(" ")
@@ -111,8 +112,8 @@ func import(path, from):
 			
 			var terrain = Terrain.instance()
 			terrain.set_name("Terrain")
-			terrain.set_translation(Vector3(terrain_size.x / 2, terrain_size.y / 20, terrain_size.z / 2))
-			terrain.set_scale(Vector3(terrain_size.x / 2, terrain_size.y / 2, terrain_size.z / 2))
+			terrain.set_translation(Vector3(terrain_size.x * .5, terrain_size.y * .05, terrain_size.z * .5))
+			terrain.set_scale(Vector3(terrain_size.x * .5, terrain_size.y * .5, terrain_size.z * .5))
 			terrain.set_script(TerrainScript)
 			terrain.material = material
 			root.add_child(terrain)
@@ -120,7 +121,7 @@ func import(path, from):
 			
 			var spawn_point = Position3D.new()
 			spawn_point.set_name("SpawnPoint")
-			spawn_point.set_translation(Vector3(spawn_pos[0], spawn_pos[2], spawn_pos[1]) / 10)
+			spawn_point.set_translation(Vector3(spawn_pos[0], spawn_pos[2], spawn_pos[1]) * .1)
 			root.add_child(spawn_point)
 			spawn_point.set_owner(root)
 			
@@ -130,8 +131,8 @@ func import(path, from):
 			var size = float(lines[2])
 			var destination = lines[3]
 			var portal = MapPortal.instance()
-			portal.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
-			portal.set_scale(Vector3(size, size, size) / 10)
+			portal.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
+			portal.set_scale(Vector3(size, size, size) * .1)
 			portal.material = portal_material
 			portal.destination = destination
 			root.add_child(portal)
@@ -145,7 +146,7 @@ func import(path, from):
 			var dest_pos = lines[4].split_floats(" ")
 			var dest_vec = Vector3(dest_pos[0], 0, dest_pos[1]) if dest_pos.size() == 2 else Vector3(dest_pos[0], dest_pos[1], dest_pos[2])
 			var gate = Gate.instance()
-			gate.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
+			gate.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
 			gate.set_scale(Vector3(4, 4, 4))
 			gate.material = load("res://objects/materials/{0}.tres".format([mat_name]))
 			gate.destination = destination
@@ -162,7 +163,7 @@ func import(path, from):
 			var sound = lines[5] if lines.size() > 5 else ""
 			var is_solid = (lines.size() > 6 and lines[6] == "true")
 			var plane = IcePlane.instance() if is_solid else WaterPlane.instance()
-			plane.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
+			plane.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
 			plane.set_scale(Vector3(scaleX * 10, 1, scaleZ * 10))
 			root.add_child(plane)
 			plane.set_owner(root)
@@ -181,8 +182,8 @@ func import(path, from):
 				continue
 				
 			var obj = MapObject.instance()
-			obj.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
-			obj.set_scale(Vector3(scale[0], scale[1], scale[2]) / 10)
+			obj.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
+			obj.set_scale(Vector3(scale[0], scale[1], scale[2]) * .1)
 			obj.set_rotation_deg(Vector3(rot[0], rot[1], rot[2]))
 			root.add_child(obj)
 			obj.set_owner(root)
@@ -198,7 +199,7 @@ func import(path, from):
 				continue
 				
 			var particle = MapParticle.instance()
-			particle.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
+			particle.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
 			root.add_child(particle)
 			particle.set_owner(root)
 			
@@ -219,7 +220,7 @@ func import(path, from):
 			var pos = lines[1].split_floats(" ")
 			var color = lines[2].split_floats(" ")
 			var light = OmniLight.new()
-			light.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
+			light.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
 			light.set_color(Light.COLOR_DIFFUSE, Color(color[0], color[1], color[2]))
 			root.add_child(light)
 			light.set_owner(root)
@@ -229,8 +230,8 @@ func import(path, from):
 			var scale = lines[2].split_floats(" ")
 			var mat_name = lines[3]
 			var billboard = Billboard.instance()
-			billboard.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
-			billboard.set_scale(Vector3(scale[0], scale[1], 1) / 10)
+			billboard.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
+			billboard.set_scale(Vector3(scale[0], scale[1], 1) * .1)
 			root.add_child(billboard)
 			billboard.set_owner(root)
 			
@@ -239,8 +240,8 @@ func import(path, from):
 			var radius = float(lines[2])
 			var is_inside = (lines[3] == "true")
 			var sphere_wall = SphereWall.instance()
-			sphere_wall.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
-			sphere_wall.set_scale(Vector3(radius, radius, radius) / 10)
+			sphere_wall.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
+			sphere_wall.set_scale(Vector3(radius, radius, radius) * .1)
 			root.add_child(sphere_wall)
 			sphere_wall.set_owner(root)
 			
@@ -249,8 +250,8 @@ func import(path, from):
 			var size = lines[2].split_floats(" ")
 			var is_inside = (lines[3] == "true")
 			var box_wall = BoxWall.instance()
-			box_wall.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
-			box_wall.set_scale(Vector3(size[0], size[1], size[2]) / 10)
+			box_wall.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
+			box_wall.set_scale(Vector3(size[0], size[1], size[2]) * .1)
 			root.add_child(box_wall)
 			box_wall.set_owner(root)
 			
@@ -263,11 +264,15 @@ func import(path, from):
 			var grass_color_map = lines[3]
 			
 		elif lines[0].begins_with("RandomTrees"):
-			var trees = [lines[1], lines[2], lines[3]]
+			var trees = [
+			    lines[1].replace(".mesh", ""), 
+			    lines[2].replace(".mesh", ""), 
+			    lines[3].replace(".mesh", "")
+			]
 			var tree_cnt = int(lines[4])
-			foliage[trees[0]] = Vector3Array()
-			foliage[trees[1]] = Vector3Array()
-			foliage[trees[2]] = Vector3Array()
+			foliage[trees[0]] = []
+			foliage[trees[1]] = []
+			foliage[trees[2]] = []
 			var tree
 			
 			for i in range(tree_cnt):
@@ -275,11 +280,15 @@ func import(path, from):
 				# TODO: Generate random position and set the height based on the heightmap
 				
 		elif lines[0].begins_with("RandomBushes"):
-			var bushes = [lines[1], lines[2], lines[3]]
+			var bushes = [
+			    lines[1].replace(".mesh", ""), 
+			    lines[2].replace(".mesh", ""), 
+			    lines[3].replace(".mesh", "")
+			]
 			var bush_cnt = int(lines[4])
-			foliage[bushes[0]] = Vector3Array()
-			foliage[bushes[1]] = Vector3Array()
-			foliage[bushes[2]] = Vector3Array()
+			foliage[bushes[0]] = []
+			foliage[bushes[1]] = []
+			foliage[bushes[2]] = []
 			var bush
 			
 			for i in range(bush_cnt):
@@ -291,28 +300,40 @@ func import(path, from):
 			lines.remove(0)
 			
 			for line in lines:
-				load_trees(line, foliage)
+				if line == "":
+					continue
+					
+				load_trees("{0}/{1}".format([map_name, line]), foliage, 
+				    lines[0].begins_with("NewTrees"))
 				
 		elif (lines[0].begins_with("Bushes") or
 		      lines[0].begins_with("NewBushes")):
 			lines.remove(0)
 			
 			for line in lines:
-				load_bushes(line, foliage)
+				if line == "":
+					continue
+					
+				load_bushes("{0}/{1}".format([map_name, line]), foliage, 
+				    lines[0].begins_with("NewBushes"))
 				
 		elif (lines[0].begins_with("FloatingBushes") or
 		      lines[0].begins_with("NewFloatingBushes")):
 			lines.remove(0)
 			
 			for line in lines:
-				load_floating_bushes(line, foliage)
+				if line == "":
+					continue
+					
+				load_floating_bushes("{0}/{1}".format([map_name, line]), 
+				    foliage, lines[0].begins_with("NewFloatingBushes"))
 				
 		elif lines[0].begins_with("CollBox"):
 			var pos = lines[1].split_floats(" ")
 			var size = lines[2].split_floats(" ")
 			var collbox = CollBox.instance()
-			collbox.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
-			collbox.set_scale(Vector3(size[0], size[1], size[2]) / 10)
+			collbox.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
+			collbox.set_scale(Vector3(size[0], size[1], size[2]) * .1)
 			root.add_child(collbox)
 			collbox.set_owner(root)
 			
@@ -320,8 +341,8 @@ func import(path, from):
 			var pos = lines[1].split_floats(" ")
 			var radius = float(lines[2])
 			var collsphere = CollSphere.instance()
-			collsphere.set_translation(Vector3(pos[0], pos[1], pos[2]) / 10)
-			collsphere.set_scale(Vector3(radius, radius, radius) / 10)
+			collsphere.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
+			collsphere.set_scale(Vector3(radius, radius, radius) * .1)
 			root.add_child(collsphere)
 			collsphere.set_owner(root)
 			
@@ -335,11 +356,16 @@ func import(path, from):
 			pass
 				
 	# Optimize foliage
-	# TODO: Use MultiMesh nodes here
-			
+	for key in foliage.keys():
+		# Build optimized foliage
+		var parts = key.split(";")
+		var mesh_name = parts[0]
+		var mat_name = parts[1] if parts.size() > 1 else ""
+		build_foliage(mesh_name, mat_name, foliage[key], terrain_size, root)
+	
 	# Set import metadata
 	res.set_import_metadata(from)
-			
+	
 	# Save imported map
 	res.pack(root)
 	
@@ -367,11 +393,11 @@ func load_terrain_config(path):
 			
 		# World size X
 		elif line.begins_with("PageWorldX"):
-			size.x = float(line.split("=")[1]) / 10
+			size.x = float(line.split("=")[1]) * .1
 			
 		# World size Z
 		elif line.begins_with("PageWorldZ"):
-			size.z = float(line.split("=")[1]) / 10
+			size.z = float(line.split("=")[1]) * .1
 			
 		# Maximum terrain height
 		elif line.begins_with("MaxHeight"):
@@ -385,19 +411,210 @@ func load_terrain_config(path):
 		# Get next line
 		line = file.get_line()
 			
+	file.close()
 	return {"heightmap": heightmap, "size": size, "material": material}
 	
 	
-func load_trees(tree_cfg, foliage):
-	pass
+func load_trees(tree_cfg, foliage, new):
+	# Open tree config file
+	var file = File.new()
+	
+	if file.open("res://private/maps/{0}".format([tree_cfg]), File.READ):
+		print("ERROR: Failed to open 'res://private/maps/{0}'".format([tree_cfg]))
+		return
+		
+	# Parse tree config file
+	var sections = file.get_as_text().split("[", false)
+	
+	for section in sections:
+		# Parse mesh and material
+		var lines = section.split("\n", false)
+		var mesh_name = lines[0].replace(".mesh", "").replace("]", "")
+		lines.remove(0)
+		
+		# Parse instances
+		foliage[mesh_name] = []
+		
+		for line in lines:
+			var parts = line.split(";")
+			var pos = parts[0].split_floats(" ")
+			var scale = parts[1].split_floats(" ") if parts.size() > 1 else FloatArray([1, 1, 1])
+			var rot = parts[2].split_floats(" ") if parts.size() > 2 else FloatArray([0, 0, 0])
+			
+			if new:
+				foliage[mesh_name].push_back({
+				    "pos": Vector3(pos[0], pos[1], pos[2]) * .1,
+				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
+				    "rot": Vector3(rot[0], rot[1], rot[2])
+				})
+				
+			else:
+				foliage[mesh_name].push_back({
+				    "pos": Vector3(pos[0], 0, pos[1]) * .1,
+				    "scale": Vector3(scale[0], scale[0], scale[0]) * .1,
+				    "rot": Vector3(0, rot[0], 0)
+				})
+	
+	file.close()
 	
 	
-func load_bushes(bush_cfg, foliage):
-	pass
+func load_bushes(bush_cfg, foliage, new):
+	# Open bush config file
+	var file = File.new()
+	
+	if file.open("res://private/maps/{0}".format([bush_cfg]), File.READ):
+		print("ERROR: Failed to open 'res://private/maps/{0}'".format([bush_cfg]))
+		return
+		
+	# Parse bush config file
+	var sections = file.get_as_text().split("[", false)
+	
+	for section in sections:
+		# Parse mesh and material
+		var lines = section.split("\n", false)
+		var mesh_name = lines[0].replace(".mesh", "").replace("]", "")
+		lines.remove(0)
+		
+		# Parse instances
+		foliage[mesh_name] = []
+		
+		for line in lines:
+			var parts = line.split(";")
+			var pos = parts[0].split_floats(" ")
+			var scale = parts[1].split_floats(" ") if parts.size() > 1 else FloatArray([1, 1, 1])
+			var rot = parts[2].split_floats(" ") if parts.size() > 2 else FloatArray([0, 0, 0])
+			
+			if new:
+				foliage[mesh_name].push_back({
+				    "pos": Vector3(pos[0], pos[1], pos[2]) * .1,
+				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
+				    "rot": Vector3(rot[0], rot[1], rot[2])
+				})
+				
+			else:
+				foliage[mesh_name].push_back({
+				    "pos": Vector3(pos[0], 0, pos[1]) * .1,
+				    "scale": Vector3(scale[0], scale[0], scale[0]) * .1,
+				    "rot": Vector3(0, rot[0], 0)
+				})
+	
+	file.close()
 	
 	
-func load_floating_bushes(bush_cfg, foliage):
-	pass
+func load_floating_bushes(bush_cfg, foliage, new):
+	# Open bush config file
+	var file = File.new()
+	
+	if file.open("res://private/maps/{0}".format([bush_cfg]), File.READ):
+		print("ERROR: Failed to open 'res://private/maps/{0}'".format([bush_cfg]))
+		return
+		
+	# Parse bush config file
+	var sections = file.get_as_text().split("[", false)
+	
+	for section in sections:
+		# Parse mesh and material
+		var lines = section.split("\n", false)
+		var mesh_name = lines[0].replace(".mesh", "").replace("]", "")
+		lines.remove(0)
+		
+		# Parse instances
+		foliage[mesh_name] = []
+		
+		for line in lines:
+			var parts = line.split(";")
+			var pos = parts[0].split_floats(" ")
+			var scale = parts[1].split_floats(" ") if parts.size() > 1 else FloatArray([1, 1, 1])
+			var rot = parts[2].split_floats(" ") if parts.size() > 2 else FloatArray([0, 0, 0])
+			
+			if new:
+				foliage[mesh_name].push_back({
+				    "pos": Vector3(pos[0], pos[1], pos[2]) * .1,
+				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
+				    "rot": Vector3(rot[0], rot[1], rot[2])
+				})
+				
+			else:
+				foliage[mesh_name].push_back({
+				    "pos": Vector3(pos[0], pos[1], pos[2]) * .1,
+				    "scale": Vector3(scale[0], scale[0], scale[0]) * .1,
+				    "rot": Vector3(0, rot[0], 0)
+				})
+	
+	file.close()
+	
+	
+func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
+	# Load the object to use as a multimesh
+	var MapObject = load("res://meshes/scenery/{0}.scn".format([mesh_name]))
+	
+	if MapObject == null:
+		return null
+		
+	# Load material
+	# TODO: Load the material here
+		
+	# Instance the object and extract the first mesh in it
+	var obj = MapObject.instance()
+	var base_scale = Vector3(1, 1, 1)
+	var mesh = null
+	
+	for child in obj.get_children():
+		if child.get_type() == "MeshInstance":
+			base_scale = child.get_scale() * .1
+			mesh = child.get_mesh()
+			break
+			
+	obj.queue_free()
+	
+	if mesh == null:
+		return
+		
+	# Preallocate foliage chunks
+	var chunks = []
+	
+	for i in range(64):
+		chunks.push_back(null)
+		
+	# Process instances
+	var cell_size = terrain_size * .125
+	var spatial = Spatial.new()
+	
+	for instance in instances:
+		# Get instance attribs
+		var pos = instance["pos"]
+		var scale = instance["scale"]
+		var rot = instance["rot"]
+		pos = Vector3(pos[0], pos[1], pos[2])
+		scale = Vector3(scale[0], scale[1], scale[2])
+		rot = Vector3(rot[0], rot[1], rot[2])
+		
+		# Calculate chunk pos and index
+		var chunk_pos = pos / cell_size
+		var i = int(chunk_pos.z) * 8 + int(chunk_pos.x)
+		
+		# Create chunk if necessary
+		if chunks[i] == null:
+			var multimesh = MultiMesh.new()
+			multimesh.set_mesh(mesh)
+			chunks[i] = MultiMeshInstance.new()
+			chunks[i].set_multimesh(multimesh)
+			root.add_child(chunks[i])
+			chunks[i].set_owner(root)
+		
+		# Add instance
+		var multimesh = chunks[i].get_multimesh()
+		multimesh.set_instance_count(multimesh.get_instance_count() + 1)
+		spatial.set_translation(pos)
+		spatial.set_scale(base_scale * scale)
+		spatial.set_rotation(rot)
+		multimesh.set_instance_transform(multimesh.get_instance_count() - 1, 
+		    spatial.get_transform())
+		
+	# Generate chunk bounding boxes
+	for chunk in chunks:
+		if chunk != null:
+			chunk.get_multimesh().generate_aabb()
 	
 	
 func _on_MapImportDialog_confirmed():
