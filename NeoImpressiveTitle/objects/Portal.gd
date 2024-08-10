@@ -12,17 +12,26 @@ func _ready():
 func set_destination(value):
 	destination = value
 	
-	# Try to load portal texture
-	var tex = load("res://maps/images/portal{0}.png".format([value]))
-	
-	if tex == null:
-		# Maybe the texture is JPEG format?
-		tex = load("res://maps/images/portal{0}.jpg".format([value]))
+	# Have the child nodes been loaded yet?
+	if not has_node("Portal/Portal"):
+		# Defer setting the portal texture
+		call_deferred("set_destination", value)
+		return
 		
-		if tex == null:
-			# Fallback on the default portal texture
-			return
-			
+	# Try to load portal texture
+	var tex_path = "res://maps/images/portal{0}.png".format([value])
+	var tex = null
+	var dir = Directory.new()
+	
+	if not dir.file_exists(tex_path):
+		tex_path = tex_path.replace(".png", ".jpg")
+		
+	tex = load(tex_path)
+		
+	if tex == null:
+		# Fallback on the default portal texture
+		return
+		
 	# Set the portal material
 	var mat = material.duplicate()
 	mat.set_shader_param("base", tex)

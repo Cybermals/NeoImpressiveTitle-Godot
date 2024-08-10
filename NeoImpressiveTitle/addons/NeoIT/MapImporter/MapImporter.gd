@@ -88,11 +88,11 @@ func import(path, from):
 	# Parse world file sections
 	var foliage = {}
 	var terrain_size
+	var heightmap
 	
 	for section in sections:
 		# Parse section
 		var lines = section.split("\n")
-		var heightmap
 		
 		# Terrain?
 		if lines[0].begins_with("Initialize"):
@@ -155,27 +155,30 @@ func import(path, from):
 			gate.set_owner(root)
 			
 		# Water Plane?
-		elif lines[0].begins_with("WaterPlane"): # TODO: Load material and sound
+		elif lines[0].begins_with("WaterPlane"): # TODO: Load sound
 			var pos = lines[1].split_floats(" ")
 			var scaleX = float(lines[2])
 			var scaleZ = float(lines[3])
 			var mat_name = lines[4] if lines.size() > 4 else ""
 			var sound = lines[5] if lines.size() > 5 else ""
 			var is_solid = (lines.size() > 6 and lines[6] == "true")
+			var mat = load("res://objects/materials/{0}.tres".format([mat_name.replace("/", "-")])) if mat_name != "" else null
 			var plane = IcePlane.instance() if is_solid else WaterPlane.instance()
 			plane.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
 			plane.set_scale(Vector3(scaleX * 10, 1, scaleZ * 10))
+			plane.material = mat
 			root.add_child(plane)
 			plane.set_owner(root)
 			
 		# Object?
-		elif lines[0].begins_with("Object"): # TODO: Load material and sound
+		elif lines[0].begins_with("Object"): # TODO: Load sound
 			var object_name = lines[1].replace(".mesh", "")
 			var pos = lines[2].split_floats(" ")
 			var scale = lines[3].split_floats(" ")
 			var rot = lines[4].split_floats(" ")
 			var sound = lines[5] if lines.size() > 5 else ""
 			var mat_name = lines[6] if lines.size() > 6 else ""
+			var mat = load("res://meshes/scenery/materials/{0}.tres".format([mat_name.replace("/", "-")])) if mat_name != "" else null
 			var MapObject = load("res://meshes/scenery/{0}.scn".format([object_name]))
 			
 			if MapObject == null:
@@ -185,6 +188,11 @@ func import(path, from):
 			obj.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
 			obj.set_scale(Vector3(scale[0], scale[1], scale[2]) * .1)
 			obj.set_rotation_deg(Vector3(rot[0], rot[1], rot[2]))
+			
+			for child in obj.get_children():
+				if child.get_type() == "MeshInstance":
+					child.set_material_override(mat)
+			
 			root.add_child(obj)
 			obj.set_owner(root)
 			
@@ -205,14 +213,21 @@ func import(path, from):
 			
 		elif lines[0].begins_with("WeatherCycle"):
 			var weather_name = lines[1]
+			OS.alert("Weather not implemented yet!", "Warning")
 			# TODO: Load the weather cycle. Maybe use AnimationPlayer?
 			
-		elif lines[0].begins_with("Interior"): # TODO: Load material and sky color
+		elif lines[0].begins_with("Interior"): # TODO: Load sky color
 			var ceiling_height = float(lines[1])
 			var mat_name = lines[2]
 			var sky_color = lines[3].split_floats(" ")
+			var mat = load("res://objects/materials/{0}.tres".format([mat_name.replace("/", "-")])) if mat_name != "" else null
 			var ceiling = Ceiling.instance()
 			ceiling.set_scale(Vector3(terrain_size.x / 2, 1, terrain_size.z))
+			
+			for child in ceiling.get_children():
+				if child.get_type() == "MeshInstance":
+					child.set_material_override(mat)
+			
 			root.add_child(ceiling)
 			ceiling.set_owner(root)
 			
@@ -225,13 +240,15 @@ func import(path, from):
 			root.add_child(light)
 			light.set_owner(root)
 			
-		elif lines[0].begins_with("Billboard"): # TODO: Load material
+		elif lines[0].begins_with("Billboard"):
 			var pos = lines[1].split_floats(" ")
 			var scale = lines[2].split_floats(" ")
 			var mat_name = lines[3]
+			var mat = load("res://objects/materials/{0}.tres".format([mat_name.replace("/", "-")])) if mat_name != "" else null
 			var billboard = Billboard.instance()
 			billboard.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
 			billboard.set_scale(Vector3(scale[0], scale[1], 1) * .1)
+			billboard.set_material_override(mat)
 			root.add_child(billboard)
 			billboard.set_owner(root)
 			
@@ -277,6 +294,8 @@ func import(path, from):
 			
 			for i in range(tree_cnt):
 				tree = trees[rand_range(0, trees.size())]
+				OS.alert("Random trees not implemented yet!", "Warning")
+				break
 				# TODO: Generate random position and set the height based on the heightmap
 				
 		elif lines[0].begins_with("RandomBushes"):
@@ -293,6 +312,8 @@ func import(path, from):
 			
 			for i in range(bush_cnt):
 				bush = bushes[rand_range(0, bushes.size())]
+				OS.alert("Random bushes not implemented yet!", "Warning")
+				break
 				# TODO: Generate random position and set the height based on the heightmap
 				
 		elif (lines[0].begins_with("Trees") or 
@@ -304,7 +325,8 @@ func import(path, from):
 					continue
 					
 				load_trees("{0}/{1}".format([map_name, line]), foliage, 
-				    lines[0].begins_with("NewTrees"))
+				    lines[0].begins_with("NewTrees"), heightmap.get_data(), 
+				    terrain_size)
 				
 		elif (lines[0].begins_with("Bushes") or
 		      lines[0].begins_with("NewBushes")):
@@ -315,7 +337,8 @@ func import(path, from):
 					continue
 					
 				load_bushes("{0}/{1}".format([map_name, line]), foliage, 
-				    lines[0].begins_with("NewBushes"))
+				    lines[0].begins_with("NewTrees"), heightmap.get_data(), 
+				    terrain_size)
 				
 		elif (lines[0].begins_with("FloatingBushes") or
 		      lines[0].begins_with("NewFloatingBushes")):
@@ -326,7 +349,8 @@ func import(path, from):
 					continue
 					
 				load_floating_bushes("{0}/{1}".format([map_name, line]), 
-				    foliage, lines[0].begins_with("NewFloatingBushes"))
+				    foliage, lines[0].begins_with("NewTrees"), 
+				    heightmap.get_data(), terrain_size)
 				
 		elif lines[0].begins_with("CollBox"):
 			var pos = lines[1].split_floats(" ")
@@ -347,13 +371,13 @@ func import(path, from):
 			collsphere.set_owner(root)
 			
 		elif lines[0].begins_with("SpawnCritters"): # TODO: Need to implement this
-			pass
+			OS.alert("Critter spawns not implemented yet!", "Warning")
 			
 		elif lines[0].begins_with("FreezeTime"): # TODO: Need to implement this
-			pass
+			OS.alert("Time freezing not implemented yet!", "Warning")
 			
 		elif lines[0].begins_with("Music"): # TODO: Need to implement this
-			pass
+			OS.alert("Music not implemented yet!", "Warning")
 				
 	# Optimize foliage
 	for key in foliage.keys():
@@ -415,7 +439,7 @@ func load_terrain_config(path):
 	return {"heightmap": heightmap, "size": size, "material": material}
 	
 	
-func load_trees(tree_cfg, foliage, new):
+func load_trees(tree_cfg, foliage, new, heightmap, terrain_size):
 	# Open tree config file
 	var file = File.new()
 	
@@ -433,7 +457,8 @@ func load_trees(tree_cfg, foliage, new):
 		lines.remove(0)
 		
 		# Parse instances
-		foliage[mesh_name] = []
+		if not foliage.has(mesh_name):
+			foliage[mesh_name] = []
 		
 		for line in lines:
 			var parts = line.split(";")
@@ -443,14 +468,14 @@ func load_trees(tree_cfg, foliage, new):
 			
 			if new:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], pos[1], pos[2]) * .1,
+				    "pos": Vector3(pos[0], heightmap.get_pixel(pos[0] * .1, pos[1] * .1).g * .25 * terrain_size.y, pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
 				    "rot": Vector3(rot[0], rot[1], rot[2])
 				})
 				
 			else:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], 0, pos[1]) * .1,
+				    "pos": Vector3(pos[0], heightmap.get_pixel(pos[0] * .1, pos[1] * .1).g * terrain_size.y, pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[0], scale[0]) * .1,
 				    "rot": Vector3(0, rot[0], 0)
 				})
@@ -458,7 +483,7 @@ func load_trees(tree_cfg, foliage, new):
 	file.close()
 	
 	
-func load_bushes(bush_cfg, foliage, new):
+func load_bushes(bush_cfg, foliage, new, heightmap, terrain_size):
 	# Open bush config file
 	var file = File.new()
 	
@@ -476,7 +501,8 @@ func load_bushes(bush_cfg, foliage, new):
 		lines.remove(0)
 		
 		# Parse instances
-		foliage[mesh_name] = []
+		if not foliage.has(mesh_name):
+			foliage[mesh_name] = []
 		
 		for line in lines:
 			var parts = line.split(";")
@@ -486,14 +512,14 @@ func load_bushes(bush_cfg, foliage, new):
 			
 			if new:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], pos[1], pos[2]) * .1,
+				    "pos": Vector3(pos[0], heightmap.get_pixel(pos[0] * .1, pos[1] * .1).g * .25 * terrain_size.y, pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
 				    "rot": Vector3(rot[0], rot[1], rot[2])
 				})
 				
 			else:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], 0, pos[1]) * .1,
+				    "pos": Vector3(pos[0], heightmap.get_pixel(pos[0] * .1, pos[1] * .1).g * terrain_size.y, pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[0], scale[0]) * .1,
 				    "rot": Vector3(0, rot[0], 0)
 				})
@@ -501,7 +527,7 @@ func load_bushes(bush_cfg, foliage, new):
 	file.close()
 	
 	
-func load_floating_bushes(bush_cfg, foliage, new):
+func load_floating_bushes(bush_cfg, foliage, new, heightmap, terrain_size):
 	# Open bush config file
 	var file = File.new()
 	
@@ -519,7 +545,8 @@ func load_floating_bushes(bush_cfg, foliage, new):
 		lines.remove(0)
 		
 		# Parse instances
-		foliage[mesh_name] = []
+		if not foliage.has(mesh_name):
+			foliage[mesh_name] = []
 		
 		for line in lines:
 			var parts = line.split(";")
@@ -552,8 +579,31 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 		return null
 		
 	# Load material
-	# TODO: Load the material here
+	var mat = load("res://meshes/scenery/materials/{0}.tres".format([mat_name.replace("/", "-")])) if mat_name != "" else null
+	
+	# Add foliages instances
+	for instance in instances:
+		# Get instance attribs
+		var pos = instance["pos"]
+		var scale = instance["scale"]
+		var rot = instance["rot"]
 		
+		# Add instance
+		var obj = MapObject.instance()
+		obj.set_translation(Vector3(pos[0], pos[1], pos[2]))
+		obj.set_scale(Vector3(scale[0], scale[1], scale[2]))
+		obj.set_rotation(Vector3(rot[0], rot[1], rot[2]))
+		
+		for child in obj.get_children():
+			if child.get_type() == "MeshInstance":
+				child.set_material_override(mat)
+		
+		root.add_child(obj)
+		obj.set_owner(root)
+		
+	return
+		
+	# Note: Using multimeshes failed to work. Maybe try again later?
 	# Instance the object and extract the first mesh in it
 	var obj = MapObject.instance()
 	var base_scale = Vector3(1, 1, 1)
@@ -598,6 +648,7 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 			var multimesh = MultiMesh.new()
 			multimesh.set_mesh(mesh)
 			chunks[i] = MultiMeshInstance.new()
+			chunks[i].set_name("Foliage")
 			chunks[i].set_multimesh(multimesh)
 			root.add_child(chunks[i])
 			chunks[i].set_owner(root)
@@ -605,8 +656,8 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 		# Add instance
 		var multimesh = chunks[i].get_multimesh()
 		multimesh.set_instance_count(multimesh.get_instance_count() + 1)
-		spatial.set_translation(pos)
-		spatial.set_scale(base_scale * scale)
+		spatial.set_translation(pos * .1)
+		spatial.set_scale(base_scale * scale * .1)
 		spatial.set_rotation(rot)
 		multimesh.set_instance_transform(multimesh.get_instance_count() - 1, 
 		    spatial.get_transform())
@@ -615,6 +666,8 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 	for chunk in chunks:
 		if chunk != null:
 			chunk.get_multimesh().generate_aabb()
+			
+	return
 	
 	
 func _on_MapImportDialog_confirmed():

@@ -1,8 +1,6 @@
 tool
 extends Area
 
-export (String) var destination = ""
-export (Vector3) var dest_vec
 export (Material) var material setget set_material
 
 
@@ -13,8 +11,13 @@ func _ready():
 func set_material(value):
 	material = value
 	
-	if not has_node("Portal/Portal"):
+	# Have the child nodes been loaded?
+	if not has_node("Plane"):
 		call_deferred("set_material", value)
 		return
 		
-	get_node("Portal/Portal").set_material_override(value)
+	# Set plane material
+	if typeof(value) == TYPE_STRING:
+		return
+		
+	get_node("Plane").set_material_override(value)
