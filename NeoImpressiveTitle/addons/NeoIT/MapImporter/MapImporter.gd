@@ -17,6 +17,7 @@ const SphereWall = preload("res://objects/SphereWall.tscn")
 const BoxWall = preload("res://objects/BoxWall.tscn")
 const CollBox = preload("res://objects/CollBox.tscn")
 const CollSphere = preload("res://objects/CollSphere.tscn")
+const SpatialSFX = preload("res://sfx/SpatialSFX.tscn")
 
 var map_import_dlg = null
 var error_dlg = null
@@ -162,7 +163,7 @@ func import(path, from):
 			gate.set_owner(root)
 			
 		# Water Plane?
-		elif lines[0].begins_with("WaterPlane"): # TODO: Load sound
+		elif lines[0].begins_with("WaterPlane"): # TODO: Adjust scale.
 			var pos = lines[1].split_floats(" ")
 			var scaleX = float(lines[2])
 			var scaleZ = float(lines[3])
@@ -173,12 +174,21 @@ func import(path, from):
 			var plane = IcePlane.instance() if is_solid else WaterPlane.instance()
 			plane.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
 			plane.set_scale(Vector3(scaleX * 10, 1, scaleZ * 10))
-			plane.material = mat
+			
+			if mat != null:
+				plane.material = mat
+				
 			root.add_child(plane)
 			plane.set_owner(root)
 			
+			if sound != "":
+				var sfx = SpatialSFX.instance()
+				sfx.sfx = sound.replace(".wav", "")
+				plane.add_child(sfx)
+				sfx.set_owner(root)
+			
 		# Object?
-		elif lines[0].begins_with("Object"): # TODO: Load sound
+		elif lines[0].begins_with("Object"):
 			var object_name = lines[1].replace(".mesh", "")
 			var pos = lines[2].split_floats(" ")
 			var scale = lines[3].split_floats(" ")
@@ -199,12 +209,18 @@ func import(path, from):
 			for child in obj.get_children():
 				if child.get_type() == "MeshInstance":
 					child.set_material_override(mat)
-			
+					
 			root.add_child(obj)
 			obj.set_owner(root)
+					
+			if sound != "":
+				var sfx = SpatialSFX.instance()
+				sfx.sfx = sound.replace(".wav", "")
+				obj.add_child(sfx)
+				sfx.set_owner(root)
 			
 		# Particle System?
-		elif lines[0].begins_with("Particle"): # TODO: Load sound
+		elif lines[0].begins_with("Particle"):
 			var particle_name = lines[1].replace(".particle", "")
 			var pos = lines[2].split_floats(" ")
 			var sound = lines[3] if lines.size() > 3 else ""
@@ -217,6 +233,12 @@ func import(path, from):
 			particle.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
 			root.add_child(particle)
 			particle.set_owner(root)
+			
+			if sound != "":
+				var sfx = SpatialSFX.instance()
+				sfx.sfx = sound.replace(".wav", "")
+				particle.add_child(sfx)
+				sfx.set_owner(root)
 			
 		elif lines[0].begins_with("WeatherCycle"):
 			var weather_name = lines[1]
