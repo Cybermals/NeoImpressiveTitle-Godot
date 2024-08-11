@@ -4,6 +4,7 @@ extends EditorImportPlugin
 const MapImportDialog = preload("MapImportDialog.tscn")
 const ErrorDialog = preload("ErrorDialog.tscn")
 const default_env = preload("res://environments/Default.tres")
+const MusicQueue = preload("res://music/MusicQueue.tscn")
 const TerrainScript = preload("res://maps/Terrain.gd")
 const MapPortal = preload("res://objects/Portal.tscn")
 const portal_material = preload("res://meshes/scenery/materials/Portal.tres")
@@ -71,6 +72,12 @@ func import(path, from):
 	env.set_environment(default_env)
 	root.add_child(env)
 	env.set_owner(root)
+	
+	# Add music queue
+	var music_queue = MusicQueue.instance()
+	music_queue.set_volume_db(20)
+	root.add_child(music_queue)
+	music_queue.set_owner(root)
 	
 	# Load world file sections
 	var world = File.new()
@@ -376,8 +383,9 @@ func import(path, from):
 		elif lines[0].begins_with("FreezeTime"): # TODO: Need to implement this
 			OS.alert("Time freezing not implemented yet!", "Warning")
 			
-		elif lines[0].begins_with("Music"): # TODO: Need to implement this
-			OS.alert("Music not implemented yet!", "Warning")
+		elif lines[0].begins_with("Music"):
+			lines.remove(0)
+			music_queue.songs = lines
 				
 	# Optimize foliage
 	for key in foliage.keys():
