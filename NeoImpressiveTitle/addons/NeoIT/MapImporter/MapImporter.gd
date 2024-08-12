@@ -3,7 +3,7 @@ extends EditorImportPlugin
 
 const MapImportDialog = preload("MapImportDialog.tscn")
 const ErrorDialog = preload("ErrorDialog.tscn")
-const default_env = preload("res://environments/Default.tres")
+const Sky = preload("res://environments/Sky.tscn")
 const MusicQueue = preload("res://music/MusicQueue.tscn")
 const TerrainScript = preload("res://maps/Terrain.gd")
 const MapPortal = preload("res://objects/Portal.tscn")
@@ -68,11 +68,10 @@ func import(path, from):
 	var root = Spatial.new()
 	root.set_name(map_name)
 	
-	# Add default environment
-	var env = WorldEnvironment.new()
-	env.set_environment(default_env)
-	root.add_child(env)
-	env.set_owner(root)
+	# Add sky
+	var sky = Sky.instance()
+	root.add_child(sky)
+	sky.set_owner(root)
 	
 	# Add music queue
 	var music_queue = MusicQueue.instance()
