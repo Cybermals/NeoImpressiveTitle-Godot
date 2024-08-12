@@ -622,7 +622,7 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 		var obj = MapObject.instance()
 		obj.set_translation(Vector3(pos[0], pos[1], pos[2]))
 		obj.set_scale(Vector3(scale[0], scale[1], scale[2]))
-		obj.set_rotation(Vector3(rot[0], rot[1], rot[2]))
+		obj.set_rotation_deg(Vector3(rot[0], rot[1], rot[2]))
 		
 		for child in obj.get_children():
 			if child.get_type() == "MeshInstance":
@@ -688,7 +688,7 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 		multimesh.set_instance_count(multimesh.get_instance_count() + 1)
 		spatial.set_translation(pos * .1)
 		spatial.set_scale(base_scale * scale * .1)
-		spatial.set_rotation(rot)
+		spatial.set_rotation_deg(rot)
 		multimesh.set_instance_transform(multimesh.get_instance_count() - 1, 
 		    spatial.get_transform())
 		

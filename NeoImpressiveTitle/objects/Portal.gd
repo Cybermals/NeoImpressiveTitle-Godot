@@ -6,7 +6,8 @@ export (String) var destination = "" setget set_destination
 
 
 func _ready():
-	pass
+	# Force portal destination update
+	destination = destination
 	
 	
 func set_destination(value):
@@ -14,8 +15,6 @@ func set_destination(value):
 	
 	# Have the child nodes been loaded yet?
 	if not has_node("Portal/Portal"):
-		# Defer setting the portal texture
-		call_deferred("set_destination", value)
 		return
 		
 	# Try to load portal texture
