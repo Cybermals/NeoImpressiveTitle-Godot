@@ -24,6 +24,7 @@ tracks/0/keys = {
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script/script = ExtResource( 1 )
+freeze_time = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
@@ -33,7 +34,7 @@ environment = ExtResource( 2 )
 [node name="Sun" type="DirectionalLight" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 0.880362, 0.474302, 0, -0.474302, 0.880362, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, -0.548859, 0.835915, 0, -0.835915, -0.548859, 0, 0, 0 )
 layers = 1
 params/enabled = true
 params/editor_only = false
@@ -41,7 +42,7 @@ params/bake_mode = 0
 params/energy = 1.0
 colors/diffuse = Color( 1, 1, 1, 1 )
 colors/specular = Color( 1, 1, 1, 1 )
-shadow/shadow = true
+shadow/shadow = false
 shadow/darkening = 0.0
 shadow/z_offset = 0.05
 shadow/z_slope_scale = 0.0

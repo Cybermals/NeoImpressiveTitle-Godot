@@ -162,7 +162,7 @@ func import(path, from):
 			gate.set_owner(root)
 			
 		# Water Plane?
-		elif lines[0].begins_with("WaterPlane"): # TODO: Adjust scale.
+		elif lines[0].begins_with("WaterPlane"):
 			var pos = lines[1].split_floats(" ")
 			var scaleX = float(lines[2])
 			var scaleZ = float(lines[3])
@@ -172,7 +172,7 @@ func import(path, from):
 			var mat = load("res://objects/materials/{0}.tres".format([mat_name.replace("/", "-")])) if mat_name != "" else null
 			var plane = IcePlane.instance() if is_solid else WaterPlane.instance()
 			plane.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
-			plane.set_scale(Vector3(scaleX * 10, 1, scaleZ * 10))
+			plane.set_scale(Vector3(scaleX * 20, 1, scaleZ * 20))
 			
 			if mat != null:
 				plane.material = mat
@@ -315,16 +315,24 @@ func import(path, from):
 			    lines[3].replace(".mesh", "")
 			]
 			var tree_cnt = int(lines[4])
-			foliage[trees[0]] = []
-			foliage[trees[1]] = []
-			foliage[trees[2]] = []
-			var tree
 			
 			for i in range(tree_cnt):
-				tree = trees[rand_range(0, trees.size())]
-				OS.alert("Random trees not implemented yet!", "Warning")
-				break
-				# TODO: Generate random position and set the height based on the heightmap
+				var tree = trees[rand_range(0, trees.size())]
+				var pos = [
+				    rand_range(0, terrain_size.x),
+				    0,
+				    rand_range(0, terrain_size.z)
+				]
+				pos[1] = get_height(heightmap.get_data(), terrain_size, pos[0] * .1, pos[1] * .1).g
+				
+				if not foliage.has(tree):
+					foliage[tree] = []
+					
+				foliage[tree].push_back({
+				    "pos": pos,
+				    "scale": [1, 1, 1],
+				    "rot": [0, 0, 0]
+				})
 				
 		elif lines[0].begins_with("RandomBushes"):
 			var bushes = [
@@ -333,16 +341,24 @@ func import(path, from):
 			    lines[3].replace(".mesh", "")
 			]
 			var bush_cnt = int(lines[4])
-			foliage[bushes[0]] = []
-			foliage[bushes[1]] = []
-			foliage[bushes[2]] = []
-			var bush
 			
 			for i in range(bush_cnt):
-				bush = bushes[rand_range(0, bushes.size())]
-				OS.alert("Random bushes not implemented yet!", "Warning")
-				break
-				# TODO: Generate random position and set the height based on the heightmap
+				var bush = bushes[rand_range(0, bushes.size())]
+				var pos = [
+				    rand_range(0, terrain_size.x),
+				    0,
+				    rand_range(0, terrain_size.z)
+				]
+				pos[1] = get_height(heightmap.get_data(), terrain_size, pos[0] * .1, pos[1] * .1).g
+				
+				if not foliage.has(bush):
+					foliage[bush] = []
+					
+				foliage[bush].push_back({
+				    "pos": pos,
+				    "scale": [1, 1, 1],
+				    "rot": [0, 0, 0]
+				})
 				
 		elif (lines[0].begins_with("Trees") or 
 		      lines[0].begins_with("NewTrees")):
@@ -401,8 +417,8 @@ func import(path, from):
 		elif lines[0].begins_with("SpawnCritters"): # TODO: Need to implement this
 			OS.alert("Critter spawns not implemented yet!", "Warning")
 			
-		elif lines[0].begins_with("FreezeTime"): # TODO: Need to implement this
-			OS.alert("Time freezing not implemented yet!", "Warning")
+		elif lines[0].begins_with("FreezeTime"):
+			sky.freeze_time = true
 			
 		elif lines[0].begins_with("Music"):
 			lines.remove(0)
@@ -468,6 +484,16 @@ func load_terrain_config(path):
 	return {"heightmap": heightmap, "size": size, "material": material}
 	
 	
+func get_height(heightmap, terrain_size, x, y):
+	var heightmap_size = Vector3(
+	    heightmap.get_width(),
+	    0,
+	    heightmap.get_height()
+	)
+	var scale_factor = heightmap_size / terrain_size
+	return heightmap.get_pixel(x * scale_factor.x, y * scale_factor.z)
+	
+	
 func load_trees(tree_cfg, foliage, new, heightmap, terrain_size):
 	# Open tree config file
 	var file = File.new()
@@ -497,14 +523,14 @@ func load_trees(tree_cfg, foliage, new, heightmap, terrain_size):
 			
 			if new:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], heightmap.get_pixel(pos[0] * .1, pos[1] * .1).g * .25 * terrain_size.y, pos[1]) * .1,
+				    "pos": Vector3(pos[0], get_height(heightmap, terrain_size, pos[0] * .1, pos[1] * .1).g * .25 * terrain_size.y, pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
 				    "rot": Vector3(rot[0], rot[1], rot[2])
 				})
 				
 			else:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], heightmap.get_pixel(pos[0] * .1, pos[1] * .1).g * terrain_size.y, pos[1]) * .1,
+				    "pos": Vector3(pos[0], get_height(heightmap, terrain_size, pos[0] * .1, pos[1] * .1).g * terrain_size.y, pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[0], scale[0]) * .1,
 				    "rot": Vector3(0, rot[0], 0)
 				})
@@ -541,14 +567,14 @@ func load_bushes(bush_cfg, foliage, new, heightmap, terrain_size):
 			
 			if new:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], heightmap.get_pixel(pos[0] * .1, pos[1] * .1).g * .25 * terrain_size.y, pos[1]) * .1,
+				    "pos": Vector3(pos[0], get_height(heightmap, terrain_size, pos[0] * .1, pos[1] * .1).g * .25 * terrain_size.y, pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
 				    "rot": Vector3(rot[0], rot[1], rot[2])
 				})
 				
 			else:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], heightmap.get_pixel(pos[0] * .1, pos[1] * .1).g * terrain_size.y, pos[1]) * .1,
+				    "pos": Vector3(pos[0], get_height(heightmap, terrain_size, pos[0] * .1, pos[1] * .1).g * terrain_size.y, pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[0], scale[0]) * .1,
 				    "rot": Vector3(0, rot[0], 0)
 				})
