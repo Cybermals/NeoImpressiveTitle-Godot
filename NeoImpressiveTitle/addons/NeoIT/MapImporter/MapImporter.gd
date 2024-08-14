@@ -22,8 +22,12 @@ const SpatialSFX = preload("res://sfx/SpatialSFX.tscn")
 var map_import_dlg = null
 var error_dlg = null
 
+var _base_control
+
 
 func _init(base_control):
+	_base_control = base_control
+	
 	# Create map import dialog
 	map_import_dlg = MapImportDialog.instance()
 	map_import_dlg.connect("confirmed", self, "_on_MapImportDialog_confirmed")
@@ -79,6 +83,16 @@ func import(path, from):
 	root.add_child(music_queue)
 	music_queue.set_owner(root)
 	
+	# Add raycast to calculate terrain height. This node should not be saved
+	# as part of the scene.
+	var raycast = RayCast.new()
+	raycast.set_cast_to(Vector3(0, -1024, 0))
+	root.add_child(raycast)
+	
+	# Temporarily add root node to editor scene for performing physics
+	# calculations
+	_base_control.add_child(root)
+	
 	# Load world file sections
 	var world = File.new()
 	var sections
@@ -95,7 +109,6 @@ func import(path, from):
 	# Parse world file sections
 	var foliage = {}
 	var terrain_size
-	var heightmap
 	
 	for section in sections:
 		# Parse section
@@ -106,8 +119,6 @@ func import(path, from):
 			var terrain_name = from.get_source_path(0).get_file().replace(".world", "")
 			var Terrain = load("res://meshes/terrain/{0}.scn".format([terrain_name]))
 			var config = load_terrain_config("{0}/{1}".format([from.get_source_path(0).get_base_dir(), lines[1]]))
-			var heightmap_name = config["heightmap"]
-			heightmap = load("res://private/meshes/terrain/images/{0}".format([heightmap_name]))
 			terrain_size = config["size"]
 			var material = config["material"]
 			var spawn_pos = lines[4].split_floats(" ")
@@ -131,6 +142,8 @@ func import(path, from):
 			spawn_point.set_translation(Vector3(spawn_pos[0], spawn_pos[2], spawn_pos[1]) * .1)
 			root.add_child(spawn_point)
 			spawn_point.set_owner(root)
+			
+			raycast.set_translation(Vector3(0, -terrain_size.y, 0))
 			
 		# Portal?
 		elif lines[0].begins_with("Portal"):
@@ -172,7 +185,7 @@ func import(path, from):
 			var mat = load("res://objects/materials/{0}.tres".format([mat_name.replace("/", "-")])) if mat_name != "" else null
 			var plane = IcePlane.instance() if is_solid else WaterPlane.instance()
 			plane.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
-			plane.set_scale(Vector3(scaleX * 20, 1, scaleZ * 20))
+			plane.set_scale(Vector3(scaleX * 25, 1, scaleZ * 25))
 			
 			if mat != null:
 				plane.material = mat
@@ -323,7 +336,7 @@ func import(path, from):
 				    0,
 				    rand_range(0, terrain_size.z)
 				]
-				pos[1] = get_height(heightmap.get_data(), terrain_size, pos[0] * .1, pos[1] * .1).g
+				pos[1] = get_height(raycast, pos[0] * .1, pos[1] * .1)
 				
 				if not foliage.has(tree):
 					foliage[tree] = []
@@ -349,7 +362,7 @@ func import(path, from):
 				    0,
 				    rand_range(0, terrain_size.z)
 				]
-				pos[1] = get_height(heightmap.get_data(), terrain_size, pos[0] * .1, pos[1] * .1).g
+				pos[1] = get_height(raycast, pos[0] * .1, pos[1] * .1)
 				
 				if not foliage.has(bush):
 					foliage[bush] = []
@@ -369,8 +382,7 @@ func import(path, from):
 					continue
 					
 				load_trees("{0}/{1}".format([map_name, line]), foliage, 
-				    lines[0].begins_with("NewTrees"), heightmap.get_data(), 
-				    terrain_size)
+				    lines[0].begins_with("NewTrees"), raycast)
 				
 		elif (lines[0].begins_with("Bushes") or
 		      lines[0].begins_with("NewBushes")):
@@ -381,8 +393,7 @@ func import(path, from):
 					continue
 					
 				load_bushes("{0}/{1}".format([map_name, line]), foliage, 
-				    lines[0].begins_with("NewTrees"), heightmap.get_data(), 
-				    terrain_size)
+				    lines[0].begins_with("NewTrees"), raycast)
 				
 		elif (lines[0].begins_with("FloatingBushes") or
 		      lines[0].begins_with("NewFloatingBushes")):
@@ -393,8 +404,7 @@ func import(path, from):
 					continue
 					
 				load_floating_bushes("{0}/{1}".format([map_name, line]), 
-				    foliage, lines[0].begins_with("NewTrees"), 
-				    heightmap.get_data(), terrain_size)
+				    foliage, lines[0].begins_with("NewTrees"), raycast)
 				
 		elif lines[0].begins_with("CollBox"):
 			var pos = lines[1].split_floats(" ")
@@ -431,6 +441,9 @@ func import(path, from):
 		var mesh_name = parts[0]
 		var mat_name = parts[1] if parts.size() > 1 else ""
 		build_foliage(mesh_name, mat_name, foliage[key], terrain_size, root)
+		
+	# Remove root node from editor scene
+	_base_control.remove_child(root)
 	
 	# Set import metadata
 	res.set_import_metadata(from)
@@ -484,17 +497,13 @@ func load_terrain_config(path):
 	return {"heightmap": heightmap, "size": size, "material": material}
 	
 	
-func get_height(heightmap, terrain_size, x, y):
-	var heightmap_size = Vector3(
-	    heightmap.get_width(),
-	    0,
-	    heightmap.get_height()
-	)
-	var scale_factor = heightmap_size / terrain_size
-	return heightmap.get_pixel(x * scale_factor.x, y * scale_factor.z)
+func get_height(raycast, x, y):
+	raycast.set_translation(Vector3(x, 512, y))
+	raycast.force_raycast_update()
+	return raycast.get_collision_point().y * 10
 	
 	
-func load_trees(tree_cfg, foliage, new, heightmap, terrain_size):
+func load_trees(tree_cfg, foliage, new, raycast):
 	# Open tree config file
 	var file = File.new()
 	
@@ -523,14 +532,14 @@ func load_trees(tree_cfg, foliage, new, heightmap, terrain_size):
 			
 			if new:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], get_height(heightmap, terrain_size, pos[0] * .1, pos[1] * .1).g * .25 * terrain_size.y, pos[1]) * .1,
+				    "pos": Vector3(pos[0], get_height(raycast, pos[0] * .1, pos[1] * .1), pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
 				    "rot": Vector3(rot[0], rot[1], rot[2])
 				})
 				
 			else:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], get_height(heightmap, terrain_size, pos[0] * .1, pos[1] * .1).g * terrain_size.y, pos[1]) * .1,
+				    "pos": Vector3(pos[0], get_height(raycast, pos[0] * .1, pos[1] * .1), pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[0], scale[0]) * .1,
 				    "rot": Vector3(0, rot[0], 0)
 				})
@@ -538,7 +547,7 @@ func load_trees(tree_cfg, foliage, new, heightmap, terrain_size):
 	file.close()
 	
 	
-func load_bushes(bush_cfg, foliage, new, heightmap, terrain_size):
+func load_bushes(bush_cfg, foliage, new, raycast):
 	# Open bush config file
 	var file = File.new()
 	
@@ -567,14 +576,14 @@ func load_bushes(bush_cfg, foliage, new, heightmap, terrain_size):
 			
 			if new:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], get_height(heightmap, terrain_size, pos[0] * .1, pos[1] * .1).g * .25 * terrain_size.y, pos[1]) * .1,
+				    "pos": Vector3(pos[0], get_height(raycast, pos[0] * .1, pos[1] * .1), pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
 				    "rot": Vector3(rot[0], rot[1], rot[2])
 				})
 				
 			else:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], get_height(heightmap, terrain_size, pos[0] * .1, pos[1] * .1).g * terrain_size.y, pos[1]) * .1,
+				    "pos": Vector3(pos[0], get_height(raycast, pos[0] * .1, pos[1] * .1), pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[0], scale[0]) * .1,
 				    "rot": Vector3(0, rot[0], 0)
 				})
@@ -582,7 +591,7 @@ func load_bushes(bush_cfg, foliage, new, heightmap, terrain_size):
 	file.close()
 	
 	
-func load_floating_bushes(bush_cfg, foliage, new, heightmap, terrain_size):
+func load_floating_bushes(bush_cfg, foliage, new, raycast):
 	# Open bush config file
 	var file = File.new()
 	
