@@ -1,6 +1,8 @@
 tool
 extends EditorImportPlugin
 
+const GRASS_THRESHOLD = .9
+
 const MapImportDialog = preload("MapImportDialog.tscn")
 const ErrorDialog = preload("ErrorDialog.tscn")
 const Sky = preload("res://environments/Sky.tscn")
@@ -14,10 +16,13 @@ const IcePlane = preload("res://objects/IcePlane.tscn")
 const Ceiling = preload("res://meshes/scenery/Ceiling.scn")
 const Billboard = preload("res://objects/Billboard.tscn")
 const SphereWall = preload("res://objects/SphereWall.tscn")
+const InvertedSphereWall = preload("res://objects/InvertedSphereWall.tscn")
 const BoxWall = preload("res://objects/BoxWall.tscn")
+const InvertedBoxWall = preload("res://objects/InvertedBoxWall.tscn")
 const CollBox = preload("res://objects/CollBox.tscn")
 const CollSphere = preload("res://objects/CollSphere.tscn")
 const SpatialSFX = preload("res://sfx/SpatialSFX.tscn")
+const Grass = preload("res://meshes/scenery/Grass.scn")
 
 var map_import_dlg = null
 var error_dlg = null
@@ -293,21 +298,21 @@ func import(path, from):
 			root.add_child(billboard)
 			billboard.set_owner(root)
 			
-		elif lines[0].begins_with("SphereWall"): # TODO: Need to implement inverted sphere collisions
+		elif lines[0].begins_with("SphereWall"):
 			var pos = lines[1].split_floats(" ")
 			var radius = float(lines[2])
 			var is_inside = (lines[3] == "true")
-			var sphere_wall = SphereWall.instance()
+			var sphere_wall = InvertedSphereWall.instance() if is_inside else SphereWall.instance()
 			sphere_wall.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
 			sphere_wall.set_scale(Vector3(radius, radius, radius) * .1)
 			root.add_child(sphere_wall)
 			sphere_wall.set_owner(root)
 			
-		elif lines[0].begins_with("BoxWall"): # TODO: Need to implement inverted box collisions
+		elif lines[0].begins_with("BoxWall"):
 			var pos = lines[1].split_floats(" ")
 			var size = lines[2].split_floats(" ")
 			var is_inside = (lines[3] == "true")
-			var box_wall = BoxWall.instance()
+			var box_wall = InvertedBoxWall.instance() if is_inside else BoxWall.instance()
 			box_wall.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
 			box_wall.set_scale(Vector3(size[0], size[1], size[2]) * .1)
 			root.add_child(box_wall)
@@ -317,9 +322,39 @@ func import(path, from):
 			var map_effect = lines[1]
 			
 		elif lines[0].begins_with("Grass"): # TODO: Need to implement this
+			# The grass code is currently broken and freezes the importer.
+			# It is disabled for now.
+			continue
+			
 			var mat_name = lines[1]
-			var grass_map = lines[2]
-			var grass_color_map = lines[3]
+			var grass_map_name = lines[2]
+			var grass_color_map_name = lines[3]
+			
+			# Load grass material and grass map
+			var mat = load("res://meshes/scenery/materials/{0}.tres".format([mat_name]))
+			var grass_map = load("res://maps/images/{0}".format([grass_map_name]))
+			
+			if grass_map == null:
+				continue
+				
+			grass_map = grass_map.get_data()
+				
+			# Calculate scale factor
+			var grass_map_size = Vector3(
+			    grass_map.get_width(),
+			    0,
+			    grass_map.get_height()
+			)
+			var scale_factor = terrain_size / grass_map_size
+			
+			# Determine where grass should be
+			for y in range(grass_map_size.z):
+				for x in range(grass_map_size.x):
+					if grass_map.get_pixel(x, y).g > GRASS_THRESHOLD:
+						var grass = Grass.instance()
+						grass.set_translation(Vector3(x * scale_factor.x, get_height(raycast, x * scale_factor.x * .1, y * scale_factor.z * .1), y * scale_factor.z) * .1)
+						root.add_child(grass)
+						grass.set_owner(root)
 			
 		elif lines[0].begins_with("RandomTrees"):
 			var trees = [

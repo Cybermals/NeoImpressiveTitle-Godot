@@ -2,7 +2,7 @@
 
 [ext_resource path="res://tests/CollisionTest.gd" type="Script" id=1]
 [ext_resource path="res://environments/Default.tres" type="Environment" id=2]
-[ext_resource path="res://objects/SphereWall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/InvertedSphereWall.tscn" type="PackedScene" id=3]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -57,14 +57,13 @@ environment = null
 h_offset = 0.0
 v_offset = 0.0
 
-[node name="SphereWall" parent="." instance=ExtResource( 3 )]
+[node name="InvertedSphereWall" parent="." instance=ExtResource( 3 )]
 
 transform/local = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.42139, 0, 0 )
 input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
