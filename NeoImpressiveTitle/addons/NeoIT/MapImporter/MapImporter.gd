@@ -23,6 +23,7 @@ const CollBox = preload("res://objects/CollBox.tscn")
 const CollSphere = preload("res://objects/CollSphere.tscn")
 const SpatialSFX = preload("res://sfx/SpatialSFX.tscn")
 const Grass = preload("res://meshes/scenery/Grass.scn")
+const MapMetadata = preload("res://maps/MapMetadata.tscn")
 
 var map_import_dlg = null
 var error_dlg = null
@@ -76,6 +77,11 @@ func import(path, from):
 	var map_name = from.get_source_path(0).get_file().replace(".world", "")
 	var root = Spatial.new()
 	root.set_name(map_name)
+	
+	# Map metadata
+	var map_metadata = MapMetadata.instance()
+	root.add_child(map_metadata)
+	map_metadata.set_owner(root)
 	
 	# Add sky
 	var sky = Sky.instance()
@@ -318,8 +324,8 @@ func import(path, from):
 			root.add_child(box_wall)
 			box_wall.set_owner(root)
 			
-		elif lines[0].begins_with("MapEffect"): # TODO: Need to implement this somehow
-			var map_effect = lines[1]
+		elif lines[0].begins_with("MapEffect"):
+			map_metadata.map_effect = lines[1]
 			
 		elif lines[0].begins_with("Grass"): # TODO: Need to implement this
 			# The grass code is currently broken and freezes the importer.

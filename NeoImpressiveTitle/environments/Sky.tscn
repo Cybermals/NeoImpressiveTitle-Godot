@@ -19,6 +19,16 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( -90, 0, 0 ), Vector3( -180, 0, 0 ), Vector3( -270, 0, 0 ), Vector3( -360, 0, 0 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sun:params/enabled")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 10 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [node name="Sky" type="Spatial"]
 
@@ -34,7 +44,7 @@ environment = ExtResource( 2 )
 [node name="Sun" type="DirectionalLight" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, -0.548859, 0.835915, 0, -0.835915, -0.548859, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 0.982575, 0.185868, 0, -0.185868, 0.982575, 0, 0, 0 )
 layers = 1
 params/enabled = true
 params/editor_only = false
@@ -62,7 +72,7 @@ playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/DayNightCycle = SubResource( 1 )
 playback/active = true
-playback/speed = 0.01
+playback/speed = 0.1
 blend_times = [  ]
 autoplay = ""
 

@@ -1,7 +1,7 @@
 tool
 extends Spatial
 
-export (bool) var freeze_time
+export (bool) var freeze_time setget set_freeze_time
 
 
 func _ready():
