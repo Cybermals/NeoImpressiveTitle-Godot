@@ -22,7 +22,7 @@ const InvertedBoxWall = preload("res://objects/InvertedBoxWall.tscn")
 const CollBox = preload("res://objects/CollBox.tscn")
 const CollSphere = preload("res://objects/CollSphere.tscn")
 const SpatialSFX = preload("res://sfx/SpatialSFX.tscn")
-const Grass = preload("res://meshes/scenery/Grass.scn")
+const grass = preload("res://meshes/scenery/Grass.tres")
 const MapMetadata = preload("res://maps/MapMetadata.tscn")
 
 var map_import_dlg = null
@@ -265,8 +265,14 @@ func import(path, from):
 			
 		elif lines[0].begins_with("WeatherCycle"):
 			var weather_name = lines[1]
-			OS.alert("Weather not implemented yet!", "Warning")
-			# TODO: Load the weather cycle. Maybe use AnimationPlayer?
+			var Weather = load("res://weather/{0}.tscn".format([weather_name]))
+			
+			if Weather == null:
+				continue
+				
+			var weather = Weather.instance()
+			root.add_child(weather)
+			weather.set_owner(root)
 			
 		elif lines[0].begins_with("Interior"): # TODO: Load sky color
 			var ceiling_height = float(lines[1])
@@ -330,7 +336,7 @@ func import(path, from):
 		elif lines[0].begins_with("Grass"): # TODO: Need to implement this
 			# The grass code is currently broken and freezes the importer.
 			# It is disabled for now.
-			continue
+			# continue
 			
 			var mat_name = lines[1]
 			var grass_map_name = lines[2]
@@ -343,24 +349,8 @@ func import(path, from):
 			if grass_map == null:
 				continue
 				
-			grass_map = grass_map.get_data()
-				
-			# Calculate scale factor
-			var grass_map_size = Vector3(
-			    grass_map.get_width(),
-			    0,
-			    grass_map.get_height()
-			)
-			var scale_factor = terrain_size / grass_map_size
-			
-			# Determine where grass should be
-			for y in range(grass_map_size.z):
-				for x in range(grass_map_size.x):
-					if grass_map.get_pixel(x, y).g > GRASS_THRESHOLD:
-						var grass = Grass.instance()
-						grass.set_translation(Vector3(x * scale_factor.x, get_height(raycast, x * scale_factor.x * .1, y * scale_factor.z * .1), y * scale_factor.z) * .1)
-						root.add_child(grass)
-						grass.set_owner(root)
+			# Generate grass
+			generate_grass(grass_map.get_data(), mat, terrain_size, raycast, root)
 			
 		elif lines[0].begins_with("RandomTrees"):
 			var trees = [
@@ -773,6 +763,48 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 			chunk.get_multimesh().generate_aabb()
 			
 	return
+	
+	
+func generate_grass(grass_map, mat, terrain_size, raycast, root):
+	# Calculate scale factor
+	var grass_map_size = Vector3(
+	    grass_map.get_width(),
+	    0,
+	    grass_map.get_height()
+	)
+	var scale_factor = terrain_size / grass_map_size
+	
+	# Build grass chunks
+	for cz in range(grass_map_size.z / 64):
+		for cx in range(grass_map_size.x / 64):
+			generate_grass_chunk(cx, cz, grass_map.get_rect(Rect2(cx * 64, cz * 64, 64, 64)), mat, scale_factor, raycast, root)
+	
+	
+func generate_grass_chunk(cx, cz, grass_map, mat, scale_factor, raycast, root):
+	# Build grass chunk
+	var pos = Vector3(cx * 64, 0, cz * 64)
+	var patches = 0
+	var grass_chunk = MultiMesh.new()
+	grass_chunk.set_mesh(grass)
+	
+	for z in range(0, 64, 2):
+		for x in range(0, 64, 2):
+			if grass_map.get_pixel(x, z).g > GRASS_THRESHOLD:
+				patches += 1
+				grass_chunk.set_instance_count(patches)
+				var transform = Transform()
+				transform.origin = Vector3(x * scale_factor.x, get_height(raycast, (pos.x + x) * scale_factor.x, (pos.z + z) * scale_factor.z) * .1, z * scale_factor.z)
+				grass_chunk.set_instance_transform(patches - 1, transform)
+				
+	grass_chunk.generate_aabb()
+				
+	# Create grass chunk instance
+	var grass_chunk_inst = MultiMeshInstance.new()
+	grass_chunk_inst.set_name("Grass")
+	grass_chunk_inst.set_multimesh(grass_chunk)
+	grass_chunk_inst.set_translation(pos)
+	root.add_child(grass_chunk_inst)
+	grass_chunk_inst.set_owner(root)
 	
 	
 func _on_MapImportDialog_confirmed():
