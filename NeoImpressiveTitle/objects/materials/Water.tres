@@ -13,6 +13,7 @@ uniform texture highlight_map;
 uniform vec2 abberation_r;
 uniform vec2 abberation_g;
 uniform vec2 abberation_b;
+uniform vec2 tex_scale;
 
 // Soft light function
 vec3 soft_light(vec3 base, vec3 blend) {
@@ -23,7 +24,7 @@ vec3 soft_light(vec3 base, vec3 blend) {
 }
 
 // Refract specular map
-vec2 uv = UV;
+vec2 uv = UV * tex_scale;
 uv.x += sin(TIME + (UV.x + UV.y) * 25) * .01;
 uv.y += cos(TIME + (UV.x - UV.y) * 25) * .01;
 
@@ -70,4 +71,5 @@ shader_param/highlight_map = ExtResource( 1 )
 shader_param/abberation_r = Vector2( 0, 0 )
 shader_param/abberation_g = Vector2( 0, 0 )
 shader_param/abberation_b = Vector2( 0, 0 )
+shader_param/tex_scale = Vector2( 2, 2 )
 

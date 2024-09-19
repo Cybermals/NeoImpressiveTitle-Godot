@@ -30,7 +30,7 @@ script/script = ExtResource( 1 )
 [node name="Camera" type="Camera" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( -0.735372, 0.254675, -0.627987, -2.5332e-007, 0.926695, 0.375813, 0.677663, 0.276363, -0.681466, 0, 38.5656, 0 )
+transform/local = Transform( -0.735373, 0.254675, -0.627987, -2.08616e-007, 0.926695, 0.375813, 0.677663, 0.276363, -0.681466, 0, 38.5656, 0 )
 projection = 0
 fov = 65.0
 near = 0.1

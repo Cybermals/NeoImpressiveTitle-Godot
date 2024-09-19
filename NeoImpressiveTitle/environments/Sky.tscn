@@ -10,14 +10,14 @@ length = 20.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sun:transform/rotation")
+tracks/0/path = NodePath("Sun:transform/local")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
 "times": FloatArray( 0, 5, 10, 15, 20 ),
 "transitions": FloatArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( -90, 0, 0 ), Vector3( -180, 0, 0 ), Vector3( -270, 0, 0 ), Vector3( -360, 0, 0 ) ]
+"values": [ Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 0, 0, 0 ), Transform( 3.21521e-010, -0.999973, -0.00735555, -4.37102e-008, -0.00735555, 0.999973, -1, 0, -4.37114e-008, 0, 0, 0 ), Transform( 4.3711e-008, -0.00435545, -0.999991, -1.90383e-010, -0.999991, 0.00435545, -1, 0, -4.37114e-008, 0, 0, 0 ), Transform( 4.80468e-010, 0.99994, -0.0109918, 4.37087e-008, -0.0109918, -0.99994, -1, 0, -4.37114e-008, 0, 0, 0 ), Transform( -4.36942e-008, 0.0280749, 0.999606, 1.22719e-009, 0.999606, -0.0280749, -1, 0, -4.37114e-008, 0, 0, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sun:params/enabled")
@@ -44,15 +44,15 @@ environment = ExtResource( 2 )
 [node name="Sun" type="DirectionalLight" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 0.982575, 0.185868, 0, -0.185868, 0.982575, 0, 0, 0 )
+transform/local = Transform( -4.36942e-008, 0.0280749, 0.999606, 1.22719e-009, 0.999606, -0.0280749, -1, 0, -4.37114e-008, 0, 0, 0 )
 layers = 1
-params/enabled = true
+params/enabled = false
 params/editor_only = false
 params/bake_mode = 0
 params/energy = 1.0
 colors/diffuse = Color( 1, 1, 1, 1 )
 colors/specular = Color( 1, 1, 1, 1 )
-shadow/shadow = false
+shadow/shadow = true
 shadow/darkening = 0.0
 shadow/z_offset = 0.05
 shadow/z_slope_scale = 0.0
@@ -74,6 +74,6 @@ anims/DayNightCycle = SubResource( 1 )
 playback/active = true
 playback/speed = 0.1
 blend_times = [  ]
-autoplay = ""
+autoplay = "DayNightCycle"
 
 
