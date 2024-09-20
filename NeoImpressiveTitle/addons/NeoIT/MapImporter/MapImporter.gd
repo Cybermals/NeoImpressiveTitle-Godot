@@ -263,6 +263,7 @@ func import(path, from):
 				particle.add_child(sfx)
 				sfx.set_owner(root)
 			
+		# Weather cycle?
 		elif lines[0].begins_with("WeatherCycle"):
 			var weather_name = lines[1]
 			var Weather = load("res://weather/{0}.tscn".format([weather_name]))
@@ -274,6 +275,7 @@ func import(path, from):
 			root.add_child(weather)
 			weather.set_owner(root)
 			
+		# Interior?
 		elif lines[0].begins_with("Interior"): # TODO: Load sky color
 			var ceiling_height = float(lines[1])
 			var mat_name = lines[2]
@@ -289,6 +291,7 @@ func import(path, from):
 			root.add_child(ceiling)
 			ceiling.set_owner(root)
 			
+		# Light?
 		elif lines[0].begins_with("Light"):
 			var pos = lines[1].split_floats(" ")
 			var color = lines[2].split_floats(" ")
@@ -297,7 +300,8 @@ func import(path, from):
 			light.set_color(Light.COLOR_DIFFUSE, Color(color[0], color[1], color[2]))
 			root.add_child(light)
 			light.set_owner(root)
-			
+		
+		# Billboard?
 		elif lines[0].begins_with("Billboard"):
 			var pos = lines[1].split_floats(" ")
 			var scale = lines[2].split_floats(" ")
@@ -310,6 +314,7 @@ func import(path, from):
 			root.add_child(billboard)
 			billboard.set_owner(root)
 			
+		# Sphere wall?
 		elif lines[0].begins_with("SphereWall"):
 			var pos = lines[1].split_floats(" ")
 			var radius = float(lines[2])
@@ -320,6 +325,7 @@ func import(path, from):
 			root.add_child(sphere_wall)
 			sphere_wall.set_owner(root)
 			
+		# Box wall?
 		elif lines[0].begins_with("BoxWall"):
 			var pos = lines[1].split_floats(" ")
 			var size = lines[2].split_floats(" ")
@@ -330,15 +336,12 @@ func import(path, from):
 			root.add_child(box_wall)
 			box_wall.set_owner(root)
 			
+		# Map effect?
 		elif lines[0].begins_with("MapEffect"):
 			map_metadata.map_effect = lines[1]
 			
-		elif lines[0].begins_with("Grass"): # TODO: Need to implement this
-			# The grass code is currently broken and freezes the importer.
-			# It is disabled for now.
-			# continue
-			
-			var mat_name = lines[1]
+		# Grass?
+		elif lines[0].begins_with("Grass"):var mat_name = lines[1]
 			var grass_map_name = lines[2]
 			var grass_color_map_name = lines[3]
 			
@@ -352,6 +355,7 @@ func import(path, from):
 			# Generate grass
 			generate_grass(grass_map.get_data(), mat, terrain_size, raycast, root)
 			
+		# Random trees?
 		elif lines[0].begins_with("RandomTrees"):
 			var trees = [
 			    lines[1].replace(".mesh", ""), 
@@ -367,24 +371,25 @@ func import(path, from):
 				    0,
 				    rand_range(0, terrain_size.z)
 				]
-				pos[1] = get_height(raycast, pos[0] * .1, pos[1] * .1)
+				pos[1] = get_height(raycast, pos[0], pos[2]) * .1
 				
 				if not foliage.has(tree):
 					foliage[tree] = []
 					
 				foliage[tree].push_back({
 				    "pos": pos,
-				    "scale": [1, 1, 1],
+				    "scale": [.1, .1, .1],
 				    "rot": [0, 0, 0]
 				})
 				
+		# Random bushes?
 		elif lines[0].begins_with("RandomBushes"):
 			var bushes = [
 			    lines[1].replace(".mesh", ""), 
 			    lines[2].replace(".mesh", ""), 
 			    lines[3].replace(".mesh", "")
 			]
-			var bush_cnt = int(lines[4])
+			var bush_cnt = int(terrain_size.x * .5)
 			
 			for i in range(bush_cnt):
 				var bush = bushes[rand_range(0, bushes.size())]
@@ -393,17 +398,18 @@ func import(path, from):
 				    0,
 				    rand_range(0, terrain_size.z)
 				]
-				pos[1] = get_height(raycast, pos[0] * .1, pos[1] * .1)
+				pos[1] = get_height(raycast, pos[0], pos[2]) * .1
 				
 				if not foliage.has(bush):
 					foliage[bush] = []
 					
 				foliage[bush].push_back({
 				    "pos": pos,
-				    "scale": [1, 1, 1],
+				    "scale": [.1, .1, .1],
 				    "rot": [0, 0, 0]
 				})
 				
+		# Trees or new trees?
 		elif (lines[0].begins_with("Trees") or 
 		      lines[0].begins_with("NewTrees")):
 			lines.remove(0)
@@ -415,6 +421,7 @@ func import(path, from):
 				load_trees("{0}/{1}".format([map_name, line]), foliage, 
 				    lines[0].begins_with("NewTrees"), raycast)
 				
+		# Bushes or new bushes?
 		elif (lines[0].begins_with("Bushes") or
 		      lines[0].begins_with("NewBushes")):
 			lines.remove(0)
@@ -426,6 +433,7 @@ func import(path, from):
 				load_bushes("{0}/{1}".format([map_name, line]), foliage, 
 				    lines[0].begins_with("NewTrees"), raycast)
 				
+		# Floating bushes or new floating bushes?
 		elif (lines[0].begins_with("FloatingBushes") or
 		      lines[0].begins_with("NewFloatingBushes")):
 			lines.remove(0)
@@ -437,6 +445,7 @@ func import(path, from):
 				load_floating_bushes("{0}/{1}".format([map_name, line]), 
 				    foliage, lines[0].begins_with("NewTrees"), raycast)
 				
+		# Collision boxes?
 		elif lines[0].begins_with("CollBox"):
 			var pos = lines[1].split_floats(" ")
 			var size = lines[2].split_floats(" ")
@@ -446,6 +455,7 @@ func import(path, from):
 			root.add_child(collbox)
 			collbox.set_owner(root)
 			
+		# Collision spheres?
 		elif lines[0].begins_with("CollSphere"):
 			var pos = lines[1].split_floats(" ")
 			var radius = float(lines[2])
@@ -455,12 +465,15 @@ func import(path, from):
 			root.add_child(collsphere)
 			collsphere.set_owner(root)
 			
+		# Spawn critters?
 		elif lines[0].begins_with("SpawnCritters"): # TODO: Need to implement this
 			OS.alert("Critter spawns not implemented yet!", "Warning")
 			
+		# Freeze time?
 		elif lines[0].begins_with("FreezeTime"):
 			sky.freeze_time = true
 			
+		# Music?
 		elif lines[0].begins_with("Music"):
 			lines.remove(0)
 			music_queue.songs = lines
