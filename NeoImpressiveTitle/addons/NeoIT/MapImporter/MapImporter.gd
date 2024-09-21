@@ -332,7 +332,7 @@ func import(path, from):
 			var is_inside = (lines[3] == "true")
 			var box_wall = InvertedBoxWall.instance() if is_inside else BoxWall.instance()
 			box_wall.set_translation(Vector3(pos[0], pos[1], pos[2]) * .1)
-			box_wall.set_scale(Vector3(size[0], size[1], size[2]) * .1)
+			box_wall.set_scale(Vector3(size[0], 512, size[1]) * .1)
 			root.add_child(box_wall)
 			box_wall.set_owner(root)
 			
@@ -412,6 +412,7 @@ func import(path, from):
 		# Trees or new trees?
 		elif (lines[0].begins_with("Trees") or 
 		      lines[0].begins_with("NewTrees")):
+			var is_new = lines[0].begins_with("NewTrees")
 			lines.remove(0)
 			
 			for line in lines:
@@ -419,11 +420,12 @@ func import(path, from):
 					continue
 					
 				load_trees("{0}/{1}".format([map_name, line]), foliage, 
-				    lines[0].begins_with("NewTrees"), raycast)
+				    is_new, raycast)
 				
 		# Bushes or new bushes?
 		elif (lines[0].begins_with("Bushes") or
 		      lines[0].begins_with("NewBushes")):
+			var is_new = lines[0].begins_with("NewBushes")
 			lines.remove(0)
 			
 			for line in lines:
@@ -431,11 +433,12 @@ func import(path, from):
 					continue
 					
 				load_bushes("{0}/{1}".format([map_name, line]), foliage, 
-				    lines[0].begins_with("NewTrees"), raycast)
+				    is_new, raycast)
 				
 		# Floating bushes or new floating bushes?
 		elif (lines[0].begins_with("FloatingBushes") or
 		      lines[0].begins_with("NewFloatingBushes")):
+			var is_new = lines[0].begins_with("NewFloatingBushes")
 			lines.remove(0)
 			
 			for line in lines:
@@ -443,7 +446,7 @@ func import(path, from):
 					continue
 					
 				load_floating_bushes("{0}/{1}".format([map_name, line]), 
-				    foliage, lines[0].begins_with("NewTrees"), raycast)
+				    foliage, is_new, raycast)
 				
 		# Collision boxes?
 		elif lines[0].begins_with("CollBox"):
@@ -578,7 +581,7 @@ func load_trees(tree_cfg, foliage, new, raycast):
 				foliage[mesh_name].push_back({
 				    "pos": Vector3(pos[0], get_height(raycast, pos[0] * .1, pos[1] * .1), pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
-				    "rot": Vector3(rot[0], rot[1], rot[2])
+				    "rot": Vector3(rot[0], rot[1], rot[2]) if rot.size() > 1 else Vector3(0, rot[0], 0)
 				})
 				
 			else:
@@ -622,7 +625,7 @@ func load_bushes(bush_cfg, foliage, new, raycast):
 				foliage[mesh_name].push_back({
 				    "pos": Vector3(pos[0], get_height(raycast, pos[0] * .1, pos[1] * .1), pos[1]) * .1,
 				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
-				    "rot": Vector3(rot[0], rot[1], rot[2])
+				    "rot": Vector3(rot[0], rot[1], rot[2]) if rot.size() > 1 else Vector3(0, rot[0], 0)
 				})
 				
 			else:
