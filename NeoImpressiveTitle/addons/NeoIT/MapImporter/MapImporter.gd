@@ -579,7 +579,7 @@ func load_trees(tree_cfg, foliage, new, raycast):
 			
 			if new:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], get_height(raycast, pos[0] * .1, pos[1] * .1), pos[1]) * .1,
+				    "pos": Vector3(pos[0], pos[1], pos[2]) * .1,
 				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
 				    "rot": Vector3(rot[0], rot[1], rot[2]) if rot.size() > 1 else Vector3(0, rot[0], 0)
 				})
@@ -623,7 +623,7 @@ func load_bushes(bush_cfg, foliage, new, raycast):
 			
 			if new:
 				foliage[mesh_name].push_back({
-				    "pos": Vector3(pos[0], get_height(raycast, pos[0] * .1, pos[1] * .1), pos[1]) * .1,
+				    "pos": Vector3(pos[0], pos[1], pos[2]) * .1,
 				    "scale": Vector3(scale[0], scale[1], scale[2]) * .1,
 				    "rot": Vector3(rot[0], rot[1], rot[2]) if rot.size() > 1 else Vector3(0, rot[0], 0)
 				})
@@ -692,7 +692,7 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 	# Load material
 	var mat = load("res://meshes/scenery/materials/{0}.tres".format([mat_name.replace("/", "-")])) if mat_name != "" else null
 	
-	# Add foliages instances
+	# Add foliage instances
 	for instance in instances:
 		# Get instance attribs
 		var pos = instance["pos"]
