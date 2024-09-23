@@ -24,6 +24,7 @@ const CollSphere = preload("res://objects/CollSphere.tscn")
 const SpatialSFX = preload("res://sfx/SpatialSFX.tscn")
 const grass = preload("res://meshes/scenery/Grass.tres")
 const MapMetadata = preload("res://maps/MapMetadata.tscn")
+const SceneryGroup = preload("res://objects/SceneryGroup.tscn")
 
 var map_import_dlg = null
 var error_dlg = null
@@ -282,7 +283,8 @@ func import(path, from):
 			var sky_color = lines[3].split_floats(" ")
 			var mat = load("res://objects/materials/{0}.tres".format([mat_name.replace("/", "-")])) if mat_name != "" else null
 			var ceiling = Ceiling.instance()
-			ceiling.set_scale(Vector3(terrain_size.x / 2, 1, terrain_size.z))
+			ceiling.set_translation(Vector3(0, ceiling_height * .1, 0))
+			ceiling.set_scale(Vector3(terrain_size.x * .5, 1, terrain_size.z * .5))
 			
 			for child in ceiling.get_children():
 				if child.get_type() == "MeshInstance":
@@ -692,6 +694,26 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 	# Load material
 	var mat = load("res://meshes/scenery/materials/{0}.tres".format([mat_name.replace("/", "-")])) if mat_name != "" else null
 	
+	# Get foliage mesh
+	var obj = MapObject.instance()
+	var mesh
+	
+	for child in obj.get_children():
+		if child.get_type() == "MeshInstance":
+			mesh = child
+			break
+	
+	# Create scenery groups
+	var groups = []
+	var spacing = terrain_size / 8
+	
+	for z in range(8):
+		for x in range(8):
+			var group = SceneryGroup.instance()
+			group.mesh = mesh.get_mesh()
+			root.add_child(group)
+			group.set_owner(root)
+	
 	# Add foliage instances
 	for instance in instances:
 		# Get instance attribs
@@ -699,86 +721,35 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 		var scale = instance["scale"]
 		var rot = instance["rot"]
 		
-		# Add instance
-		var obj = MapObject.instance()
+		# Calculate transform
+		obj.set_transform(Transform())
 		obj.set_translation(Vector3(pos[0], pos[1], pos[2]))
 		obj.set_scale(Vector3(scale[0], scale[1], scale[2]))
 		obj.set_rotation_deg(Vector3(rot[0], rot[1], rot[2]))
 		
-		for child in obj.get_children():
-			if child.get_type() == "MeshInstance":
-				child.set_material_override(mat)
-		
-		root.add_child(obj)
-		obj.set_owner(root)
-		
-	return
-		
-	# Note: Using multimeshes failed to work. Maybe try again later?
-	# Instance the object and extract the first mesh in it
-	var obj = MapObject.instance()
-	var base_scale = Vector3(1, 1, 1)
-	var mesh = null
-	
-	for child in obj.get_children():
-		if child.get_type() == "MeshInstance":
-			base_scale = child.get_scale() * .1
-			mesh = child.get_mesh()
-			break
-			
-	obj.queue_free()
-	
-	if mesh == null:
-		return
-		
-	# Preallocate foliage chunks
-	var chunks = []
-	
-	for i in range(64):
-		chunks.push_back(null)
-		
-	# Process instances
-	var cell_size = terrain_size * .125
-	var spatial = Spatial.new()
-	
-	for instance in instances:
-		# Get instance attribs
-		var pos = instance["pos"]
-		var scale = instance["scale"]
-		var rot = instance["rot"]
-		pos = Vector3(pos[0], pos[1], pos[2])
-		scale = Vector3(scale[0], scale[1], scale[2])
-		rot = Vector3(rot[0], rot[1], rot[2])
-		
-		# Calculate chunk pos and index
-		var chunk_pos = pos / cell_size
-		var i = int(chunk_pos.z) * 8 + int(chunk_pos.x)
-		
-		# Create chunk if necessary
-		if chunks[i] == null:
-			var multimesh = MultiMesh.new()
-			multimesh.set_mesh(mesh)
-			chunks[i] = MultiMeshInstance.new()
-			chunks[i].set_name("Foliage")
-			chunks[i].set_multimesh(multimesh)
-			root.add_child(chunks[i])
-			chunks[i].set_owner(root)
+		# Add instance
+		var group = groups[int(pos[0] / spacing.x) * 8 + int(pos[2] / spacing.z)]
+		var group_inst = group.instances
+		group_inst.push_back(mesh.get_global_transform())
+		group.instances = group_inst
 		
 		# Add instance
-		var multimesh = chunks[i].get_multimesh()
-		multimesh.set_instance_count(multimesh.get_instance_count() + 1)
-		spatial.set_translation(pos * .1)
-		spatial.set_scale(base_scale * scale * .1)
-		spatial.set_rotation_deg(rot)
-		multimesh.set_instance_transform(multimesh.get_instance_count() - 1, 
-		    spatial.get_transform())
+		# var obj = MapObject.instance()
+		# obj.set_translation(Vector3(pos[0], pos[1], pos[2]))
+		# obj.set_scale(Vector3(scale[0], scale[1], scale[2]))
+		# obj.set_rotation_deg(Vector3(rot[0], rot[1], rot[2]))
 		
-	# Generate chunk bounding boxes
-	for chunk in chunks:
-		if chunk != null:
-			chunk.get_multimesh().generate_aabb()
-			
-	return
+		# for child in obj.get_children():
+		#	if child.get_type() == "MeshInstance":
+		#		child.set_material_override(mat)
+		
+		# root.add_child(obj)
+		# obj.set_owner(root)
+		
+	for group in groups:
+		group.instances = group.instances
+		
+	obj.queue_free()
 	
 	
 func generate_grass(grass_map, mat, terrain_size, raycast, root):

@@ -10,6 +10,7 @@ func _ready():
 	
 func set_material(value):
 	material = value
+	return
 	
 	# Have the child nodes been loaded?
 	if not has_node("Plane"):
