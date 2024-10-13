@@ -24,7 +24,6 @@ const CollSphere = preload("res://objects/CollSphere.tscn")
 const SpatialSFX = preload("res://sfx/SpatialSFX.tscn")
 const grass = preload("res://meshes/scenery/Grass.tres")
 const MapMetadata = preload("res://maps/MapMetadata.tscn")
-const SceneryGroup = preload("res://objects/SceneryGroup.tscn")
 
 var map_import_dlg = null
 var error_dlg = null
@@ -364,7 +363,7 @@ func import(path, from):
 			    lines[2].replace(".mesh", ""), 
 			    lines[3].replace(".mesh", "")
 			]
-			var tree_cnt = int(lines[4])
+			var tree_cnt = min(int(lines[4]), 8000)
 			
 			for i in range(tree_cnt):
 				var tree = trees[rand_range(0, trees.size())]
@@ -391,7 +390,7 @@ func import(path, from):
 			    lines[2].replace(".mesh", ""), 
 			    lines[3].replace(".mesh", "")
 			]
-			var bush_cnt = int(terrain_size.x * .5)
+			var bush_cnt = min(int(terrain_size.x * .5), 8000)
 			
 			for i in range(bush_cnt):
 				var bush = bushes[rand_range(0, bushes.size())]
@@ -685,7 +684,7 @@ func load_floating_bushes(bush_cfg, foliage, new, raycast):
 	
 	
 func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
-	# Load the object to use as a multimesh
+	# Load the object to use
 	var MapObject = load("res://meshes/scenery/{0}.scn".format([mesh_name]))
 	
 	if MapObject == null:
@@ -694,26 +693,6 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 	# Load material
 	var mat = load("res://meshes/scenery/materials/{0}.tres".format([mat_name.replace("/", "-")])) if mat_name != "" else null
 	
-	# Get foliage mesh
-	var obj = MapObject.instance()
-	var mesh
-	
-	for child in obj.get_children():
-		if child.get_type() == "MeshInstance":
-			mesh = child
-			break
-	
-	# Create scenery groups
-	var groups = []
-	var spacing = terrain_size / 8
-	
-	for z in range(8):
-		for x in range(8):
-			var group = SceneryGroup.instance()
-			group.mesh = mesh.get_mesh()
-			root.add_child(group)
-			group.set_owner(root)
-	
 	# Add foliage instances
 	for instance in instances:
 		# Get instance attribs
@@ -721,35 +700,18 @@ func build_foliage(mesh_name, mat_name, instances, terrain_size, root):
 		var scale = instance["scale"]
 		var rot = instance["rot"]
 		
-		# Calculate transform
-		obj.set_transform(Transform())
+		# Add instance
+		var obj = MapObject.instance()
 		obj.set_translation(Vector3(pos[0], pos[1], pos[2]))
 		obj.set_scale(Vector3(scale[0], scale[1], scale[2]))
 		obj.set_rotation_deg(Vector3(rot[0], rot[1], rot[2]))
 		
-		# Add instance
-		var group = groups[int(pos[0] / spacing.x) * 8 + int(pos[2] / spacing.z)]
-		var group_inst = group.instances
-		group_inst.push_back(mesh.get_global_transform())
-		group.instances = group_inst
+		for child in obj.get_children():
+			if child.get_type() == "MeshInstance":
+				child.set_material_override(mat)
 		
-		# Add instance
-		# var obj = MapObject.instance()
-		# obj.set_translation(Vector3(pos[0], pos[1], pos[2]))
-		# obj.set_scale(Vector3(scale[0], scale[1], scale[2]))
-		# obj.set_rotation_deg(Vector3(rot[0], rot[1], rot[2]))
-		
-		# for child in obj.get_children():
-		#	if child.get_type() == "MeshInstance":
-		#		child.set_material_override(mat)
-		
-		# root.add_child(obj)
-		# obj.set_owner(root)
-		
-	for group in groups:
-		group.instances = group.instances
-		
-	obj.queue_free()
+		root.add_child(obj)
+		obj.set_owner(root)
 	
 	
 func generate_grass(grass_map, mat, terrain_size, raycast, root):

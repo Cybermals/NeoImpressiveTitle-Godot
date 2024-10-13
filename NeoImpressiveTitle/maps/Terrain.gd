@@ -1,7 +1,7 @@
 tool
 extends Spatial
 
-export (Material) var material
+export (Material) var material setget set_material
 
 
 func _ready():
