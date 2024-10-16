@@ -342,7 +342,8 @@ func import(path, from):
 			map_metadata.map_effect = lines[1]
 			
 		# Grass?
-		elif lines[0].begins_with("Grass"):var mat_name = lines[1]
+		elif lines[0].begins_with("Grass"):
+			var mat_name = lines[1]
 			var grass_map_name = lines[2]
 			var grass_color_map_name = lines[3]
 			
@@ -718,20 +719,20 @@ func generate_grass(grass_map, mat, terrain_size, raycast, root):
 	# Calculate scale factor
 	var grass_map_size = Vector3(
 	    grass_map.get_width(),
-	    0,
+	    terrain_size.y,
 	    grass_map.get_height()
 	)
 	var scale_factor = terrain_size / grass_map_size
 	
 	# Build grass chunks
-	for cz in range(grass_map_size.z / 64):
-		for cx in range(grass_map_size.x / 64):
-			generate_grass_chunk(cx, cz, grass_map.get_rect(Rect2(cx * 64, cz * 64, 64, 64)), mat, scale_factor, raycast, root)
+	for cz in range(0, grass_map_size.x, 64):
+		for cx in range(0, grass_map_size.z, 64):
+			generate_grass_chunk(cx, cz, grass_map.get_rect(Rect2(cx, cz, 64, 64)), mat, scale_factor, raycast, root)
 	
 	
 func generate_grass_chunk(cx, cz, grass_map, mat, scale_factor, raycast, root):
 	# Build grass chunk
-	var pos = Vector3(cx * 64, 0, cz * 64)
+	var pos = Vector3(cx, 0, cz) * scale_factor
 	var patches = 0
 	var grass_chunk = MultiMesh.new()
 	grass_chunk.set_mesh(grass)
@@ -742,7 +743,7 @@ func generate_grass_chunk(cx, cz, grass_map, mat, scale_factor, raycast, root):
 				patches += 1
 				grass_chunk.set_instance_count(patches)
 				var transform = Transform()
-				transform.origin = Vector3(x * scale_factor.x, get_height(raycast, (pos.x + x) * scale_factor.x, (pos.z + z) * scale_factor.z) * .1, z * scale_factor.z)
+				transform.origin = Vector3(x, get_height(raycast, pos.x + x, pos.z + z) * .1, z)
 				grass_chunk.set_instance_transform(patches - 1, transform)
 				
 	grass_chunk.generate_aabb()
