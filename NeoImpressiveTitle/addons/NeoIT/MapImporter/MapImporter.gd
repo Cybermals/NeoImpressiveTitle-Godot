@@ -7,7 +7,6 @@ const MapImportDialog = preload("MapImportDialog.tscn")
 const ErrorDialog = preload("ErrorDialog.tscn")
 const Sky = preload("res://environments/Sky.tscn")
 const MusicQueue = preload("res://music/MusicQueue.tscn")
-const TerrainScript = preload("res://maps/Terrain.gd")
 const MapPortal = preload("res://objects/Portal.tscn")
 const portal_material = preload("res://meshes/scenery/materials/Portal.tres")
 const Gate = preload("res://objects/Gate.tscn")
@@ -131,7 +130,6 @@ func import(path, from):
 			var Terrain = load("res://meshes/terrain/{0}.scn".format([terrain_name]))
 			var config = load_terrain_config("{0}/{1}".format([from.get_source_path(0).get_base_dir(), lines[1]]))
 			terrain_size = config["size"]
-			var material = config["material"]
 			var spawn_pos = lines[4].split_floats(" ")
 			
 			if terrain_size == null:
@@ -143,8 +141,6 @@ func import(path, from):
 			terrain.set_name("Terrain")
 			terrain.set_translation(Vector3(terrain_size.x * .5, terrain_size.y * .05, terrain_size.z * .5))
 			terrain.set_scale(Vector3(terrain_size.x * .5, terrain_size.y * .5, terrain_size.z * .5))
-			terrain.set_script(TerrainScript)
-			terrain.material = material
 			root.add_child(terrain)
 			terrain.set_owner(root)
 			
@@ -515,7 +511,6 @@ func load_terrain_config(path):
 	var line = file.get_line()
 	var heightmap = ""
 	var size = Vector3(1, 1, 1)
-	var material = null
 	
 	while not file.eof_reached():
 		# Heightmap
@@ -534,16 +529,11 @@ func load_terrain_config(path):
 		elif line.begins_with("MaxHeight"):
 			size.y = float(line.split("=")[1])
 			
-		# Terrain material
-		elif line.begins_with("CustomMaterial"):
-			var mat_name = line.split("=")[1].replace("Terrain/", "")
-			material = load("res://maps/materials/{0}.tres".format([mat_name]))
-			
 		# Get next line
 		line = file.get_line()
 			
 	file.close()
-	return {"heightmap": heightmap, "size": size, "material": material}
+	return {"heightmap": heightmap, "size": size}
 	
 	
 func get_height(raycast, x, y):
