@@ -1,0 +1,23 @@
+[gd_resource type="MaterialShaderGraph" format=1]
+
+[resource]
+
+_code = {
+"fragment": "vec3 DIFFUSE_OUT=vec3(0,0,0);
+float ALPHA_OUT=0;
+uniform color Color=vec4(0,0,0,1);
+vec3 nd2sl0=Color.rgb;
+float nd2sl1=Color.a;
+DIFFUSE_OUT=nd2sl0;
+DIFFUSE=DIFFUSE_OUT;
+",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+_data = {
+"shaders": [ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 864, 48 ), null, null, [ 0, 2, 0 ], 1, 0, Vector2( 50, 40 ), null, null, [  ], 2, 28, Vector2( 473.962, 78.8408 ), "Color", Color( 0, 0, 0, 1 ), [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ]
+}
+

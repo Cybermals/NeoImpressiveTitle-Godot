@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=1]
+
+[ext_resource path="res://particles/shaders/BasicParticle.tres" type="Shader" id=1]
+[ext_resource path="res://particles/images/firefly.png" type="Texture" id=2]
+
+[resource]
+
+flags/visible = true
+flags/double_sided = false
+flags/invert_faces = false
+flags/unshaded = true
+flags/on_top = false
+flags/lightmap_on_uv2 = true
+flags/colarray_is_srgb = false
+params/blend_mode = 1
+params/depth_draw = 1
+params/line_width = 0.0
+shader/shader = ExtResource( 1 )
+shader_param/base = ExtResource( 2 )
+

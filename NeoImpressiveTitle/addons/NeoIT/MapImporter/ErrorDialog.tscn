@@ -1,0 +1,17 @@
+[gd_scene format=1]
+
+[node name="ErrorDialog" type="AcceptDialog"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 360.0
+margin/bottom = 160.0
+popup/exclusive = false
+window/title = "Error"
+dialog/hide_on_ok = true
+
+

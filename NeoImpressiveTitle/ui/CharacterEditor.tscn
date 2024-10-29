@@ -130,7 +130,6 @@ tabs_visible = true
 [node name="Shape" type="VBoxContainer" parent="Panel/TabContainer"]
 
 editor/display_folded = true
-visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -402,6 +401,8 @@ items = [ "No Markings", null, false, -1, null, "Tail 1", null, false, -1, null,
 
 [node name="Colors" type="ScrollContainer" parent="Panel/TabContainer"]
 
+editor/display_folded = true
+visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false

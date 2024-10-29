@@ -1,0 +1,160 @@
+[gd_resource type="SampleLibrary" load_steps=23 format=1]
+
+[ext_resource path="res://sfx/Click.smp" type="Sample" id=1]
+[ext_resource path="res://sfx/Draw.smp" type="Sample" id=2]
+[ext_resource path="res://sfx/FireLoop.smp" type="Sample" id=3]
+[ext_resource path="res://sfx/GhostLoop.smp" type="Sample" id=4]
+[ext_resource path="res://sfx/HawkCall.smp" type="Sample" id=5]
+[ext_resource path="res://sfx/HealHit.smp" type="Sample" id=6]
+[ext_resource path="res://sfx/Hit.smp" type="Sample" id=7]
+[ext_resource path="res://sfx/Lava1.smp" type="Sample" id=8]
+[ext_resource path="res://sfx/MantaCall.smp" type="Sample" id=9]
+[ext_resource path="res://sfx/Quake.smp" type="Sample" id=10]
+[ext_resource path="res://sfx/Rain1.smp" type="Sample" id=11]
+[ext_resource path="res://sfx/Roar1.smp" type="Sample" id=12]
+[ext_resource path="res://sfx/Roar2.smp" type="Sample" id=13]
+[ext_resource path="res://sfx/RunGrass.smp" type="Sample" id=14]
+[ext_resource path="res://sfx/Splash.smp" type="Sample" id=15]
+[ext_resource path="res://sfx/Thunder1.smp" type="Sample" id=16]
+[ext_resource path="res://sfx/Thunder2.smp" type="Sample" id=17]
+[ext_resource path="res://sfx/WalkGrass.smp" type="Sample" id=18]
+[ext_resource path="res://sfx/Water1.smp" type="Sample" id=19]
+[ext_resource path="res://sfx/WaterWade.smp" type="Sample" id=20]
+[ext_resource path="res://sfx/Waterfall.smp" type="Sample" id=21]
+[ext_resource path="res://sfx/Wind1.smp" type="Sample" id=22]
+
+[resource]
+
+samples/Click = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 1 )
+}
+samples/Draw = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 2 )
+}
+samples/FireLoop = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 3 )
+}
+samples/GhostLoop = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 4 )
+}
+samples/HawkCall = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 5 )
+}
+samples/HealHit = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 6 )
+}
+samples/Hit = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 7 )
+}
+samples/Lava1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 8 )
+}
+samples/MantaCall = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 9 )
+}
+samples/Quake = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 10 )
+}
+samples/Rain1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 11 )
+}
+samples/Roar1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 12 )
+}
+samples/Roar2 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 13 )
+}
+samples/RunGrass = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 14 )
+}
+samples/Splash = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 15 )
+}
+samples/Thunder1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 16 )
+}
+samples/Thunder2 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 17 )
+}
+samples/WalkGrass = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 18 )
+}
+samples/Water1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 19 )
+}
+samples/WaterWade = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 20 )
+}
+samples/Waterfall = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 21 )
+}
+samples/Wind1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 22 )
+}
+

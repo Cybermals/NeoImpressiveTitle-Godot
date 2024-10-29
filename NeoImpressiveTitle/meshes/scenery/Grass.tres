@@ -1,0 +1,32 @@
+[gd_resource type="Mesh" load_steps=3 format=1]
+
+[ext_resource path="res://meshes/scenery/shaders/Grass.tres" type="Shader" id=1]
+
+[sub_resource type="ShaderMaterial" id=1]
+
+flags/visible = true
+flags/double_sided = false
+flags/invert_faces = false
+flags/unshaded = false
+flags/on_top = false
+flags/lightmap_on_uv2 = true
+flags/colarray_is_srgb = false
+params/blend_mode = 0
+params/depth_draw = 1
+params/line_width = 0.0
+shader/shader = ExtResource( 1 )
+shader_param/sway_strength = 0.5
+
+[resource]
+
+resource/name = "Grass"
+surfaces/0 = {
+"alphasort": false,
+"arrays": [ Vector3Array( -1, 0, -9.99126e-005, 1, 2, -0.000100087, 1, 0, -0.000100087, 0.000100147, 5.96046e-008, 1, 9.9853e-005, 2, -1, 9.9853e-005, 5.96046e-008, -1, -0.000100409, 5.96046e-008, -1, -9.95907e-005, 2, 1, -9.95907e-005, 5.96046e-008, 1, 1, 0, 9.98251e-005, -1, 2, 0.000100175, -1, 0, 0.000100175, -1, 2, -9.99126e-005, 0.000100147, 2, 1, -0.000100409, 2, -1, 1, 2, 9.98251e-005 ), Vector3Array( 0, 0, -1, 0, 0, -1, 0, 0, -1, -1, 0, 0, -1, 0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 0, 0, 0, 1 ), null, ColorArray( 0.054902, 0.054902, 1, 1, 1, 0.0313726, 0.0313726, 1, 0.00392157, 0.00392157, 1, 1, 0.00784314, 0.00784314, 1, 1, 1, 0.176471, 0.176471, 1, 0.00392157, 0.00392157, 1, 1, 0.00784314, 0.00784314, 1, 1, 1, 0.176471, 0.176471, 1, 0.00392157, 0.00392157, 1, 1, 0.054902, 0.054902, 1, 1, 1, 0.0313726, 0.0313726, 1, 0.00392157, 0.00392157, 1, 1, 1, 0.137255, 0.137255, 1, 1, 0.00392157, 0.00392157, 1, 1, 0.00392157, 0.00392157, 1, 1, 0.137255, 0.137255, 1 ), Vector3Array( 0, 1, 0, 1, 0, 0, 1, 1, 0, -0.000100195, 0.9999, 0, 1.0001, 9.9957e-005, 0, 1.0001, 0.9999, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, -0.000100195, 0.000100076, 0, 1, 0, 0, 1, 0, 0 ), null, null, null, IntArray( 0, 2, 1, 3, 5, 4, 6, 8, 7, 9, 11, 10, 0, 1, 12, 3, 4, 13, 6, 7, 14, 9, 10, 15 ) ],
+"material": SubResource( 1 ),
+"morph_arrays": [  ],
+"name": "Grass",
+"primitive": 4
+}
+custom_aabb/custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+

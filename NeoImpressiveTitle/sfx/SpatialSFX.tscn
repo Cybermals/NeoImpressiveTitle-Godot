@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://sfx/SampleLibrary.tres" type="SampleLibrary" id=1]
+[ext_resource path="res://sfx/SpatialSFX.gd" type="Script" id=2]
+
+[node name="SpatialSFX" type="SpatialSamplePlayer"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 100.0
+params/attenuation/distance_exp = 1.0
+params/emission_cone/degrees = 180.0
+params/emission_cone/attenuation_db = -6.0
+config/polyphony = 1
+config/samples = ExtResource( 1 )
+script/script = ExtResource( 2 )
+sfx = ""
+
+

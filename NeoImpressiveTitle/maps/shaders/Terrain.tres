@@ -1,0 +1,53 @@
+[gd_resource type="MaterialShaderGraph" load_steps=5 format=1]
+
+[ext_resource path="res://maps/images/grass_tex.jpg" type="Texture" id=1]
+[ext_resource path="res://maps/images/BlankMask.png" type="Texture" id=2]
+[ext_resource path="res://maps/images/rock_tex1.png" type="Texture" id=3]
+[ext_resource path="res://maps/images/soil_tex.png" type="Texture" id=4]
+
+[resource]
+
+_code = {
+"default_tex": [ "base", ExtResource( 1 ), "detail_mask2", ExtResource( 2 ), "detail2", ExtResource( 3 ), "detail1", ExtResource( 4 ), "detail_mask1", ExtResource( 2 ) ],
+"fragment": "vec3 nd1sl5=vec3(UV,0);
+vec3 DIFFUSE_OUT=vec3(0,0,0);
+float ALPHA_OUT=0;
+uniform float base_scale=0.05;
+float nd4sl0=base_scale;
+uniform float detail_scale1=0.05;
+float nd9sl0=detail_scale1;
+vec3 nd3sl0=nd1sl5/nd4sl0;
+uniform texture base;vec4 rt_read_tex5=tex(base,nd3sl0.xy);
+vec3 nd5sl0=rt_read_tex5.rgb;
+float nd5sl1=rt_read_tex5.a;
+vec3 nd8sl0=nd1sl5/nd9sl0;
+uniform texture detail_mask1;vec4 rt_read_tex6=tex(detail_mask1,nd1sl5.xy);
+vec3 nd6sl0=rt_read_tex6.rgb;
+float nd6sl1=rt_read_tex6.a;
+uniform texture detail1;vec4 rt_read_tex2=tex(detail1,nd8sl0.xy);
+vec3 nd2sl0=rt_read_tex2.rgb;
+float nd2sl1=rt_read_tex2.a;
+uniform float detail_scale2=0.05;
+float nd14sl0=detail_scale2;
+vec3 nd7sl0=mix(nd5sl0,nd2sl0,nd6sl1);
+vec3 nd11sl0=nd1sl5/nd14sl0;
+uniform texture detail_mask2;vec4 rt_read_tex13=tex(detail_mask2,nd1sl5.xy);
+vec3 nd13sl0=rt_read_tex13.rgb;
+float nd13sl1=rt_read_tex13.a;
+uniform texture detail2;vec4 rt_read_tex10=tex(detail2,nd11sl0.xy);
+vec3 nd10sl0=rt_read_tex10.rgb;
+float nd10sl1=rt_read_tex10.a;
+vec3 nd12sl0=mix(nd7sl0,nd10sl0,nd13sl1);
+DIFFUSE_OUT=nd12sl0;
+DIFFUSE=DIFFUSE_OUT;
+",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+_data = {
+"shaders": [ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ], [ 0, 33, Vector2( 1113, 99 ), null, null, [ 0, 12, 0 ], 1, 0, Vector2( -532.8, 67.6 ), null, null, [  ], 2, 30, Vector2( 170.809, 42.4691 ), "detail1", ExtResource( 4 ), [ 0, 8, 0, 2147483647, 0, null ], 3, 9, Vector2( -63.5797, -108.143 ), 1, null, [ 0, 1, 5, 1, 4, 0, 2147483647, 0, null, 2147483647, 1, null ], 4, 26, Vector2( -307.164, -109.743 ), "base_scale", 0.05, [  ], 5, 30, Vector2( 172, -189 ), "base", ExtResource( 1 ), [ 0, 3, 0, 2147483647, 0, null ], 6, 30, Vector2( 160.809, 280.318 ), "detail_mask1", ExtResource( 2 ), [ 0, 1, 5, 2147483647, 0, null ], 7, 23, Vector2( 444.469, -30.4324 ), null, null, [ 0, 5, 0, 1, 2, 0, 2, 6, 1, 2147483647, 0, null, 2147483647, 1, null, 2147483647, 2, null ], 8, 9, Vector2( -67.1717, 105.041 ), 1, null, [ 0, 1, 5, 1, 9, 0, 2147483647, 0, null, 2147483647, 1, null ], 9, 26, Vector2( -312.348, 99.2167 ), "detail_scale1", 0.05, [  ], 10, 30, Vector2( 159.592, 515.201 ), "detail2", ExtResource( 3 ), [ 0, 11, 0, 2147483647, 0, null ], 11, 9, Vector2( -104.644, 519.417 ), 1, null, [ 0, 1, 5, 1, 14, 0, 2147483647, 0, null, 2147483647, 1, null ], 12, 23, Vector2( 671.825, 59.1796 ), null, null, [ 0, 7, 0, 1, 10, 0, 2, 13, 1, 2147483647, 0, null, 2147483647, 1, null, 2147483647, 2, null ], 13, 30, Vector2( 161.299, 746.917 ), "detail_mask2", ExtResource( 2 ), [ 0, 1, 5, 2147483647, 0, null ], 14, 26, Vector2( -331.404, 519.217 ), "detail_scale2", 0.05, [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ]
+}
+
